@@ -1,4 +1,4 @@
-import { Item } from "./item.interface";
+import { Item } from "../interfaces/item.interface";
 
 export class OrderItems{
     constructor(menu:Item){

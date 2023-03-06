@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Payments</h2>
+<div mat-dialog-content>
+    <mat-card class="custom-card">
+        <mat-card>
+            <mat-card-header >
+                <label for ="cashReceived">Cash Received</label>
+                <input id="cashReceived" name="cashReceived" type="text" [(ngModel)]="amount" >
+            </mat-card-header>
+            <mat-card-actions>
+                <label for="currency">Currency</label>
+                <button type="button" id="dollar" (click)="dollarRemaining()">$</button>
+                <button  type="button"  id="nis" (click)="remaining()" >NIS</button>
+            </mat-card-actions>
+          </mat-card>
+          <br>
+          <mat-card>
+            <mat-card-actions align="start">
+                <p>Remaining:{{remainingValue}}</p>
+            </mat-card-actions>
+          </mat-card>
+          <br>
+          <mat-card id="total-mat-card">
+            <p>Total: {{ total }}</p>
+          </mat-card>
+            <button type="button" class="pay" >PAY NOW</button>
+            </mat-card></div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</div>

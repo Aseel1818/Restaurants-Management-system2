@@ -1,5 +1,5 @@
 export interface Order {
-    total: number;
-    OrderNote: string;
-    orderId:number;
+  id: number;
+  total: number;
+  OrderNote: string;
   }

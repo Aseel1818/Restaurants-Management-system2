@@ -1,36 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Item } from 'src/app/interfaces/models/item.interface';
-import { Order } from 'src/app/interfaces/models/Order';
-import { OrderItems } from 'src/app/interfaces/models/OrderItems';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/classes/Order.class';
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-
-  private order:Order = new Order();
-  
-  addToOrder(item: Item):void{
-    let orderItem = this.order.items.find(itemObj => itemObj.menu.id === item.id);
-    
-    if(orderItem){
-      this.changeQuantity(item.id, orderItem.quantity + 1);
-      return;
-    }
-    this.order.items.push(new OrderItems(item));
+  constructor(private http: HttpClient) { }
+  getAll(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${environment.serverUrl}/orders`);
   }
-
-  removeFromOrder(menuId:number): void{
-    this.order.items = 
-    this.order.items.filter(item => item.menu.id != menuId);
+  add(order: Order): Observable<Order> {
+    return this.http.post<Order>(`${environment.serverUrl}/addOrder`, order);
   }
-
-  changeQuantity(menuId:number, quantity:number){
-    let menuItem = this.order.items.find(item => item.menu.id === menuId);
-    if(!menuItem) return;
-    menuItem.quantity = quantity;
+  getOrderById(id: number): Observable<Order> {
+    return this.http.get<Order>(`${environment.serverUrl}/findOrder/${id}`);
   }
-
-  getOrder():Order{
-    return this.order;
+  update(order: Order): Observable<Order> {
+    return this.http.put<Order>(`${environment.serverUrl}/updateOrder/${order.orderId}`, order);
+  }
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.serverUrl}/deleteOrder/${id}`);
   }
 }
