@@ -1,17 +1,14 @@
 <div>
     <mat-card class="custom-card">
         <mat-card-title>
-            <label class="alignright">Order</label>
+            <label class="alignright">order number: {{id}}</label>
             <label class="alignleft">Table</label>
         </mat-card-title>
         <mat-card>
             <div>
-                <button class="paymentButton">pay</button>
-                <button class="cancleButton" > cancel</button>
+                <button class="paymentButton" (click)="openPayment()">pay</button>
+                <button class="cancleButton"> cancel</button>
             </div>
         </mat-card>
-
     </mat-card>
-
-
 </div>

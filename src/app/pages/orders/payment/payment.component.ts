@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-payment-details.component';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -9,9 +11,9 @@ export class PaymentComponent {
   amount!: string;
   remainingValue!: number;
   dollarConvert!: number;
-  constructor(/*public dialogRef: MatDialogRef<PaymentComponentComponent>*/) { }
+  constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>) { }
   onClose() {
-    //this.dialogRef.close();
+    this.dialogRef.close();
   }
   remaining() {
     if (this.amount !== undefined) {

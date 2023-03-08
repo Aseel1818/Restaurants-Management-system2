@@ -1,0 +1,16 @@
+#total-mat-card{
+    background-color: #ECF3F5
+}
+.pay{
+    background-color: #8BB5BE;
+    height: 50px;
+    margin-top: 16px;
+}
+.custom-card{
+    width: 300px;
+    height: 500px;
+    border: 1px solid grey;
+    box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
+    position: relative;
+    top: 10px;
+}

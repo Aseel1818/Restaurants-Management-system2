@@ -8,7 +8,8 @@ import { OrderService } from 'src/app/services/order/order.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  isPayClicked = false
+  isPayClicked = false;
+  selectedOrderId!: string;
   displayedColumns: string[] = ['OrderID','total', 'details', 'pay'];
   constructor(private orderService:OrderService ) { }
   orders: Order[] = [];
@@ -20,7 +21,9 @@ export class OrdersComponent implements OnInit {
         console.log(this.orders)
       });
   }
-   goToPayments(){
-    this.isPayClicked = !this.isPayClicked
+   
+  goToPayments(orderId: string) {
+    this.selectedOrderId = orderId;
+    this.isPayClicked = !this.isPayClicked;
   }
 }
