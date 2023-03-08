@@ -1,14 +1,21 @@
-<div>
-    <mat-card class="custom-card">
-        <mat-card-title>
-            <label class="alignright">order number: {{id}}</label>
-            <label class="alignleft">Table</label>
-        </mat-card-title>
-        <mat-card>
-            <div>
-                <button class="paymentButton" (click)="openPayment()">pay</button>
-                <button class="cancleButton"> cancel</button>
-            </div>
-        </mat-card>
-    </mat-card>
-</div>
+<mat-card class="custom-card">
+  <mat-card>
+    <mat-card-title>
+      <label class="alignLeft">Order: </label>
+      <label class="alignRight">Table: </label>
+    </mat-card-title>
+  </mat-card>
+
+  <mat-card-actions align="start">
+    <div class="column-container">
+      <div class="column-item">Currency</div>
+      <div class="column-item">Remaining:</div>
+      <div class="column-item">Total</div>
+    </div>
+  </mat-card-actions>
+
+  <mat-card-actions class="buttons-container">
+    <button class="paymentButton" (click)="openPayment()">pay</button>
+    <button class="cancelButton">cancel</button>
+  </mat-card-actions>
+</mat-card>

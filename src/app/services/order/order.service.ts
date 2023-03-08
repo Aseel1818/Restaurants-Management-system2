@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Order } from 'src/app/classes/Order.class';
+import { Order } from 'src/app/interfaces/orders.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class OrderService {
     return this.http.get<Order>(`${environment.serverUrl}/findOrder/${id}`);
   }
   update(order: Order): Observable<Order> {
-    return this.http.put<Order>(`${environment.serverUrl}/updateOrder/${order.orderId}`, order);
+    return this.http.put<Order>(`${environment.serverUrl}/updateOrder/${order.id}`, order);
   }
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.serverUrl}/deleteOrder/${id}`);

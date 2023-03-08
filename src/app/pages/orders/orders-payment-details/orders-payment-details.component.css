@@ -1,48 +1,82 @@
-
-.alignleft {
+.alignRight {
   margin: 10px;
   float: right;
   font-size: large;
 }
 
-.alignright {
+.alignLeft {
   margin: 10px;
   float: left;
-  font-size: larger;
+  font-size: large;
 }
+
 .custom-card {
   display: flex;
-  width:400px;
+  width: 300px;
   height: 500px;
   border: 1px solid grey;
   box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
-  transform: translateX(200px);
+  position: relative;
+  top: 10px;
+  transform: translateX(25%);
+
 }
 
 @media (max-width: 768px) {
   .custom-card {
-    width: 100%;
-    margin: 7px;
+    margin: auto;
     transform: none;
+
+
   }
 }
+
 .paymentButton {
   background-color: #8AE6F9;
 }
-.buttton-card{
-  margin:10px;
-}
-.cancleButton {
+
+.cancelButton {
   background-color: red;
 }
 
-.paymentButton,.cancleButton{
-  color:white;
+.paymentButton,
+.cancelButton {
   border-radius: 10px;
   border: none;
-  margin:10p;
   display: block;
   width: 80px;
   height: 40px;
   font-size: 14px;
+}
+
+.mat-card-actions {
+  display: float;
+  justify-content: space-between;
+
+}
+
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column-item {
+  display: table-cell;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: medium;
+  border-bottom: 1px solid #ccc;
+}
+
+.column-item:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.column-container {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #ccc;
 }

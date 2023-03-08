@@ -8,9 +8,11 @@
 }
 .custom-card{
     width: 300px;
-    height: 500px;
+    height: 400px;
     border: 1px solid grey;
     box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
     position: relative;
-    top: 10px;
+    overflow: hidden !important;
+
+
 }
