@@ -1,29 +1,33 @@
 table {
   border-radius: 20px;
-  width:768px;
-  
+  width: 768px;
 }
 
-.orders{
-  overflow: scroll;
-  }
+.align-table {
+  display: flex;
+  overflow: hidden;
+}
+
+.orders {
+  height: calc(100vh - 100px);
+  overflow: auto;
+  overflow-x: hidden;
+}
 
 
- td {
+td {
   text-align: center;
   padding: 5px;
   background-color: #FAFAFA;
 }
-.align-table{
-  display:flex;
-  height:100%;
-}
+
 th {
   text-align: center;
   padding: 5px;
   background-color: #EAF0F0;
   color: black;
 }
+
 .paymentButton {
   background-color: #8AE6F9;
   border-radius: 10px;

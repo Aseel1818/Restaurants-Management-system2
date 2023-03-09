@@ -1,13 +1,17 @@
 .alignRight {
-  margin: 10px;
   float: right;
   font-size: large;
 }
 
 .alignLeft {
-  margin: 10px;
   float: left;
   font-size: large;
+}
+
+mat-card-title{
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .custom-card {
@@ -47,12 +51,6 @@
   width: 80px;
   height: 40px;
   font-size: 14px;
-}
-
-.mat-card-actions {
-  display: float;
-  justify-content: space-between;
-
 }
 
 

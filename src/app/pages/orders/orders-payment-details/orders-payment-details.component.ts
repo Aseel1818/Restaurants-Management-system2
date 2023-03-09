@@ -6,15 +6,14 @@ import { PaymentComponent } from '../payment/payment.component';
   templateUrl: './orders-payment-details.component.html',
   styleUrls: ['./orders-payment-details.component.css']
 })
-export class OrdersPaymentDetailsComponent implements OnInit {
-
-  constructor(public dialog:MatDialog) {}
-  @Input() id!: string;
-  ngOnInit(): void {
+export class OrdersPaymentDetailsComponent{
+  constructor(public dialog: MatDialog) {
+    console.log(this.id)
   }
 
-  openPayment(){
-    const dialogRef= this.dialog.open(PaymentComponent);
-    
+  @Input() id='' ;
+
+  openPayment() {
+    const dialogRef = this.dialog.open(PaymentComponent);
   }
 }
