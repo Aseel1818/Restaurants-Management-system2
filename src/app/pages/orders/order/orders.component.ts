@@ -24,7 +24,7 @@ export class OrdersComponent implements OnInit {
 
   goToPayments(orderId: Number) {
     this.selectedOrderId = orderId;
-    this.isPayClicked = !this.isPayClicked;
+    this.isPayClicked =true;
 
     console.log(this.selectedOrderId);
     }
