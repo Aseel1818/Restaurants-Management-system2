@@ -23,10 +23,9 @@ export class MenuComponent implements OnInit {
 		this.ordersService.createNewOrder();
 
 		this.route.paramMap.subscribe(params => {
-			const categoryId = params?.get('categoryId');
-
-			if (categoryId) {
-				this.itemsService.getItemsByCategoryId(+categoryId).subscribe(items => {
+			const categoryID = params?.get('categoryID');
+			if (categoryID) {
+				this.itemsService.getItemsByCategoryId(+categoryID).subscribe(items => {
 					this.items = items;
 				});
 			} else {
@@ -42,6 +41,7 @@ export class MenuComponent implements OnInit {
 	getAllItems() {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
+			console.log(this.items);
 		});
 	}
 

@@ -25,6 +25,6 @@ mat-card-content {
 
 }
 
-.table-busy {
-  background-color: #C0F181;
+.table-busy  {
+  background-color: #C0F181 !important;
 }

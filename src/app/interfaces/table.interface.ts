@@ -1,5 +1,5 @@
-export interface Table {
-	id: number;
-	status: boolean;
-	name: string;
+export interface Table{
+    id:number;
+    tableStatus:boolean;
+    name: string;
 }

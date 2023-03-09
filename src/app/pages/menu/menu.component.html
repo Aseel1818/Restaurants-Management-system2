@@ -1,6 +1,6 @@
 <div *ngIf="categories" class="categories">
 	<a (click)="getAllItems()">All</a>
-	<a *ngFor="let category of categories" routerLink="/categories/{{category.id}}">
+	<a *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
 		{{category.name}}
 	</a>
 </div>

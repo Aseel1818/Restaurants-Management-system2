@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
 	styleUrls: ['./table.component.css']
 })
 export class TableComponent {
-	@Input() id = 0;
-	@Input() tableStatus = false;
-	@Input() tableName = '';
+	@Input() id=0 ;
+  @Input() status=false;
+  @Input() name='';
 }

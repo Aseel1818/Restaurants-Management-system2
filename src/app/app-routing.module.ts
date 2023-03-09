@@ -12,7 +12,7 @@ const routes: Routes = [
 		component: MenuComponent
 	},
 	{
-		path: 'categories/:categoryId',
+		path: 'categories/:categoryID',
 		component: MenuComponent
 	},
 	{
