@@ -1,31 +1,30 @@
-import { Component , OnInit } from '@angular/core';
-import { Order } from 'src/app/interfaces/orders.interface';
-import { OrderService } from 'src/app/services/order/order.service';
+import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/classes/order.class';
+import { OrdersService } from 'src/app/services/orders/orders.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css']
+	selector: 'app-orders',
+	templateUrl: './orders.component.html',
+	styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  isPayClicked = false;
-  selectedOrderId!: any;
-  displayedColumns: string[] = ['OrderID','total', 'details', 'pay'];
-  constructor(private orderService:OrderService ) { }
-  orders: Order[] = [];
+	selectedOrderId!: any;
+	displayedColumns: string[] = ['OrderID', 'total', 'details', 'pay'];
+	orders: Order[] = [];
 
-  ngOnInit(): void {
-    this.orderService.getAll()
-      .subscribe((orders: Order[]) => {
-        this.orders = orders;
-        console.log(this.orders)
-      });
-  }
+	constructor(private orderService: OrdersService) {
+	}
 
-  goToPayments(orderId: Number) {
-    this.selectedOrderId = orderId;
-    this.isPayClicked =true;
+	ngOnInit(): void {
+		this.orderService.getAll()
+		.subscribe((orders: Order[]) => {
+			this.orders = orders;
+			console.log(this.orders);
+		});
+	}
 
-    console.log(this.selectedOrderId);
-    }
+	goToPayments(orderId: Number) {
+		this.selectedOrderId = orderId;
+		console.log(this.selectedOrderId);
+	}
 }

@@ -1,17 +1,19 @@
-<div class="categories" *ngIf="categories">
-  <a (click)="getAllItems()">All</a>
-  <a *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
-    {{category.categoryName}}
-  </a>
+<div *ngIf="categories" class="categories">
+	<a (click)="getAllItems()">All</a>
+	<a *ngFor="let category of categories" routerLink="/categories/{{category.id}}">
+		{{category.name}}
+	</a>
 </div>
 <ul>
-  <li *ngFor="let item of items">
-    <a>
-      <img src="{{item.itemImageURL}}" alt="">
-      <div class="content">
-        <div class="name">{{item.itemName}}</div>
-        <div class="price"><span>{{item.itemPrice | currency:"ILS"}}</span></div>
-      </div>
-    </a>
-  </li>
+	<li *ngFor="let item of items">
+		<a (click)="addToOrder(item)">
+			<img alt="" src="{{item.imageUrl}}">
+			<div class="content">
+				<div class="name">{{item.name}}</div>
+				<div class="price">
+					<span>{{item.price | currency:"ILS"}}</span>
+				</div>
+			</div>
+		</a>
+	</li>
 </ul>

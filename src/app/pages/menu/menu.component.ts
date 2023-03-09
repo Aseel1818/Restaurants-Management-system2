@@ -1,46 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
-import { MenuService } from 'src/app/services/items/menu.service';
+import { ItemsService } from 'src/app/services/items/items.service';
+import { OrdersService } from '../../services/orders/orders.service';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+	selector: 'app-menu',
+	templateUrl: './menu.component.html',
+	styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  items: Item[] = [];
-  categories: Category[] = [];
+	items: Item[] = [];
+	categories: Category[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private menuService: MenuService
-  ) {}
+	constructor(private route: ActivatedRoute,
+	            private itemsService: ItemsService,
+	            private ordersService: OrdersService) {
+	}
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const categoryId = params?.get('categoryID');
-      if (categoryId) {
-        this.menuService.getItemsByCategoryId(+categoryId).subscribe(items => {
-          this.items = items;
-        });
-      }
-      else {
-        this.menuService.getAllItems().subscribe(items => {
-          this.items = items;
-        });
-      }
-    });
-    
-    this.menuService.getAllCategories().subscribe(categories => {
-      this.categories = categories;
-    });
-  }
+	ngOnInit(): void {
+		this.ordersService.createNewOrder();
 
-  getAllItems(){
-    this.menuService.getAllItems().subscribe(items => {
-      this.items = items;
-  });
-}
+		this.route.paramMap.subscribe(params => {
+			const categoryId = params?.get('categoryId');
+
+			if (categoryId) {
+				this.itemsService.getItemsByCategoryId(+categoryId).subscribe(items => {
+					this.items = items;
+				});
+			} else {
+				this.getAllItems();
+			}
+		});
+
+		this.itemsService.getAllCategories().subscribe(categories => {
+			this.categories = categories;
+		});
+	}
+
+	getAllItems() {
+		this.itemsService.getAllItems().subscribe(items => {
+			this.items = items;
+		});
+	}
+
+	addToOrder(item: Item) {
+		this.ordersService.currentOrder.addItem(item);
+
+		console.log('this.ordersService.currentOrder', this.ordersService.currentOrder);
+	}
 }
