@@ -1,5 +1,6 @@
 <div class="align-table">
 	<div class="orders">
+
 		<table [dataSource]="orders" mat-table>
 			<ng-container matColumnDef="OrderID">
 				<th *matHeaderCellDef mat-header-cell> Order ID</th>
@@ -23,6 +24,5 @@
 			<tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 		</table>
 	</div>
-
 	<app-orders-payment-details [id]="selectedOrderId"></app-orders-payment-details>
-</div>
+  </div>

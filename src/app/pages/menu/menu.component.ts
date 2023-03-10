@@ -13,6 +13,7 @@ import { OrdersService } from '../../services/orders/orders.service';
 export class MenuComponent implements OnInit {
 	items: Item[] = [];
 	categories: Category[] = [];
+	selectedItems: Item[] = [];
 
 	constructor(private route: ActivatedRoute,
 	            private itemsService: ItemsService,
@@ -46,8 +47,13 @@ export class MenuComponent implements OnInit {
 	}
 
 	addToOrder(item: Item) {
-		this.ordersService.currentOrder.addItem(item);
+		this.selectedItems.push(item);
+	}
 
-		console.log('this.ordersService.currentOrder', this.ordersService.currentOrder);
+	addSelectedItemsToOrder() {
+		this.selectedItems.forEach(item => {
+			this.ordersService.currentOrder.addItem(item);
+		});
+		this.selectedItems = [];
 	}
 }

@@ -65,3 +65,9 @@ li a:hover {
   border-radius: 10rem;
   color: rgb(106, 0, 255);
 }
+.selected-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+}

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-
+import { OrdersService } from './services/orders/orders.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,12 +11,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AppComponent {
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver ,
+    private orderService: OrdersService, private router:Router) {}
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
   .pipe(
     map(result => result.matches),
     shareReplay()
   );
-
+ 
 }

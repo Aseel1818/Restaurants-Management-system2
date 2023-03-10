@@ -3,7 +3,7 @@ import { Table } from '../interfaces/table.interface';
 import { Item } from '../interfaces/item.interface';
 
 export class Order {
-	id!: number;
+	id : number = 0 ;
 	total: number = 0;
 	subTotal!: number;
 	notes!: string;

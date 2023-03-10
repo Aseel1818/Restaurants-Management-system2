@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Order } from 'src/app/classes/order.class';
 
 @Injectable({
@@ -12,10 +12,23 @@ export class OrdersService {
 
 	constructor(private http: HttpClient) {
 	}
+createNewOrder(): Observable<Order> {
+  const newOrder = new Order();
+  newOrder.id = this.generateNewOrderId();
+  this.orders.push(newOrder);
+  this.currentOrder = newOrder; // set currentOrder to the new order
+  return of(newOrder).pipe(
+    tap(() => {
+      console.log('New order created');
+    })
+  );
+}
 
-	createNewOrder() {
-		this.currentOrder = new Order();
-	}
+  generateNewOrderId(): number {
+    const maxOrderId = this.orders.reduce((max, order) => Math.max(max, order.id), 0);
+    return maxOrderId +1;
+
+  }
 
 	getAll(): Observable<Order[]> {
 		// return this.http.get<Order[]>(`${environment.serverUrl}/orders`);
@@ -31,4 +44,7 @@ export class OrdersService {
 			observer.next(order);
 		});
 	}
+
+  
+  
 }

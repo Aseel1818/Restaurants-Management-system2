@@ -16,4 +16,16 @@
 			</div>
 		</a>
 	</li>
+	<div class="selection" *ngIf="selectedItems.length > 0">
+		<h3>Selected Items:</h3>
+		<ul class="selected-items">
+		  <li *ngFor="let item of selectedItems">
+			{{item.name}}
+		  </li>
+		</ul>
+		<div class="selected-items-button">
+		  <button (click)="addSelectedItemsToOrder()">Add to Order</button>
+		</div>
+	  </div>
+	  
 </ul>
