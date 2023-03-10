@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,  Input} from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-orders',
@@ -13,7 +14,11 @@ export class OrdersComponent implements OnInit {
   displayedColumns: string[] = ['OrderID', 'total', 'details', 'pay'];
   orders: Order[] = [];
 
-  constructor(private orderService: OrdersService, private router: Router ) {}
+  constructor(public dialog: MatDialog,private orderService: OrdersService, private router: Router ) {
+    console.log(this.id)
+
+  }
+  @Input() id='' ;
 
   ngOnInit(): void {
     this.orderService.getAll().subscribe((orders: Order[]) => {

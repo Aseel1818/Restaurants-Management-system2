@@ -71,3 +71,84 @@ li a:hover {
   justify-content: flex-start;
 
 }
+
+.alignRight {
+  float: right;
+  font-size: large;
+}
+
+.alignLeft {
+  float: left;
+  font-size: large;
+}
+
+mat-card-title{
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-card {
+  display: flex;
+  width: 300px;
+  height: 500px;
+  border: 1px solid grey;
+  box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
+  position: relative;
+  top: 10px;
+  transform: translateX(25%);
+
+}
+
+@media (max-width: 768px) {
+  .custom-card {
+    margin: auto;
+    transform: none;
+
+
+  }
+}
+
+.paymentButton {
+  background-color: #8AE6F9;
+}
+
+.cancelButton {
+  background-color: red;
+}
+
+.paymentButton,
+.cancelButton {
+  border-radius: 10px;
+  border: none;
+  display: block;
+  width: 80px;
+  height: 40px;
+  font-size: 14px;
+}
+
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column-item {
+  display: table-cell;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: medium;
+  border-bottom: 1px solid #ccc;
+}
+
+.column-item:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.column-container {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #ccc;
+}
