@@ -1,17 +1,19 @@
-<mat-card class="custom-card"  *ngIf="showCard">
-  <mat-card-title>
-      <label class="alignLeft">Order: {{id}}</label>
-      <label class="alignRight">Table: </label>
-  </mat-card-title>
-  <mat-card-actions align="start">
-    <div class="column-container">
-      <div class="column-item">Item:</div>
-      <div class="column-item">Quantity:</div>
-      <div class="column-item">Price:</div>
-    </div>
-  </mat-card-actions>
-  <mat-card-actions class="buttons-container">
-    <button class="paymentButton"(click)="openPayment()">pay</button>
-    <button class="cancelButton" (click)="showCard = false">cancel</button>
-  </mat-card-actions>
-</mat-card>
+<div class="paymentDet"*ngIf="showCard">
+  <span (click)="showCard = false" class="closeIcon">&times;</span>
+  <mat-card class="custom-card" >
+    <mat-card-title>
+      <label>Order: {{id}}</label>
+      <label>Table: </label>
+    </mat-card-title>
+    <mat-card-actions align="start">
+      <div class="column-container">
+        <div class="column-item">Item:</div>
+        <div class="column-item">Quantity:</div>
+        <div class="column-item">Price:</div>
+      </div>
+    </mat-card-actions>
+    <mat-card-actions class="buttons-container">
+      <button class="paymentButton" (click)="openPayment()">pay</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

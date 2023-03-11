@@ -1,50 +1,48 @@
-.alignRight {
-  float: right;
-  font-size: large;
-}
-
-.alignLeft {
-  float: left;
-  font-size: large;
-}
-
 mat-card-title{
   padding: 7px;
   display: flex;
   justify-content: space-between;
+  position: relative;
+  top: 15px;
+  margin-top: 7px;
+  margin-bottom: 3px;
 }
-
+.closeIcon {
+  position: absolute;
+  top:-12px;
+  right: 0px;
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.closeIcon:hover{
+  color: red;
+}
+.paymentDet{
+  display: flex;
+  width: 300px;
+  height: 520px;
+  border-radius: 7px;
+  box-shadow: 0px 20px 20px 20px inherit;
+  position: relative;
+  top: 10px;
+  background-color: inherit;
+  transform: translateX(25%);
+}
 .custom-card {
   display: flex;
   width: 300px;
-  height: 500px;
-  border: 1px solid grey;
-  box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
-  position: relative;
-  top: 10px;
-  transform: translateX(25%);
-
+  height: 491px;
+  top: 28px;
 }
-
 @media (max-width: 768px) {
-  .custom-card {
+  .custom-card  {
     margin: auto;
     transform: none;
-
-
   }
 }
-
 .paymentButton {
   background-color: #8AE6F9;
-}
-
-.cancelButton {
-  background-color: red;
-}
-
-.paymentButton,
-.cancelButton {
   border-radius: 10px;
   border: none;
   display: block;
@@ -52,14 +50,6 @@ mat-card-title{
   height: 40px;
   font-size: 14px;
 }
-
-
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .column-item {
   display: table-cell;
   padding: 5px 10px;
@@ -67,11 +57,9 @@ mat-card-title{
   font-size: medium;
   border-bottom: 1px solid #ccc;
 }
-
 .column-item:not(:last-child) {
   border-right: 1px solid #ccc;
 }
-
 .column-container {
   display: table;
   width: 100%;

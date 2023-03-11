@@ -1,36 +1,31 @@
-ul {
+.container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
+  justify-content: center;
 }
 
-li a {
+mat-card {
   width: 15rem;
   border: 1px solid whitesmoke;
   border-radius: 1rem;
   margin: 0.5rem;
   display: flex;
-  flex-direction: column;
   overflow: hidden;
   background-color: #f0f0f0;
-}
-li a img {
-  max-width: 26rem;
-  max-height:  10rem;
-  min-width: 26rem;
-  min-height: 10rem;
-  object-fit:cover;
+  justify-content: center;
 }
 
-li a:hover {
+mat-card img{
+  height:  10em;
+  width: 20rem;
+}
+
+mat-card:hover {
   opacity: 0.9;
   cursor: pointer;
 }
 
-.content {
+mat-card-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,7 +74,6 @@ li a:hover {
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
-
 
 input[type="text"] {
   flex: 1;

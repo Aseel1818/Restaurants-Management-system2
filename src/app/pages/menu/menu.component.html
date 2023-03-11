@@ -1,23 +1,22 @@
 <div class="search-container">
 	<input type="text" [(ngModel)]="searchQuery" placeholder="Search items" (keyup)="filterItems()">
-	<mat-icon >search</mat-icon>
-  </div>
+	<mat-icon>search</mat-icon>
+</div>
 <div *ngIf="categories" class="categories">
 	<a (click)="getAllItems()">All</a>
 	<a *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
 		{{category.name}}
 	</a>
 </div>
-<ul>
-	<li *ngFor="let item of filteredItems">
-		<a (click)="addToOrder(item)">
-			<img alt="" src="{{item.imageUrl}}">
-			<div class="content">
-				<div class="name">{{item.name}}</div>
-				<div class="price">
-					<span>{{item.price | currency:"ILS"}}</span>
-				</div>
-			</div>
-		</a>
-	</li>
-</ul>
+<div class="container">
+	<mat-card *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
+	  <img mat-card-image src="{{item.imageUrl}}">
+	  <mat-card-content>
+		<div class="name">{{item.name}}</div>
+		<div class="price">
+		  <span>{{item.price | currency:"ILS"}}</span>
+		</div>
+	  </mat-card-content>
+	</mat-card>
+  </div>
+  
