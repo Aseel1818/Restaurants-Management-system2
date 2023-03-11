@@ -28,13 +28,13 @@ export class MenuComponent implements OnInit {
 			const categoryID = params?.get('categoryID');
 			if (categoryID) {
 				this.itemsService.getItemsByCategoryId(+categoryID).subscribe(items => {
-					this.items = items;
+					this.filteredItems = items;
 				});
 			} else {
 				this.getAllItems();
 			}
 		});
-
+		
 		this.itemsService.getAllCategories().subscribe(categories => {
 			this.categories = categories;
 		});
@@ -44,8 +44,7 @@ export class MenuComponent implements OnInit {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
 			this.filteredItems = items;
-			console.log(this.items);
-		});
+				});
 	}
 
 	addToOrder(item: Item) {
@@ -53,14 +52,14 @@ export class MenuComponent implements OnInit {
 
 		console.log('this.ordersService.currentOrder', this.ordersService.currentOrder);
 	}
-
+	
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
 			this.filteredItems = this.items.filter(item => {
 				return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
 			});
 		} else {
-			this.filteredItems = this.items;
+			this.filteredItems = this.items; // if search query is empty, show all items
 		}
 	}
 }
