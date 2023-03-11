@@ -13,6 +13,8 @@ import { OrdersService } from '../../services/orders/orders.service';
 export class MenuComponent implements OnInit {
 	items: Item[] = [];
 	categories: Category[] = [];
+	filteredItems: Item[] = [];
+	searchQuery = ''; 
 
 	constructor(private route: ActivatedRoute,
 	            private itemsService: ItemsService,
@@ -31,6 +33,7 @@ export class MenuComponent implements OnInit {
 			} else {
 				this.getAllItems();
 			}
+			this.getAllItems();
 		});
 
 		this.itemsService.getAllCategories().subscribe(categories => {
@@ -41,6 +44,7 @@ export class MenuComponent implements OnInit {
 	getAllItems() {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
+			this.filteredItems = items;
 			console.log(this.items);
 		});
 	}
@@ -49,5 +53,15 @@ export class MenuComponent implements OnInit {
 		this.ordersService.currentOrder.addItem(item);
 
 		console.log('this.ordersService.currentOrder', this.ordersService.currentOrder);
+	}
+
+	filterItems() {
+		if (this.searchQuery.trim() !== '') {
+			this.filteredItems = this.items.filter(item => {
+				return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+			});
+		} else {
+			this.filteredItems = this.items; // if search query is empty, show all items
+		}
 	}
 }

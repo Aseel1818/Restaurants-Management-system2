@@ -10,9 +10,8 @@ export class OrdersPaymentDetailsComponent{
   constructor(public dialog: MatDialog) {
     console.log(this.id)
   }
-
   @Input() id='' ;
-
+  showCard = true;
   openPayment() {
     const dialogRef = this.dialog.open(PaymentComponent);
   }

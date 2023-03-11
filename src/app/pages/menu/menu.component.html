@@ -1,3 +1,6 @@
+<div class="search-container">
+	<input type="text" [(ngModel)]="searchQuery" placeholder="Search items" (keyup)="filterItems()">
+  </div>
 <div *ngIf="categories" class="categories">
 	<a (click)="getAllItems()">All</a>
 	<a *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
@@ -5,7 +8,7 @@
 	</a>
 </div>
 <ul>
-	<li *ngFor="let item of items">
+	<li *ngFor="let item of filteredItems">
 		<a (click)="addToOrder(item)">
 			<img alt="" src="{{item.imageUrl}}">
 			<div class="content">

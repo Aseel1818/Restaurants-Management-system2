@@ -12,7 +12,10 @@
   top: 0;
   z-index: 1;
 }
+.mat-toolbar{
+  background: inherit;
 
+}
 mat-nav-list{
   margin-top: 20%;
 }
