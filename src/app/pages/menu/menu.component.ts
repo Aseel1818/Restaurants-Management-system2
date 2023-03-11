@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
 	categories: Category[] = [];
 	filteredItems: Item[] = [];
 	searchQuery = ''; 
+	selectedItems: Item[] = [];
 
 	constructor(private route: ActivatedRoute,
 	            private itemsService: ItemsService,
@@ -48,10 +49,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	addToOrder(item: Item) {
-		this.ordersService.currentOrder.addItem(item);
-
-		console.log('this.ordersService.currentOrder', this.ordersService.currentOrder);
-	}
+        this.selectedItems.push(item);
+    }
 	
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
@@ -62,4 +61,12 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = this.items; 
 		}
 	}
+
+	addSelectedItemsToOrder() {
+        this.selectedItems.forEach(item => {
+            this.ordersService.currentOrder.addItem(item);
+        });
+        this.selectedItems = [];
+    }
+
 }

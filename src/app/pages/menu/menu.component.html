@@ -9,14 +9,39 @@
 	</a>
 </div>
 <div class="container">
-	<mat-card *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
-	  <img mat-card-image src="{{item.imageUrl}}">
-	  <mat-card-content>
-		<div class="name">{{item.name}}</div>
-		<div class="price">
-		  <span>{{item.price | currency:"ILS"}}</span>
-		</div>
-	  </mat-card-content>
-	</mat-card>
-  </div>
-  
+	<div class="item_container">
+		<mat-card class="items" *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
+			<img mat-card-image src="{{item.imageUrl}}">
+			<mat-card-content calss="items_content">
+				<div class="name">{{item.name}}</div>
+				<div class="price">
+					<span>{{item.price | currency:"ILS"}}</span>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div>
+		<mat-card class="custom-card-container">
+			<div class="selection" *ngIf="selectedItems.length > 0">
+				<h3>Selected Items:</h3>
+				<mat-card-actions class="bill" align="start">
+					<div class="column-container">
+						<div class="column-item">name</div>
+						<div class="column-item">total:</div>
+						<div class="column-item">quentity</div>
+					</div>
+				</mat-card-actions>
+				<ul class="selected-items">
+					<li *ngFor="let item of selectedItems">
+						{{item.name}}
+						{{item.price}}
+					</li>
+				</ul>
+				<mat-card-actions class="selected-items-button" class="buttons-container">
+					<button class="cancelButton">cancel</button>
+					<button class="paymentButton" (click)="addSelectedItemsToOrder()">Add to Order</button>
+				</mat-card-actions>
+			</div>
+		</mat-card>
+	</div>
+</div>
