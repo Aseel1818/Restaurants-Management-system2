@@ -59,7 +59,7 @@ export class MenuComponent implements OnInit {
 				return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
 			});
 		} else {
-			this.filteredItems = this.items; // if search query is empty, show all items
+			this.filteredItems = this.items; 
 		}
 	}
 }
