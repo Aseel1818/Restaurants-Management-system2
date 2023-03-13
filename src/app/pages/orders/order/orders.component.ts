@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { ItemsSelectionService } from 'src/app/services/itemSelectionService/item-selection-service.service';
 import { Item } from 'src/app/interfaces/item.interface';
 
 @Component({
@@ -15,7 +14,7 @@ export class OrdersComponent implements OnInit {
 	orders: Order[] = [];
 	isPayClicked = true;
 
-	constructor(private orderService: OrdersService, private itemsSelectionService: ItemsSelectionService) {
+	constructor(private orderService: OrdersService) {
 	}
 
 	ngOnInit(): void {

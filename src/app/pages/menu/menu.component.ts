@@ -5,7 +5,7 @@ import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
 import { OrdersService } from '../../services/orders/orders.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
-import {ItemsSelectionService} from 'src/app/services/itemSelectionService/item-selection-service.service';
+import { Order } from 'src/app/classes/order.class';
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -15,14 +15,13 @@ export class MenuComponent implements OnInit {
 	items: Item[] = [];
 	categories: Category[] = [];
 	filteredItems: Item[] = [];
-	searchQuery = ''; 
+	searchQuery = '';
 	selectedItems: Item[] = [];
+	order= new Order();
 
 	constructor(private route: ActivatedRoute,
-	            private itemsService: ItemsService,
-	            private ordersService: OrdersService,
-				public itemSelectionService: ItemsSelectionService
-				) {
+		private itemsService: ItemsService,
+		private ordersService: OrdersService) {
 	}
 
 	ngOnInit(): void {
@@ -38,7 +37,7 @@ export class MenuComponent implements OnInit {
 				this.getAllItems();
 			}
 		});
-		
+
 		this.itemsService.getAllCategories().subscribe(categories => {
 			this.categories = categories;
 		});
@@ -48,30 +47,30 @@ export class MenuComponent implements OnInit {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
 			this.filteredItems = items;
-				});
+		});
 	}
 	addToOrder(item: Item): void {
 		const orderDetail: OrderDetail = {
-		  item,
-		  quantity: 1
+			item,
+			quantity: 1
 		};
-		this.itemSelectionService.addItem(orderDetail.item);
-	  }
+		this.order.addItem(orderDetail.item);
+	}
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
 			this.filteredItems = this.items.filter(item => {
 				return item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
 			});
 		} else {
-			this.filteredItems = this.items; 
+			this.filteredItems = this.items;
 		}
 	}
 
 	addSelectedItemsToOrder() {
-        this.itemSelectionService.selectedItems.forEach(item => {
-            this.ordersService.currentOrder.addItem(item.item);
-        });
-        this.itemSelectionService.selectedItems = [];
-    }
+		this.order.orderDetails.forEach(item => {
+			this.ordersService.currentOrder.addItem(item.item);
+		});
+		this.order.orderDetails = [];
+	}
 
 }

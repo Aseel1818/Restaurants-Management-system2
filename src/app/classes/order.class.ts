@@ -12,7 +12,6 @@ export class Order {
 
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
-
 		//	if index !== -1 => the item is already exists
 		if (index !== -1) {
 			this.orderDetails[index].quantity++;
@@ -22,10 +21,29 @@ export class Order {
 				quantity: 1
 			});
 		}
-
 		this.total = 0;
 		this.orderDetails.forEach(orderDetail => {
 			this.total += (orderDetail.item.price * orderDetail.quantity);
 		});
+	}
+	removeItem(item: Item) {
+		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
+		if (index !== -1) {
+			const orderDetail = this.orderDetails[index];
+			if (orderDetail.quantity > 1) {
+				orderDetail.quantity--;
+			} else {
+				this.orderDetails.splice(index, 1);
+			}
+		}
+	}
+	clearSelection() {
+		this.orderDetails = [];
+	}
+	setOrder(order: Order) {
+		order = new Order;
+	}
+	getOrder() {
+		return this.orderDetails;
 	}
 }
