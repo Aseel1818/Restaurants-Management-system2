@@ -41,15 +41,7 @@ mat-card-title{
     transform: none;
   }
 }
-.paymentButton {
-  background-color: #8AE6F9;
-  border-radius: 10px;
-  border: none;
-  display: block;
-  width: 80px;
-  height: 40px;
-  font-size: 14px;
-}
+
 .column-item {
   display: table-cell;
   padding: 5px 10px;

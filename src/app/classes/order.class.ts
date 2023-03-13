@@ -21,11 +21,13 @@ export class Order {
 				quantity: 1
 			});
 		}
+
 		this.total = 0;
 		this.orderDetails.forEach(orderDetail => {
 			this.total += (orderDetail.item.price * orderDetail.quantity);
 		});
 	}
+
 	removeItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
 		if (index !== -1) {
@@ -37,13 +39,8 @@ export class Order {
 			}
 		}
 	}
+
 	clearSelection() {
 		this.orderDetails = [];
-	}
-	setOrder(order: Order) {
-		order = new Order;
-	}
-	getOrder() {
-		return this.orderDetails;
 	}
 }

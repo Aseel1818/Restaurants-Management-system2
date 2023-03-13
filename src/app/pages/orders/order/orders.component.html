@@ -16,12 +16,12 @@
 			<ng-container matColumnDef="pay">
 				<th *matHeaderCellDef mat-header-cell></th>
 				<td *matCellDef="let order" mat-cell>
-					<button (click)="goToPayments(order.id)" class="paymentButton" mat-raised-button>Pay</button>
+					<button (click)="goToPayments(order.id)" class="paymentButton button" mat-raised-button>Pay</button>
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
 			<tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 		</table>
 	</div>
-	<app-orders-payment-details *ngIf="isPayClicked" [id]="selectedOrderId"></app-orders-payment-details>
+	<app-orders-payment-details [id]="selectedOrderId"></app-orders-payment-details>
 </div>

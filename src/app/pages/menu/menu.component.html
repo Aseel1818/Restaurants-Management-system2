@@ -9,7 +9,7 @@
 	</a>
 </div>
 <div class="container">
-	<div class="item_container">
+	<div class="item_container row" >
 		<mat-card class="items" *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
 			<img class="itemImg" mat-card-image src="{{item.imageUrl}}">
 			<mat-card-content calss="items_content">
@@ -20,7 +20,7 @@
 			</mat-card-content>
 		</mat-card>
 	</div>
-	<div>
+	<div *ngIf="order?.orderDetails?.length">
 		<table>
 			<thead>
 				<tr>

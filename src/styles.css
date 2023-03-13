@@ -1,16 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif ,Quicksand ;
-  font-size: 18px;
-}
+@import 'assets/styles/global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-body {
-  font-family: 'Quicksand', sans-serif;
-}
-
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
+
 *{
   box-sizing: border-box;
 }
@@ -19,10 +13,8 @@ a{
   text-decoration: none;
 }
 
-
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 18px;
+ }

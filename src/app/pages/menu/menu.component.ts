@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
 import { OrdersService } from '../../services/orders/orders.service';
-import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 import { Order } from 'src/app/classes/order.class';
 @Component({
 	selector: 'app-menu',
@@ -17,15 +16,17 @@ export class MenuComponent implements OnInit {
 	filteredItems: Item[] = [];
 	searchQuery = '';
 	selectedItems: Item[] = [];
-	order= new Order();
+	order!: Order;
 
 	constructor(private route: ActivatedRoute,
+		private router: Router,
 		private itemsService: ItemsService,
 		private ordersService: OrdersService) {
 	}
 
 	ngOnInit(): void {
 		this.ordersService.createNewOrder();
+		this.order = this.ordersService.currentOrder
 
 		this.route.paramMap.subscribe(params => {
 			const categoryID = params?.get('categoryID');
@@ -50,11 +51,7 @@ export class MenuComponent implements OnInit {
 		});
 	}
 	addToOrder(item: Item): void {
-		const orderDetail: OrderDetail = {
-			item,
-			quantity: 1
-		};
-		this.order.addItem(orderDetail.item);
+		this.order.addItem(item);
 	}
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
@@ -67,10 +64,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	addSelectedItemsToOrder() {
-		this.order.orderDetails.forEach(item => {
-			this.ordersService.currentOrder.addItem(item.item);
-		});
-		this.order.orderDetails = [];
+		this.ordersService.add(this.order)
+		this.router.navigate(['/orders'])
 	}
 
 }
