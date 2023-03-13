@@ -4,7 +4,8 @@ import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
 import { OrdersService } from '../../services/orders/orders.service';
-
+import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
+import {ItemsSelectionService} from 'src/app/services/itemSelectionService/item-selection-service.service';
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -19,7 +20,9 @@ export class MenuComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute,
 	            private itemsService: ItemsService,
-	            private ordersService: OrdersService) {
+	            private ordersService: OrdersService,
+				public itemSelectionService: ItemsSelectionService
+				) {
 	}
 
 	ngOnInit(): void {
@@ -47,11 +50,13 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = items;
 				});
 	}
-
-	addToOrder(item: Item) {
-        this.selectedItems.push(item);
-    }
-	
+	addToOrder(item: Item): void {
+		const orderDetail: OrderDetail = {
+		  item,
+		  quantity: 1
+		};
+		this.itemSelectionService.addItem(orderDetail.item);
+	  }
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
 			this.filteredItems = this.items.filter(item => {
@@ -63,10 +68,10 @@ export class MenuComponent implements OnInit {
 	}
 
 	addSelectedItemsToOrder() {
-        this.selectedItems.forEach(item => {
-            this.ordersService.currentOrder.addItem(item);
+        this.itemSelectionService.selectedItems.forEach(item => {
+            this.ordersService.currentOrder.addItem(item.item);
         });
-        this.selectedItems = [];
+        this.itemSelectionService.selectedItems = [];
     }
 
 }

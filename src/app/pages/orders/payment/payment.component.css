@@ -1,18 +1,41 @@
-#total-mat-card{
-    background-color: #ECF3F5
+#total-mat-card {
+    background-color: #ECF3F5;
+    height: 50px;
 }
-.pay{
+mat-card-actions {
+    display: flex;
+    gap:10px;
+  }
+#remaining-mat-card {
+    height: 50px;
+}
+.pay {
     background-color: #8BB5BE;
     height: 50px;
-    margin-top: 16px;
+    width: 50%;
+    border-radius: 10px;
+    border: none;
+    display: block;
+    font-size: 14px;
+    align-self: flex;
 }
-.custom-card{
-    width: 300px;
-    height: 400px;
-    border: 1px solid grey;
-    box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
+.payments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+    border: 1px solid rgb(207, 202, 202);
     position: relative;
-    overflow: hidden !important;
-
-
+    justify-content: space-between;
+}
+mat-card {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#total{
+    margin-left: 5px;
+}
+#cashReceived {
+    width: 150px;
+    height: 30px;
 }

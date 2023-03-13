@@ -23,6 +23,5 @@
 			<tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 		</table>
 	</div>
-
-	<app-orders-payment-details [id]="selectedOrderId"></app-orders-payment-details>
+	<app-orders-payment-details *ngIf="isPayClicked" [id]="selectedOrderId"></app-orders-payment-details>
 </div>
