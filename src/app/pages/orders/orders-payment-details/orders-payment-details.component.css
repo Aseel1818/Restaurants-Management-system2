@@ -1,4 +1,4 @@
-mat-card-title{
+mat-card-title {
   padding: 7px;
   display: flex;
   justify-content: space-between;
@@ -7,18 +7,8 @@ mat-card-title{
   margin-top: 7px;
   margin-bottom: 3px;
 }
-.closeIcon {
-  position: absolute;
-  top:-12px;
-  right: 0px;
-  padding: 10px;
-  font-size: 30px;
-  cursor: pointer;
-}
-.closeIcon:hover{
-  color: red;
-}
-.paymentDet{
+
+.paymentDet {
   width: 300px;
   height: 520px;
   border-radius: 7px;
@@ -28,13 +18,15 @@ mat-card-title{
   background-color: inherit;
   transform: translateX(25%);
 }
+
 .custom-card {
   width: 300px;
   height: 491px;
   top: 28px;
 }
+
 @media (max-width: 768px) {
-  .custom-card  {
+  .custom-card {
     margin: auto;
     transform: none;
   }
@@ -47,9 +39,11 @@ mat-card-title{
   font-size: medium;
   border-bottom: 1px solid #ccc;
 }
+
 .column-item:not(:last-child) {
   border-right: 1px solid #ccc;
 }
+
 .column-container {
   display: table;
   width: 100%;

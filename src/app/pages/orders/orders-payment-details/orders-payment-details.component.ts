@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentComponent } from '../payment/payment.component';
 
@@ -13,7 +13,6 @@ export class OrdersPaymentDetailsComponent {
     console.log(this.id)
   }
   @Input() id='' ;
-  showCard = true;
   openPayment() {
     this.dialog.open(PaymentComponent);
   }

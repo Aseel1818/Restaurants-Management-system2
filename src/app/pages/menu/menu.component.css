@@ -2,7 +2,7 @@
   flex-wrap: wrap;
   justify-content: center;
   flex: 1;
-  
+
 }
 
 mat-card {
@@ -57,10 +57,12 @@ mat-card-content {
   border-radius: 10rem;
   color: rgb(106, 0, 255);
 }
+
 .categories a:hover {
-  background-color:rgb(212, 212, 212);
-  
+  background-color: rgb(212, 212, 212);
+
 }
+
 .search-container {
   position: fixed;
   top: 0.5rem;
@@ -82,9 +84,7 @@ input[type="text"] {
 }
 
 .container {
-  flex-direction: row;
   margin-top: 10px;
-  
 }
 
 .selected-items {

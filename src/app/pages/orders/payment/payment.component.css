@@ -2,13 +2,16 @@
     background-color: #ECF3F5;
     height: 50px;
 }
+
 mat-card-actions {
     display: flex;
-    gap:10px;
-  }
+    gap: 10px;
+}
+
 #remaining-mat-card {
     height: 50px;
 }
+
 .pay {
     background-color: #8BB5BE;
     height: 50px;
@@ -19,6 +22,7 @@ mat-card-actions {
     font-size: 14px;
     align-self: flex;
 }
+
 .payments {
     flex-direction: column;
     align-items: center;
@@ -27,13 +31,16 @@ mat-card-actions {
     position: relative;
     justify-content: space-between;
 }
+
 mat-card {
     width: 100%;
     margin-bottom: 10px;
 }
-#total{
+
+#total {
     margin-left: 5px;
 }
+
 #cashReceived {
     width: 150px;
     height: 30px;

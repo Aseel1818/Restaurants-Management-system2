@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { Item } from 'src/app/interfaces/item.interface';
 
 @Component({
 	selector: 'app-orders',
