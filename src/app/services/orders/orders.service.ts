@@ -10,7 +10,11 @@ export class OrdersService {
 	currentOrder!: Order;
 
 	constructor(private http: HttpClient) {
+		const storedOrders = localStorage.getItem('orders');
+    if (storedOrders) {
+      this.orders = JSON.parse(storedOrders);
 	}
+}
 
 	getAll() {
 		return this.orders;
@@ -18,6 +22,7 @@ export class OrdersService {
 
 	add(order: Order) {
 		this.orders.push(order);
+		localStorage.setItem('orders', JSON.stringify(this.orders));
 	}
 
 	createNewOrder() {
