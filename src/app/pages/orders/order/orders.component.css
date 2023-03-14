@@ -3,10 +3,6 @@ table {
   width: 768px;
 }
 
-.align-table {
-  display: flex;
-  overflow: hidden;
-}
 
 .orders {
   height: calc(100vh - 100px);

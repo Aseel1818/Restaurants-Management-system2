@@ -1,4 +1,4 @@
-<div class="align-table">
+<div class="align-table overflow row">
 	<div class="orders">
 		<table [dataSource]="orders" mat-table>
 			<ng-container matColumnDef="OrderID">
@@ -16,7 +16,7 @@
 			<ng-container matColumnDef="pay">
 				<th *matHeaderCellDef mat-header-cell></th>
 				<td *matCellDef="let order" mat-cell>
-					<button (click)="goToPayments(order.id)" class="paymentButton button" mat-raised-button>Pay</button>
+					<button (click)="goToPayments(order.id)" class="button paymentButton" mat-raised-button>Pay</button>
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

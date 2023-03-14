@@ -1,7 +1,7 @@
-<div class="paymentDet"*ngIf="showCard">
+<div class="paymentDet row"*ngIf="showCard">
   <span (click)="showCard = false" class="closeIcon">&times;</span>
-  <mat-card class="custom-card" >
-    <mat-card-title>
+  <mat-card class="custom-card row">
+    <mat-card-title row>
       <label>Order: {{id}}</label>
       <label>Table: </label>
     </mat-card-title>

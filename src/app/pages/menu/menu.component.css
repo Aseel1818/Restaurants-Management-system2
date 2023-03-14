@@ -2,6 +2,7 @@
   flex-wrap: wrap;
   justify-content: center;
   flex: 1;
+  
 }
 
 mat-card {
@@ -11,11 +12,10 @@ mat-card {
   margin: 0.5rem;
   display: flex;
   overflow: hidden;
-  background-color: #f0f0f0;
   justify-content: center;
   height: 280px;
-
 }
+
 
 .itemImg {
   width: 100%;
@@ -28,25 +28,16 @@ mat-card:hover {
 }
 
 mat-card-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   padding: 0.50rem;
   height: 60px;
+  display: flex;
+
 }
 
-mat-card-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0.50rem;
-  height: 60px;
-}
 
 .price {
-  display: flex;
   font-weight: bold;
 }
 
@@ -56,13 +47,11 @@ mat-card-content {
 }
 
 .categories {
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .categories a {
-  background-color: #f0f0f0;
   padding: .4rem 1rem;
   margin: .2rem .15rem;
   border-radius: 10rem;
@@ -76,12 +65,10 @@ mat-card-content {
   position: fixed;
   top: 0.5rem;
   right: 1rem;
-  display: flex;
   width: 300px;
   height: 50px;
   align-items: center;
   border-radius: 10px;
-  background-color: #f0f0f0;
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -95,42 +82,22 @@ input[type="text"] {
 }
 
 .container {
-  display: flex;
   flex-direction: row;
   margin-top: 10px;
+  
 }
 
 .selected-items {
-  display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.custom-card-container {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  width: 300px;
-  height: 500px;
-  border: 1px solid grey;
-  box-shadow: 0 20px 50px 0 rgba(2, 0, 0, 0.2);
-  position: relative;
-  top: 0;
-  z-index: 1;
-}
 
 @media (max-width: 768px) {
   .custom-card-container {
     margin: auto;
     transform: none;
   }
-}
-
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .column-item {

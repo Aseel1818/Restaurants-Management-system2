@@ -20,7 +20,6 @@ mat-card-actions {
     align-self: flex;
 }
 .payments {
-    display: flex;
     flex-direction: column;
     align-items: center;
     height: 600px;

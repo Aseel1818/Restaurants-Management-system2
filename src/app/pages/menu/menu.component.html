@@ -1,18 +1,18 @@
-<div class="search-container">
+<div class="search-container row smoke">
 	<input type="text" [(ngModel)]="searchQuery" placeholder="Search items" (keyup)="filterItems()">
 	<mat-icon>search</mat-icon>
 </div>
-<div *ngIf="categories" class="categories">
-	<a (click)="getAllItems()">All</a>
-	<a *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
+<div *ngIf="categories" class="categories row ">
+	<a class="smoke" (click)="getAllItems()">All</a>
+	<a class="smoke" *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
 		{{category.name}}
 	</a>
 </div>
-<div class="container">
-	<div class="item_container row" >
+<div class="container row">
+	<div class="item_container row radius height" >
 		<mat-card class="items" *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
 			<img class="itemImg" mat-card-image src="{{item.imageUrl}}">
-			<mat-card-content calss="items_content">
+			<mat-card-content class="items_content center smoke">
 				<div class="name">{{item.name}}</div>
 				<div class="price">
 					<span>{{item.price | currency:"ILS"}}</span>
@@ -44,7 +44,7 @@
 					<div class="column-item">quentity</div>
 				</div>
 			</mat-card-actions>
-			<ul class="selected-items">
+			<ul class="selected-items row">
 				<li *ngFor="let item of order.orderDetails">
 					{{item.item.name}}
 					{{item.item.price * item.quantity}}

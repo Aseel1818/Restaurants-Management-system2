@@ -19,7 +19,6 @@ mat-card-title{
   color: red;
 }
 .paymentDet{
-  display: flex;
   width: 300px;
   height: 520px;
   border-radius: 7px;
@@ -30,7 +29,6 @@ mat-card-title{
   transform: translateX(25%);
 }
 .custom-card {
-  display: flex;
   width: 300px;
   height: 491px;
   top: 28px;
