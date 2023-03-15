@@ -1,28 +1,32 @@
 <div class="paymentDet row" *ngIf="order && showCard" [id]="selectedOrderId">
-  <mat-card class="custom-card row"  *ngIf="showCard">
-     <mat-card-title>
-       <label>Order: {{id}}</label>
-       <label>Table: </label>
-     </mat-card-title>
-     <mat-card-actions align="start">
-       <div class="column-container">
-         <div class="column-item">Name:</div>
-         <div class="column-item">Quantity:</div>
-         <div class="column-item">Price:</div>
-       </div>
-     </mat-card-actions>
-     <mat-card-content  >
-           <div *ngFor="let orderDetail of order.orderDetails">
-             <div class="container_details">
-               <div class="column-item">{{orderDetail.item.name}}</div>
-               <div class="column-item">{{orderDetail.quantity}}</div>
-               <div class="column-item">{{orderDetail.item.price}}</div>
-               <div class="column-item"><input type="checkbox" name="Selected Item " ></div>
-             </div>
-           </div>
-     </mat-card-content>
-     <mat-card-footer>
-       <button class="paymentButton button" (click)="openPayment()">Pay</button>
-     </mat-card-footer>
-   </mat-card>
- </div>
+  <mat-card class="custom-card row" *ngIf="showCard">
+    <mat-card-title>
+      <label>Order: {{id}}</label>
+      <label>Table: </label>
+    </mat-card-title>
+    <mat-card-actions align="start">
+      <div class="column-container">
+        <div class="column-item">Name:</div>
+        <div class="column-item">Quantity:</div>
+        <div class="column-item">Price:</div>
+      </div>
+    </mat-card-actions>
+    <mat-card-content>
+      <div *ngFor="let orderDetail of order.orderDetails; let i=index">
+        <div class="container_details">
+          <div class="column-item">{{orderDetail.item.name}}</div>
+          <div class="column-item">{{orderDetail.quantity}}</div>
+          <div class="column-item">{{orderDetail.item.price}}</div>
+          <div class="column-item">
+            <input type="checkbox" [(ngModel)]="orderDetail.isChecked"
+            
+              (ngModelChange)="updateSubTotal()">
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer>
+      <button class="paymentButton button" (click)="openPayment()">Pay</button>
+    </mat-card-footer>
+  </mat-card>
+</div>

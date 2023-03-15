@@ -18,7 +18,9 @@ export class Order {
 		} else {
 			this.orderDetails.push({
 				item,
-				quantity: 1
+				quantity: 1,
+				isChecked: false,
+				isPaid: false
 			});
 		}
 
