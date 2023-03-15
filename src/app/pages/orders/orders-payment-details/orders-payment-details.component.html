@@ -2,29 +2,39 @@
   <mat-card class="custom-card row" *ngIf="showCard">
     <mat-card-title>
       <label>Order: {{id}}</label>
-      <label>Table: </label>
+      <label>
+        <div class="tableSelection">
+          <mat-form-field>
+            <mat-select [(ngModel)]="selectedTable">
+              <ng-container *ngFor="let table of tables">
+                <mat-option *ngIf="table.status === false" [value]="table.name">{{table.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </label>
     </mat-card-title>
     <mat-card-actions align="start">
       <div class="column-container">
-        <div class="column-item">Name:</div>
-        <div class="column-item">Quantity:</div>
-        <div class="column-item">Price:</div>
+        <div class="details-item"><span>Name</span></div>
+        <div class="details-item"><span>Qnt</span></div>
+        <div class="details-item"><span>Price</span></div>
       </div>
     </mat-card-actions>
     <mat-card-content>
-      <div *ngFor="let orderDetail of order.orderDetails; let i=index">
+      <div *ngFor="let orderDetail of order.orderDetails">
         <div class="container_details">
-          <div class="details-item">{{orderDetail.item.name}}</div>
-          <div class="details-item">{{orderDetail.quantity}}</div>
-          <div class="details-item">{{orderDetail.item.price}}</div>
+          <div class="details-item"><span>{{orderDetail.item.name}}</span></div>
+          <div class="details-item"><span>{{orderDetail.quantity}}</span></div>
+          <div class="details-item"><span>{{orderDetail.item.price}}</span></div>
           <div class="details-item">
             <input type="checkbox" [(ngModel)]="orderDetail.isChecked" (ngModelChange)="updateSubTotal()">
           </div>
         </div>
       </div>
     </mat-card-content>
-    <mat-card-footer>
-      <button class="button" (click)="openPayment()">Pay</button>
-    </mat-card-footer>
+    <div class="payButtonContainer row">
+      <button class="button payButton " (click)="openPayment()">Pay</button>
+    </div>
   </mat-card>
 </div>

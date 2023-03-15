@@ -2,8 +2,11 @@ import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Order } from 'src/app/classes/order.class';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
+import { Table } from 'src/app/interfaces/table.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
+import { TablesService } from 'src/app/services/tables/tables.service';
 import { PaymentComponent } from '../payment/payment.component';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-orders-payment-details',
   templateUrl: './orders-payment-details.component.html',
@@ -14,15 +17,19 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
   selectedOrderId: any;
   order!: Order | null;
   showCard = true;
- // public isChecked;
   selectedItems: OrderDetail[] = [];
-
+  tables: Table[] = [];
+  selectedTable: string ='';
   constructor(public dialog: MatDialog, 
-    private orderService: OrdersService) {
-  //  this.isChecked = new Array(this.order?.orderDetails.length).fill(false);
+    private orderService: OrdersService,private http: HttpClient, private tableService:TablesService) {
     }
 
   ngOnInit(): void {
+    this.tableService.getAll()
+		.subscribe((tables: Table[]) => {
+			this.tables = tables;
+			console.log(this.tables);
+		});
   }
 
   ngDoCheck(): void {
@@ -50,4 +57,5 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
       data: { orderId: this.id } });
   }
 
+  
 }
