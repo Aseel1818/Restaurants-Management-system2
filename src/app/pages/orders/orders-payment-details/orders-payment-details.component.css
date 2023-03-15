@@ -8,17 +8,6 @@ mat-card-title {
   margin-bottom: 3px;
 }
 
-.paymentDet {
-  width: 300px;
-  height: 520px;
-  border-radius: 7px;
-  box-shadow: 0px 20px 20px 20px inherit;
-  position: relative;
-  top: 10px;
-  background-color: inherit;
-  transform: translateX(25%);
-}
-
 .custom-card {
   width: 300px;
   height: 491px;
@@ -49,4 +38,23 @@ mat-card-title {
   width: 100%;
   border-collapse: collapse;
   border-bottom: 2px solid #ccc;
+}
+
+.container_details {
+  padding: 2px;
+  background-color: whitesmoke;
+  justify-content: space-between;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  height: 40px;
+  width: 100%;
+}
+
+.details-item {
+  display: table-cell;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: medium;
+  justify-content: space-between;
 }

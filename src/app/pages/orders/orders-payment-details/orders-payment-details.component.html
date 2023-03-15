@@ -14,19 +14,17 @@
     <mat-card-content>
       <div *ngFor="let orderDetail of order.orderDetails; let i=index">
         <div class="container_details">
-          <div class="column-item">{{orderDetail.item.name}}</div>
-          <div class="column-item">{{orderDetail.quantity}}</div>
-          <div class="column-item">{{orderDetail.item.price}}</div>
-          <div class="column-item">
-            <input type="checkbox" [(ngModel)]="orderDetail.isChecked"
-            
-              (ngModelChange)="updateSubTotal()">
+          <div class="details-item">{{orderDetail.item.name}}</div>
+          <div class="details-item">{{orderDetail.quantity}}</div>
+          <div class="details-item">{{orderDetail.item.price}}</div>
+          <div class="details-item">
+            <input type="checkbox" [(ngModel)]="orderDetail.isChecked" (ngModelChange)="updateSubTotal()">
           </div>
         </div>
       </div>
     </mat-card-content>
     <mat-card-footer>
-      <button class="paymentButton button" (click)="openPayment()">Pay</button>
+      <button class="button" (click)="openPayment()">Pay</button>
     </mat-card-footer>
   </mat-card>
 </div>
