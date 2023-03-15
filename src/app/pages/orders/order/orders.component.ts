@@ -8,7 +8,7 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 	styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-	selectedOrderId!: any;
+	selectedOrderId!: number;
 	displayedColumns: string[] = ['OrderID', 'total', 'details', 'pay'];
 	orders: Order[] = [];
 
@@ -19,10 +19,7 @@ export class OrdersComponent implements OnInit {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 	}
-
-	goToPayments(orderId: Number) {
-		this.selectedOrderId = orderId;
-		console.log(this.selectedOrderId);
-	
-	}
+	goToPayments(orderID: number ) {
+        this.selectedOrderId = orderID
+      }
 }
