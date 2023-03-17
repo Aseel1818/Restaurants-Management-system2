@@ -7,7 +7,6 @@ export class Order {
 	total: number = 0;
 	subTotal!: number;
 	notes!: string;
-	table!: Table;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
 
