@@ -18,33 +18,25 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
   order!: Order | null;
   showCard = true;
   selectedItems: OrderDetail[] = [];
-  tables: Table[] = [];
-  selectedTable: string ='';
-  constructor(public dialog: MatDialog, 
-    private orderService: OrdersService,private http: HttpClient, private tableService:TablesService) {
-    }
+  constructor(public dialog: MatDialog,
+    private orderService: OrdersService, private http: HttpClient) {
+  }
+
 
   ngOnInit(): void {
-    this.tableService.getAll()
-		.subscribe((tables: Table[]) => {
-			this.tables = tables;
-			console.log(this.tables);
-		});
   }
 
   ngDoCheck(): void {
     this.order = this.orderService.getOrderByID(this.id);
-    console.log(this.id) 
   }
-  
   updateSubTotal() {
-    if(!this.order) {
+    if (!this.order) {
       return
     }
 
     let subTotal = 0
     this.order.orderDetails.forEach(orderDetail => {
-      if(orderDetail.isChecked) {
+      if (orderDetail.isChecked) {
         subTotal += orderDetail.item.price * orderDetail.quantity
       }
     })
@@ -54,8 +46,7 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
 
   openPayment() {
     this.dialog.open(PaymentComponent, {
-      data: { orderId: this.id } });
+      data: { orderId: this.id}
+    });
   }
-
-  
 }

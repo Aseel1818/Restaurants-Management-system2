@@ -1,8 +1,7 @@
-<div class="payments row" mat-dialog-content
-*ngIf="order">
+<div class="payments row" mat-dialog-content *ngIf="order">
   <mat-card>
     <mat-card-actions>
-      <p>Cash </p>
+      <p>Cash</p>
       <input id="cashReceived" type="text" [(ngModel)]="amount">
     </mat-card-actions>
     <mat-card-actions>
@@ -19,6 +18,5 @@
   <mat-card id="total-mat-card">
     <p id="total">Total: {{ order.subTotal }} </p>
   </mat-card>
-  <button type="button" class="pay"
-  (click)="pay()">PAY NOW</button>
+  <button type="button"  class="pay" (click)="pay()">PAY NOW</button>
 </div>

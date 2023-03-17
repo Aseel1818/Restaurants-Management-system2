@@ -22,7 +22,7 @@ export class PaymentComponent implements OnInit {
   }
 
   remaining() {
-    if(!this.order) {
+    if (!this.order) {
       return
     }
 
@@ -31,7 +31,7 @@ export class PaymentComponent implements OnInit {
     }
   }
   dollarRemaining() {
-    if(!this.order) {
+    if (!this.order) {
       return
     }
 
@@ -44,7 +44,7 @@ export class PaymentComponent implements OnInit {
 
   pay() {
     this.order?.orderDetails.forEach(orderDetail => {
-      if(orderDetail.isChecked) {
+      if (orderDetail.isChecked) {
         orderDetail.isPaid = true
       }
     })

@@ -9,6 +9,7 @@ export class Order {
 	notes!: string;
 	table!: Table;
 	orderDetails: OrderDetail[] = [];
+	tableID!: number | null;
 
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);

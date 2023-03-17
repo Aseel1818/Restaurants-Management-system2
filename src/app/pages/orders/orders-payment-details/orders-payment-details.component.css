@@ -67,3 +67,8 @@ mat-card-title {
   border-radius: 10px;
   padding: 10px;
 }
+
+.select-table {
+  width: 120px;
+  text-align: right;
+}

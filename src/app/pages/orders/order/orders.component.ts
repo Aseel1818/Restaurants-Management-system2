@@ -9,7 +9,7 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 })
 export class OrdersComponent implements OnInit {
 	selectedOrderId!: number;
-	displayedColumns: string[] = ['OrderID', 'total', 'details', 'pay'];
+	displayedColumns: string[] = ['OrderID', 'total', 'details','table', 'pay'];
 	orders: Order[] = [];
 
 	constructor(private orderService: OrdersService) {

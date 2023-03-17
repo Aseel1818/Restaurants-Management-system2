@@ -5,6 +5,8 @@ import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
 import { OrdersService } from '../../services/orders/orders.service';
 import { Order } from 'src/app/classes/order.class';
+import { TablesService } from 'src/app/services/tables/tables.service';
+import { Table } from 'src/app/interfaces/table.interface';
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -17,11 +19,15 @@ export class MenuComponent implements OnInit {
 	searchQuery = '';
 	selectedItems: Item[] = [];
 	order!: Order;
+	tables: Table[] = [];
+	selectedTable!: number;
+
 
 	constructor(private route: ActivatedRoute,
 		private router: Router,
 		private itemsService: ItemsService,
-		private ordersService: OrdersService) {
+		private ordersService: OrdersService,
+		private tableService: TablesService) {
 	}
 
 	ngOnInit(): void {
@@ -42,6 +48,12 @@ export class MenuComponent implements OnInit {
 		this.itemsService.getAllCategories().subscribe(categories => {
 			this.categories = categories;
 		});
+
+
+		this.tableService.getAll()
+			.subscribe((tables: Table[]) => {
+				this.tables = tables.filter(t => t.status === false);
+			});
 	}
 
 	getAllItems() {
@@ -50,9 +62,11 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = items;
 		});
 	}
+
 	addToOrder(item: Item): void {
 		this.order.addItem(item);
 	}
+
 	filterItems() {
 		if (this.searchQuery.trim() !== '') {
 			this.filteredItems = this.items.filter(item => {
@@ -62,10 +76,24 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = this.items;
 		}
 	}
-
-	addSelectedItemsToOrder() {
-		this.ordersService.add(this.order)
-		this.router.navigate(['/orders'])
+	
+	addSelectedItemsToOrder(tableID: number) {
+		const tableToUpdate = this.tables.find(table => table.id === tableID);
+		console.log(tableToUpdate)
+		if (tableToUpdate) {
+			this.order.tableID = tableID;
+			this.tableService.updateTable(tableToUpdate).subscribe(
+				updatedTable => {
+					tableToUpdate.status = updatedTable.status;
+					this.ordersService.add(this.order);
+					console.log(tableToUpdate)
+					this.router.navigate(['/orders']);
+				},
+				error => console.error(error)
+			);
+		} else {
+			this.ordersService.add(this.order);
+			this.router.navigate(['/orders']);
+		}
 	}
-
 }

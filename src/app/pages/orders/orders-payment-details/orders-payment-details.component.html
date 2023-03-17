@@ -2,17 +2,8 @@
   <mat-card class="custom-card row" *ngIf="showCard">
     <mat-card-title>
       <label>Order: {{id}}</label>
-      <label>
-        <div class="tableSelection">
-          <mat-form-field>
-            <mat-select [(ngModel)]="selectedTable">
-              <ng-container *ngFor="let table of tables">
-                <mat-option *ngIf="table.status === false" [value]="table.name">{{table.name}}</mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </label>
+      <label>Table: {{order.tableID}}</label>
+      
     </mat-card-title>
     <mat-card-actions align="start">
       <div class="column-container">
@@ -34,7 +25,7 @@
       </div>
     </mat-card-content>
     <div class="payButtonContainer row">
-      <button class="button payButton " (click)="openPayment()">Pay</button>
+      <button class="button payButton" (click)="openPayment()">Pay</button>
     </div>
   </mat-card>
 </div>

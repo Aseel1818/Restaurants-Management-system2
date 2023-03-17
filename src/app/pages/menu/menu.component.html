@@ -50,9 +50,13 @@
 					{{item.item.price * item.quantity}}
 					{{item.quantity}}
 				</li>
-				<button class="cancelButton">cancel</button>
 			</ul>
 		</div>
-		<button (click)="addSelectedItemsToOrder()" style="color: red;">Add to Order</button>
+		<mat-select [(ngModel)]="selectedTable" class="select-table">
+			<ng-container *ngFor="let table of tables">
+				<mat-option [value]="table.id">Table{{table.id}}</mat-option>
+			</ng-container>
+		</mat-select>
+		<button (click)="addSelectedItemsToOrder(selectedTable)" style="color: red;">Add to Order</button>
 	</div>
 </div>

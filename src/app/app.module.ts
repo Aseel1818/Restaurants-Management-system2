@@ -9,10 +9,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatList, MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MenuComponent } from './pages/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatListModule ,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    MatInputModule,
+		MatSelectModule,
+		MatIconModule
     ],
   providers: [],
   bootstrap: [AppComponent]

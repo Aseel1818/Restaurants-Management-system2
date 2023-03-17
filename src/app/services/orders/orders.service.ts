@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
+import { Table } from 'src/app/interfaces/table.interface';
 
 @Injectable({
 	providedIn: 'root'
@@ -8,6 +9,7 @@ import { Order } from 'src/app/classes/order.class';
 export class OrdersService {
 	private orders: Order[] = [];
 	currentOrder!: Order;
+	tables!: Table;
 
 	constructor(private http: HttpClient) {
 		const storedOrders = localStorage.getItem('orders');
@@ -42,5 +44,5 @@ export class OrdersService {
             }
         })
         return foundOrder
-    }
+    }  
 }

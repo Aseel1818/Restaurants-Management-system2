@@ -1,7 +1,6 @@
 .row {
     display: flex;
 }
-
 .center {
     display: flex;
     flex-direction: column;
@@ -11,11 +10,9 @@
 .radius {
     border-radius: 100rem;
 }
-
-.overflow {
-    overflow: hidden;
+body {
+    overflow-y: auto;
 }
-
 .height {
     height: 280px;
 }

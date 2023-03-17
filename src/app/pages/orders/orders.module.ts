@@ -10,13 +10,13 @@ import { OrdersComponent } from './order/orders.component';
 import { OrderdRoutingModule } from './orders-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
 	declarations: [
 		OrdersComponent,
 		OrdersPaymentDetailsComponent,
-		PaymentComponent
+		PaymentComponent,
+		
 	],
 	imports: [
 		CommonModule,
@@ -27,8 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
 		MatDialogModule,
 		MatButtonModule,
 		MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
+		
 	]
 })
 export class OrdersModule {
