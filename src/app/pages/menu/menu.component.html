@@ -1,58 +1,57 @@
 <div class="search-container row smoke">
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Search items" (keyup)="filterItems()">
-    <mat-icon>search</mat-icon>
+	<input type="text" [(ngModel)]="searchQuery" placeholder="Search items" (keyup)="filterItems()">
+	<mat-icon>search</mat-icon>
 </div>
 <div *ngIf="categories" class="categories row wrap">
-    <a class="smoke" (click)="getAllItems()">All</a>
-    <a class="smoke" *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
-        {{category.name}}
-    </a>
+	<a class="smoke" (click)="getAllItems()">All</a>
+	<a class="smoke" *ngFor="let category of categories" routerLink="/categories/{{category.categoryID}}">
+		{{category.name}}
+	</a>
 </div>
 <div class="container row">
-    <div class="item_container row radius height wrap">
-        <mat-card class="items" *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
-            <img class="itemImg" mat-card-image src="{{item.imageUrl}}">
-            <mat-card-content class="items_content center smoke">
-                <div class="name">{{item.name}}</div>
-                <div class="price">
-                    <span>{{item.price | currency:"ILS"}}</span>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="container">
-        <div class="bill-container" *ngIf="order?.orderDetails?.length">
-          <mat-card class="custom-card">
-            <mat-card-title class="custom-card-title">
-              <label class="custom-card-label">Order: {{id}}</label>
-            </mat-card-title>
-            <mat-card-content class="custom-card-content">
-              <table class="custom-table">
-                <thead>
-                  <tr>
-                    <th class="custom-table-header">Name</th>
-                    <th class="custom-table-header">Quantity</th>
-                    <th class="custom-table-header">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of order.orderDetails" class="custom-table-row">
-                    <td class="custom-table-cell">{{item.item.name}}</td>
-                    <td class="custom-table-cell">{{item.quantity}}</td>
-                    <td class="custom-table-cell">{{item.item.price | currency:"ILS"}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </mat-card-content>
-			<mat-card-actions class="custom-card-actions">
-				<mat-select [(ngModel)]="selectedTable" class="select-table" placeholder="Select table">
-					<ng-container *ngFor="let table of tables">
-						<mat-option [value]="table.id">Table{{table.id}}</mat-option>
-					</ng-container>
-				</mat-select>
-				<button (click)="addSelectedItemsToOrder(selectedTable)" class="custom-button">ORDER</button>
-			</mat-card-actions>
-			
-          </mat-card>
-        </div>
-      </div>
+	<div class="item_container row radius height wrap">
+		<mat-card class="items" *ngFor="let item of filteredItems" (click)="addToOrder(item)" class="mat-card">
+			<img class="itemImg" mat-card-image src="{{item.imageUrl}}">
+			<mat-card-content class="items_content center smoke">
+				<div class="name">{{item.name}}</div>
+				<div class="price">
+					<span>{{item.price | currency:"ILS"}}</span>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div class="container">
+		<div class="bill-container" *ngIf="order?.orderDetails?.length">
+			<mat-card class="custom-card">
+				<mat-card-title class="custom-card-title">
+					<label class="custom-card-label">Order: {{id}}</label>
+				</mat-card-title>
+				<mat-card-content class="custom-card-content">
+					<table class="custom-table">
+						<thead>
+							<tr>
+								<th class="custom-table-header">Name</th>
+								<th class="custom-table-header">Quantity</th>
+								<th class="custom-table-header">Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of order.orderDetails" class="custom-table-row">
+								<td class="custom-table-cell">{{item.item.name}}</td>
+								<td class="custom-table-cell">{{item.quantity}}</td>
+								<td class="custom-table-cell">{{item.item.price | currency:"ILS"}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</mat-card-content>
+				<mat-card-actions class="custom-card-actions">
+					<mat-select [(ngModel)]="selectedTable" class="select-table" placeholder="Select table">
+						<ng-container *ngFor="let table of tables">
+							<mat-option [value]="table.id">Table{{table.id}}</mat-option>
+						</ng-container>
+					</mat-select>
+					<button (click)="addSelectedItemsToOrder(selectedTable)" class="custom-button">ORDER</button>
+				</mat-card-actions>
+			</mat-card>
+		</div>
+	</div>

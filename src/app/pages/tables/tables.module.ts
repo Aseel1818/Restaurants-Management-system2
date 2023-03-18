@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { TablesRoutingModule } from './tables-routing.module';
 import { TablesListComponent } from './tables-list/tables-list.component';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +18,6 @@ import { TableComponent } from './table/table.component';
 		FormsModule,
 		CommonModule,
 		MatCardModule
-
 	]
 })
 export class TablesModule {

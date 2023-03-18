@@ -10,9 +10,9 @@ import { environment } from 'src/environments/environment';
 
 export class TablesService {
 
-  getTableById(id: number) :Observable<Table> {
-	return this.http.get<Table>(`${environment.serverUrl}/findTable/${id}`);
-  }
+	getTableById(id: number): Observable<Table> {
+		return this.http.get<Table>(`${environment.serverUrl}/findTable/${id}`);
+	}
 
 	constructor(private http: HttpClient) {
 	}

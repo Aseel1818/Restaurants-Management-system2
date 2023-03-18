@@ -13,10 +13,10 @@ export class OrdersService {
 
 	constructor(private http: HttpClient) {
 		const storedOrders = localStorage.getItem('orders');
-    if (storedOrders) {
-      this.orders = JSON.parse(storedOrders);
+		if (storedOrders) {
+			this.orders = JSON.parse(storedOrders);
+		}
 	}
-}
 
 	getAll() {
 		return this.orders;
@@ -35,14 +35,14 @@ export class OrdersService {
 	generateNewOrderId(): number {
 		return this.orders.length + 1
 	}
-	
+
 	getOrderByID(orderID: number): Order | null {
-        let foundOrder: Order | null = null
-        this.orders.forEach(order => {
-            if (order.id == orderID ) {
-                foundOrder = order
-            }
-        })
-        return foundOrder
-    }  
+		let foundOrder: Order | null = null
+		this.orders.forEach(order => {
+			if (order.id == orderID) {
+				foundOrder = order
+			}
+		})
+		return foundOrder
+	}
 }
