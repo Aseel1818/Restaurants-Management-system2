@@ -77,24 +77,5 @@ export class PaymentComponent implements OnInit {
    
   
   }
-  /*pay() {
-    this.order?.orderDetails.forEach(orderDetail => {
-      if (orderDetail.isChecked) {
-        orderDetail.isPaid = true;
-        this.order!.subTotal-= orderDetail.item.price*orderDetail.quantity;
-      }
-      orderDetail.isChecked = false;
-      if(this.order!.subTotals==this.order?.total){
-        if (this.order?.tableID) {
-          console.log(this.order.tableID)
-          this.tableService.getTableById(this.order.tableID).subscribe(table => {
-            this.tableService.updateTable(table);
-            console.log(table.status)
-    
-          });
-        }
-      }
-    });
-  }*/
 }
 
