@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
 	order!: Order;
 	tables: Table[] = [];
 	selectedTable!: number;
-
+	@Input() id: number = 0;
 
 	constructor(private route: ActivatedRoute,
 		private router: Router,

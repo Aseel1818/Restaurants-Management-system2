@@ -1,5 +1,4 @@
 .item_container {
-  flex-wrap: wrap;
   justify-content: center;
   flex: 1;
 
@@ -47,7 +46,6 @@ mat-card-content {
 }
 
 .categories {
-  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -83,31 +81,135 @@ input[type="text"] {
   font-size: 1rem;
 }
 
+
 .container {
-  margin-top: 10px;
+  display: flex;
+  height: 100vh;
 }
 
-.selected-items {
+.bill-container {
+  flex: 1;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
+.custom-card {
+  height:70%;
+  width: 85%; 
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
 
-@media (max-width: 768px) {
-  .custom-card-container {
-    margin: auto;
-    transform: none;
+.custom-card-title {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.custom-card-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.custom-card-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.custom-table {
+  width: 100%;
+  
+  border-collapse: collapse;
+}
+
+.custom-table-header {
+  justify-content: center;
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table-cell {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.custom-card-actions {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-button {
+  background-color: rgb(172, 172, 172);
+  width: 80px;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.select-table{
+  width: 55%;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-button:hover {
+  background-color: #f5f5f5;
+}
+
+@media screen and (max-width: 768px) {
+  .bill-container {
+    padding: 1rem;
+  }
+  
+  .custom-card-title {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .custom-card-label {
+    font-size: 1.2rem;
+  }
+  
+  .custom-table-header,
+  .custom-table-cell {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .custom-button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
   }
 }
 
-.column-item {
-  display: table-cell;
-  padding: 5px 10px;
-  font-weight: bold;
-  font-size: medium;
-  border-bottom: 1px solid #ccc;
+@media screen and (max-width: 576px) {
+  .custom-card-label {
+    font-size: 1rem;
+  }
+  
+  .custom-table-header,
+  .custom-table-cell {
+    font-size: 0.7rem;
+  }
+  
+  .custom-button {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
 }
 
-.column-item:not(:last-child) {
-  border-right: 1px solid #ccc;
-}
