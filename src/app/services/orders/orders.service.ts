@@ -11,7 +11,7 @@ export class OrdersService {
 	currentOrder!: Order;
 	tables!: Table;
 
-	constructor(private http: HttpClient) {
+	constructor() {
 		const storedOrders = localStorage.getItem('orders');
 		if (storedOrders) {
 			this.orders = JSON.parse(storedOrders);

@@ -12,8 +12,7 @@ export class OrdersComponent implements OnInit {
 	displayedColumns: string[] = ['OrderID', 'total', 'details','table', 'pay'];
 	orders: Order[] = [];
 
-	constructor(private orderService: OrdersService) {
-	}
+	constructor(private orderService: OrdersService) {}
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()

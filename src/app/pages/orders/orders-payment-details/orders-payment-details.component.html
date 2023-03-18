@@ -19,7 +19,9 @@
           <div class="details-item"><span>{{orderDetail.quantity}}</span></div>
           <div class="details-item"><span>{{orderDetail.item.price}}</span></div>
           <div class="details-item">
-            <input type="checkbox" [(ngModel)]="orderDetail.isChecked" (ngModelChange)="updateSubTotal()">
+            <input type="checkbox" [(ngModel)]="orderDetail.isChecked" [ngClass]="{'disabled':orderDetail.isPaid }"
+            [disabled]="orderDetail.isPaid"
+            (ngModelChange)="updateSubTotal()">
           </div>
         </div>
       </div>

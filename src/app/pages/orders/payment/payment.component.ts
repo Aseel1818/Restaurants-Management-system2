@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Order } from 'src/app/classes/order.class';
+import { Table } from 'src/app/interfaces/table.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
+import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-payment-details.component';
 @Component({
   selector: 'app-payment',
@@ -16,7 +18,9 @@ export class PaymentComponent implements OnInit {
   order!: Order | null;
   constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>,
     private orderService: OrdersService,
-    @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) { }
+		private tableService: TablesService,
+    @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) {}
+
   ngOnInit(): void {
     this.order = this.orderService.getOrderByID(this.data.orderId);
   }
@@ -41,13 +45,56 @@ export class PaymentComponent implements OnInit {
     }
 
   }
-
   pay() {
+    if (!this.order) {
+      return;
+  }
+
+  let isFullyPaid = true;
+
+  this.order.orderDetails.forEach(orderDetail => {
+      if (orderDetail.isChecked && !orderDetail.isPaid) {
+          orderDetail.isPaid = true;
+          this.order!.subTotal -= orderDetail.item.price * orderDetail.quantity;
+      }
+      
+      if (!orderDetail.isPaid) {
+          isFullyPaid = false;
+      }
+
+      orderDetail.isChecked = false;
+  });
+      if(isFullyPaid){
+        if (this.order?.tableID) {
+          console.log(this.order.tableID)
+          this.tableService.getTableById(this.order.tableID).subscribe(table => {
+            this.tableService.updateTable(table).subscribe(table => {
+              console.log(table.status);
+            });
+          });
+        }
+      }
+   
+  
+  }
+  /*pay() {
     this.order?.orderDetails.forEach(orderDetail => {
       if (orderDetail.isChecked) {
-        orderDetail.isPaid = true
+        orderDetail.isPaid = true;
+        this.order!.subTotal-= orderDetail.item.price*orderDetail.quantity;
       }
-    })
-  }
+      orderDetail.isChecked = false;
+      if(this.order!.subTotals==this.order?.total){
+        if (this.order?.tableID) {
+          console.log(this.order.tableID)
+          this.tableService.getTableById(this.order.tableID).subscribe(table => {
+            this.tableService.updateTable(table);
+            console.log(table.status)
+    
+          });
+        }
+      }
+    });
+  }*/
 }
 

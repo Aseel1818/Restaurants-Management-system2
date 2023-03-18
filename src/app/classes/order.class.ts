@@ -1,11 +1,11 @@
 import { OrderDetail } from '../interfaces/orderDetail.interface';
-import { Table } from '../interfaces/table.interface';
 import { Item } from '../interfaces/item.interface';
 
 export class Order {
 	id!: number;
 	total: number = 0;
 	subTotal!: number;
+	subTotals:number=0;
 	notes!: string;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;

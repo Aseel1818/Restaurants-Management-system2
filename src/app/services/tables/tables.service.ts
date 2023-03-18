@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Table } from 'src/app/interfaces/table.interface';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,11 +10,10 @@ import { environment } from 'src/environments/environment';
 
 export class TablesService {
 
+	constructor(private http: HttpClient) {}
+
 	getTableById(id: number): Observable<Table> {
 		return this.http.get<Table>(`${environment.serverUrl}/findTable/${id}`);
-	}
-
-	constructor(private http: HttpClient) {
 	}
 
 	getAll(): Observable<Table[]> {
@@ -23,8 +22,8 @@ export class TablesService {
 
 	updateTable(table: Table): Observable<Table> {
 		return this.http.put<Table>(`${environment.serverUrl}/updateTable/${table.id}`, table).pipe(
-			map((updatedTable: any) => {
-				return updatedTable;
+			map((table: any) => {
+				return table;
 			})
 		);
 	}
