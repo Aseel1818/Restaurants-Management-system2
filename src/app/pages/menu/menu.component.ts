@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
 	order!: Order;
 	tables: Table[] = [];
 	selectedTable!: number;
+	note : string = '';
 	@Input() id: number = 0;
 
 	constructor(private route: ActivatedRoute,
@@ -77,23 +78,26 @@ export class MenuComponent implements OnInit {
 		}
 	}
 	
-	addSelectedItemsToOrder(tableID: number) {
-		const tableToUpdate = this.tables.find(table => table.id === tableID);
-		console.log(tableToUpdate)
-		if (tableToUpdate) {
-			this.order.tableID = tableID;
-			this.tableService.updateTable(tableToUpdate).subscribe(
-				updatedTable => {
-					tableToUpdate.status = updatedTable.status;
-					this.ordersService.add(this.order);
-					console.log(tableToUpdate)
-					this.router.navigate(['/orders']);
-				},
-				error => console.error(error)
-			);
-		} else {
-			this.ordersService.add(this.order);
-			this.router.navigate(['/orders']);
-		}
-	}
+	addSelectedItemsToOrder(tableID: number ,note:string) {
+        const tableToUpdate = this.tables.find(table => table.id === tableID);
+        console.log(tableToUpdate)
+        this.order.notes = note ;
+        if (tableToUpdate) {
+            this.order.tableID = tableID;
+            this.tableService.updateTable(tableToUpdate).subscribe(
+                updatedTable => {
+                    tableToUpdate.status = updatedTable.status;
+                    this.ordersService.add(this.order);
+                    console.log(tableToUpdate)
+                    this.router.navigate(['/orders']);
+                },
+                error => console.error(error)
+            );
+        } else {
+            this.order.notes = note;
+            this.ordersService.add(this.order);
+            console.log(this.order.notes)
+            this.router.navigate(['/orders']);
+        }
+    }
 }

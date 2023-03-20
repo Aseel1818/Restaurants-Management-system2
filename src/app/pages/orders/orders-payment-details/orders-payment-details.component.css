@@ -50,7 +50,7 @@ mat-card-title {
 }
 
 .details-item {
-  width: 33.33%;
+  width: 23.33%;
   display: inline-block;
   text-align: center;
   font-weight: bold;
@@ -71,4 +71,23 @@ mat-card-title {
 .select-table {
   width: 120px;
   text-align: right;
+}
+
+.container_details.isPaid {
+  text-decoration: line-through;
+}
+
+.alert-danger {
+  font-size: 15px;
+  color: rgb(234, 95, 95);
+  margin-left: 20%;
+  margin-bottom: 10%;
+}
+
+.selectAll{
+  width: 70px;
+  font-size: small;
+  height: 20px;
+  background-color:#cbe7f9;
+  color: black;
 }

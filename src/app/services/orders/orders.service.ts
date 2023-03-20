@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
 import { Table } from 'src/app/interfaces/table.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +12,7 @@ export class OrdersService {
 	currentOrder!: Order;
 	tables!: Table;
 
-	constructor() {
+	constructor(private http: HttpClient) {
 		const storedOrders = localStorage.getItem('orders');
 		if (storedOrders) {
 			this.orders = JSON.parse(storedOrders);
@@ -23,7 +24,9 @@ export class OrdersService {
 	}
 
 	add(order: Order) {
-		this.orders.push(order);
+		if (!this.orders.includes(order)) {
+			this.orders.push(order);
+		}
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 	}
 
@@ -44,5 +47,10 @@ export class OrdersService {
 			}
 		})
 		return foundOrder
+	}
+
+	addOrder(order: Order) {
+		const newOrder = { note: order.notes, total: order.total }
+		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
 	}
 }

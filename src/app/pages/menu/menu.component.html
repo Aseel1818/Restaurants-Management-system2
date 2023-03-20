@@ -44,13 +44,17 @@
 						</tbody>
 					</table>
 				</mat-card-content>
+				<mat-form-field class="note">
+					<mat-label for="note">Leave a note:</mat-label>
+					<input type="text" id="note" [(ngModel)]="note" matInput placeholder="Ex. Deleviry">
+				</mat-form-field>
 				<mat-card-actions class="custom-card-actions">
 					<mat-select [(ngModel)]="selectedTable" class="select-table" placeholder="Select table">
 						<ng-container *ngFor="let table of tables">
 							<mat-option [value]="table.id">Table{{table.id}}</mat-option>
 						</ng-container>
 					</mat-select>
-					<button (click)="addSelectedItemsToOrder(selectedTable)" class="custom-button">ORDER</button>
+					<button (click)="addSelectedItemsToOrder(selectedTable,note)" class="custom-button">ORDER</button>
 				</mat-card-actions>
 			</mat-card>
 		</div>

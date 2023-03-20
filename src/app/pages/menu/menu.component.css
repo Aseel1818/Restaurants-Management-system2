@@ -213,3 +213,10 @@ input[type="text"] {
     padding: 0.2rem 0.5rem;
   }
 }
+
+.note {
+  justify-content: center;
+  padding: 0rem 1rem 0rem 1rem;
+  border-style: solid black;
+  width: 100%;
+}

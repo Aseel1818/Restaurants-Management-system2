@@ -10,6 +10,8 @@ import { OrdersComponent } from './order/orders.component';
 import { OrderdRoutingModule } from './orders-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
 	declarations: [
@@ -27,7 +29,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 		MatDialogModule,
 		MatButtonModule,
 		MatFormFieldModule,
-		
+		MatSelectModule,
+		FormsModule
 	]
 })
 export class OrdersModule {

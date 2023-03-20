@@ -6,10 +6,10 @@ export class Order {
 	total: number = 0;
 	subTotal!: number;
 	subTotals:number=0;
-	notes!: string;
+	notes!: string | null ;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
-
+	
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
 		//	if index !== -1 => the item is already exists

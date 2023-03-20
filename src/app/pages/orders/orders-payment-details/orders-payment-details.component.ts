@@ -18,7 +18,8 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
   order!: Order | null;
   showCard = true;
   selectedItems: OrderDetail[] = [];
-  subTotals:number=0;
+  showAlert = false;
+  showAlertAllPaid = false;
 
   constructor(public dialog: MatDialog,
     private orderService: OrdersService, private http: HttpClient) {
@@ -37,21 +38,46 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
     if (!this.order) {
       return
     }
-  
+
     let subTotal = 0
     this.order.orderDetails.forEach(orderDetail => {
       if (orderDetail.isChecked) {
         subTotal += (orderDetail.item.price * orderDetail.quantity)
       }
     })
-  
+
     this.order.subTotal = subTotal
     this.order.subTotals += subTotal
   }
- 
+
   openPayment() {
-    this.dialog.open(PaymentComponent, {
-      data: { orderId: this.id}
-    });
+    let showAlert = false;
+    if (this.order?.orderDetails.every(obj => obj.isChecked === false)) {
+      if (this.order?.orderDetails.every(obj => obj.isPaid === true)) {
+        this.showAlert = false;
+        this.showAlertAllPaid = true;
+        setTimeout(() => { this.showAlertAllPaid = false; }, 5000);
+      }
+      else {
+        this.showAlert = true;
+        setTimeout(() => { this.showAlert = false; }, 5000);
+        this.showAlertAllPaid = false;
+      }
+    }
+    else {
+      this.showAlert = false;
+      this.dialog.open(PaymentComponent, {
+        data: { orderId: this.id }
+      });
+    }
+  }
+
+  selectAll() {
+    this.order?.orderDetails.forEach(orderDetail => {
+      if (!orderDetail.isPaid) {
+        orderDetail.isChecked = true;
+        this.updateSubTotal();
+      }
+    })
   }
 }

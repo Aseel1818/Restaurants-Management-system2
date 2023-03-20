@@ -12,11 +12,15 @@
   </mat-card>
   <mat-card>
     <mat-card-actions id="remaining-mat-card">
+      <p>sum:{{sum}}</p>
       <p>Remaining:{{remainingValue}}</p>
     </mat-card-actions>
   </mat-card>
   <mat-card id="total-mat-card">
     <p id="total">Total: {{ order.subTotal }} </p>
   </mat-card>
+  <div *ngIf="showAlert" class="alert alert-danger">
+    The entered number does not cover item price
+  </div>
   <button type="button" class="pay" (click)="pay()">PAY NOW</button>
 </div>

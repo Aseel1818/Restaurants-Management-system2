@@ -20,3 +20,12 @@ th {
   background-color: #EAF0F0;
   color: black;
 }
+
+.paymentStatus{
+  width: 150px;
+  font-size: small;
+  padding-top: 20px;
+  
+
+}
+

@@ -3,25 +3,26 @@
     <mat-card-title>
       <label>Order: {{id}}</label>
       <label>Table: {{order.tableID}}</label>
-      
     </mat-card-title>
     <mat-card-actions align="start">
       <div class="column-container">
         <div class="details-item"><span>Name</span></div>
         <div class="details-item"><span>Qnt</span></div>
         <div class="details-item"><span>Price</span></div>
+        <button class="selectAll button" (click)="selectAll()"> 
+          Select All 
+        </button>
       </div>
     </mat-card-actions>
     <mat-card-content>
       <div *ngFor="let orderDetail of order.orderDetails">
-        <div class="container_details">
+        <div class="container_details" [ngClass]="{'isPaid':orderDetail.isPaid }">
           <div class="details-item"><span>{{orderDetail.item.name}}</span></div>
           <div class="details-item"><span>{{orderDetail.quantity}}</span></div>
           <div class="details-item"><span>{{orderDetail.item.price}}</span></div>
           <div class="details-item">
             <input type="checkbox" [(ngModel)]="orderDetail.isChecked" [ngClass]="{'disabled':orderDetail.isPaid }"
-            [disabled]="orderDetail.isPaid"
-            (ngModelChange)="updateSubTotal()">
+              [disabled]="orderDetail.isPaid" (ngModelChange)="updateSubTotal()">
           </div>
         </div>
       </div>
@@ -29,5 +30,9 @@
     <div class="payButtonContainer row">
       <button class="button payButton" (click)="openPayment()">Pay</button>
     </div>
+    <div *ngIf="showAlert" class="alert alert-danger">
+      There is no item selected to pay </div>
+    <div *ngIf="showAlertAllPaid" class="alert alert-danger">
+      All items have been paid </div>
   </mat-card>
 </div>
