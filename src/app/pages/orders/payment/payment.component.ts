@@ -4,11 +4,13 @@ import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-payment-details.component';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
+
 export class PaymentComponent implements OnInit {
   amount!: string;
   remainingValue!: number;

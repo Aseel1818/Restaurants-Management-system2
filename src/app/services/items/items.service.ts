@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
 	providedIn: 'root'
 })
+
 export class ItemsService {
 	constructor(private http: HttpClient) {
 	}

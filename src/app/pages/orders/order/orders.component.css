@@ -25,7 +25,20 @@ th {
   width: 150px;
   font-size: small;
   padding-top: 20px;
-  
-
 }
 
+.payment-status{
+  width: 70%;
+  font-size: medium;
+  height: 30px;
+  background-color:#cbe7f9;
+  color: black;
+}
+
+.paid {
+  background-color: #C0F181;
+}
+
+.not-paid {
+  background-color: #FF9999;
+}

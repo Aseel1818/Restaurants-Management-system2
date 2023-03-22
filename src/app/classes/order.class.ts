@@ -12,7 +12,6 @@ export class Order {
 	
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
-		//	if index !== -1 => the item is already exists
 		if (index !== -1) {
 			this.orderDetails[index].quantity++;
 		} else {

@@ -7,11 +7,13 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { Order } from 'src/app/classes/order.class';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { Table } from 'src/app/interfaces/table.interface';
+
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
 	styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit {
 	items: Item[] = [];
 	categories: Category[] = [];
@@ -22,7 +24,7 @@ export class MenuComponent implements OnInit {
 	tables: Table[] = [];
 	selectedTable!: number;
 	note : string = '';
-	@Input() id: number = 0;
+	@Input() id: number =0;
 
 	constructor(private route: ActivatedRoute,
 		private router: Router,

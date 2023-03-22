@@ -20,5 +20,4 @@ import { TableComponent } from './table/table.component';
 		MatCardModule
 	]
 })
-export class TablesModule {
-}
+export class TablesModule {}
