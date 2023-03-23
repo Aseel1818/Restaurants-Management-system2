@@ -40,6 +40,7 @@ export class PaymentComponent implements OnInit {
         this.remainingValue = 0;
       }
     }
+    this.amount='0';
   }
   
   dollarRemaining() {
@@ -55,6 +56,7 @@ export class PaymentComponent implements OnInit {
         this.remainingValue = 0;
       }
     }
+    this.amount='0';
   }
 
   pay() {

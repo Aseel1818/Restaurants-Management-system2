@@ -49,8 +49,22 @@ export class OrdersService {
 		return foundOrder
 	}
 
-	addOrder(order: Order) {
-		const newOrder = { note: order.notes, total: order.total }
-		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
-	}
+	addOrder(order:Order){
+        const orderDetailArray:any[]= []
+            order.orderDetails.forEach(orderDetail=>{
+            const itemId = orderDetail.item.id;
+            const quantity = orderDetail.quantity;
+            orderDetailArray.push({
+                itemId,
+                quantity
+            })
+        })
+        const newOrder = {
+            note: order.notes ,
+            total:order.total,
+			table:order.tableID,
+            orderDetail:orderDetailArray
+        }
+        return this.http.post<Order>(`${environment.serverUrl}/addOrder`,newOrder);
+        }
 }
