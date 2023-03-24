@@ -62,7 +62,7 @@ export class OrdersService {
         const newOrder = {
             note: order.notes ,
             total:order.total,
-			table:order.tableID,
+			tables:order.tableID,
             orderDetail:orderDetailArray
         }
         return this.http.post<Order>(`${environment.serverUrl}/addOrder`,newOrder);
