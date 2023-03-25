@@ -12,9 +12,9 @@
     <div class="item_container row radius height wrap">
         <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" class="mat-card">
             <img class="itemImg" mat-card-image src="{{item.imageUrl}}">
-            <mat-card-content class="items_content center smoke">
-                <div class="name">{{item.name}}</div>
-                <div class="price">
+            <mat-card-content class="items_content center smoke wrap">
+                <div class="name custom-width">{{item.name}}</div>
+                <div class="price ">
                     <span>{{item.price | currency:"ILS"}}</span>
                 </div>
             </mat-card-content>
