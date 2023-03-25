@@ -85,14 +85,7 @@ export class PaymentComponent implements OnInit {
           });
         }
       }
-      this.orderService.addOrder(this.order).subscribe(
-        (response) => {
-          console.log('Order created successfully', response);
-        },
-        (error) => {
-          console.log('Error creating order', error);
-        }
-      );
+      this.orderService.addOrder(this.order);
       this.orderService.add(this.order);
       this.dialogRef.close();
     }

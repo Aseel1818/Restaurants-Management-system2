@@ -50,21 +50,22 @@ export class OrdersService {
 	}
 
 	addOrder(order:Order){
-        const orderDetailArray:any[]= []
-            order.orderDetails.forEach(orderDetail=>{
-            const itemId = orderDetail.item.id;
-            const quantity = orderDetail.quantity;
-            orderDetailArray.push({
-                itemId,
-                quantity
-            })
-        })
-        const newOrder = {
-            note: order.notes ,
-            total:order.total,
+		const orderDetailArray:any[]= []
+		order.orderDetails.forEach(orderDetail=>{
+			const itemId = orderDetail.item.id;
+			const quantity = orderDetail.quantity;
+			orderDetailArray.push({
+				itemId,
+				quantity
+			})
+		})
+		const newOrder = {
+			note: order.notes ,
+			total:order.total,
 			tables:order.tableID,
-            orderDetail:orderDetailArray
-        }
-        return this.http.post<Order>(`${environment.serverUrl}/addOrder`,newOrder);
-        }
+			orderDetail:orderDetailArray
+		}
+		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
+	}
+	
 }
