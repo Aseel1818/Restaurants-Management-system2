@@ -6,6 +6,11 @@ const routes: Routes = [
 	{
 		path: '',
 		component: MenuComponent
+	}
+	,
+	{
+		path: 'items',
+		component: MenuComponent
 	},
 	{
 		path: 'menu',

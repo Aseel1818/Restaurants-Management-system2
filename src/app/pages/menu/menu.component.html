@@ -3,7 +3,7 @@
     <mat-icon>search</mat-icon>
 </div>
 <div *ngIf="categories" class="categories row wrap">
-    <a (click)="getAllItems()" class="smoke">All</a>
+    <a (click)="getAllItems()" routerLink="/items" class="smoke">All</a>
     <a *ngFor="let category of categories" class="smoke" routerLink="/categories/{{category.id}}">
         {{category.name}}
     </a>

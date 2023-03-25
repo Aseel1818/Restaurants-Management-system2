@@ -49,12 +49,17 @@ mat-card-title {
   width: 100%;
 }
 
-.details-item {
-  width: 23.33%;
+.details-item,
+.details-item-name {
+  width: 24.33%;
   display: inline-block;
   text-align: center;
   font-weight: bold;
   font-size: medium;
+}
+
+.details-item-name {
+  font-size: 14px;
 }
 
 .container_details {
@@ -84,10 +89,10 @@ mat-card-title {
   margin-bottom: 10%;
 }
 
-.selectAll{
+.selectAll {
   width: 70px;
   font-size: small;
   height: 20px;
-  background-color:#cbe7f9;
+  background-color: #cbe7f9;
   color: black;
 }

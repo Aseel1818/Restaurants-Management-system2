@@ -4,13 +4,11 @@ import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-payment-details.component';
-
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-
 export class PaymentComponent implements OnInit {
   amount!: string;
   remainingValue!: number;
@@ -18,16 +16,13 @@ export class PaymentComponent implements OnInit {
   order!: Order | null;
   showAlert = false;
   sum: number = 0;
-
   constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>,
     private orderService: OrdersService,
     private tableService: TablesService,
     @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) { }
-
   ngOnInit(): void {
     this.order = this.orderService.getOrderByID(this.data.orderId);
   }
-
   remaining() {
     this.showAlert = false;
     if (!this.order) {
@@ -42,7 +37,6 @@ export class PaymentComponent implements OnInit {
     }
     this.amount='0';
   }
-  
   dollarRemaining() {
     this.showAlert = false;
     if (!this.order) {
@@ -58,7 +52,6 @@ export class PaymentComponent implements OnInit {
     }
     this.amount='0';
   }
-
   pay() {
     if (this.sum == this.order?.subTotal || this.sum > this.order!.subTotal) {
       if (!this.order) {
@@ -84,15 +77,16 @@ export class PaymentComponent implements OnInit {
             });
           });
         }
-      }
-      this.orderService.addOrder(this.order).subscribe(
+        this.orderService.addOrder(this.order).subscribe(
         (response) => {
           console.log('Order created successfully', response);
-        },
+        }
+        ,
         (error) => {
           console.log('Error creating order', error);
         }
       );
+      }
       this.orderService.add(this.order);
       this.dialogRef.close();
     }
@@ -101,4 +95,3 @@ export class PaymentComponent implements OnInit {
     }
   }
 }
-
