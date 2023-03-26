@@ -8,9 +8,9 @@
         {{category.name}}
     </a>
 </div>
-<div class="container row">
-    <div class="item_container row radius height wrap">
-        <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" class="mat-card">
+<div class="container row ">
+    <div class="item_container row  wrap">
+        <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" >
             <img class="itemImg" mat-card-image src="{{item.imageUrl}}">
             <mat-card-content class="items_content center smoke wrap">
                 <div class="name custom-width">{{item.name}}</div>

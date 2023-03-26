@@ -1,7 +1,6 @@
 .item_container {
   justify-content: center;
-  flex: 1;
-
+  display: flex;
 }
 
 mat-card {
@@ -63,7 +62,7 @@ mat-card-content {
 }
 
 .search-container {
-  position: fixed;
+  position: absolute;
   top: 0.5rem;
   right: 1rem;
   width: 300px;
@@ -82,11 +81,6 @@ input[type="text"] {
   font-size: 1rem;
 }
 
-
-.container {
-  display: flex;
-  height: 100vh;
-}
 
 .bill-container {
   flex: 1;
