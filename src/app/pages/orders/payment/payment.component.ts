@@ -20,9 +20,11 @@ export class PaymentComponent implements OnInit {
     private orderService: OrdersService,
     private tableService: TablesService,
     @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) { }
+
   ngOnInit(): void {
     this.order = this.orderService.getOrderByID(this.data.orderId);
   }
+
   remaining() {
     this.showAlert = false;
     if (!this.order) {
@@ -35,8 +37,9 @@ export class PaymentComponent implements OnInit {
         this.remainingValue = 0;
       }
     }
-    this.amount='0';
+    this.amount = '0';
   }
+
   dollarRemaining() {
     this.showAlert = false;
     if (!this.order) {
@@ -50,8 +53,9 @@ export class PaymentComponent implements OnInit {
         this.remainingValue = 0;
       }
     }
-    this.amount='0';
+    this.amount = '0';
   }
+  
   pay() {
     if (this.sum == this.order?.subTotal || this.sum > this.order!.subTotal) {
       if (!this.order) {
@@ -78,14 +82,14 @@ export class PaymentComponent implements OnInit {
           });
         }
         this.orderService.addOrder(this.order).subscribe(
-        (response) => {
-          console.log('Order created successfully', response);
-        }
-        ,
-        (error) => {
-          console.log('Error creating order', error);
-        }
-      );
+          (response) => {
+            console.log('Order created successfully', response);
+          }
+          ,
+          (error) => {
+            console.log('Error creating order', error);
+          }
+        );
       }
       this.orderService.add(this.order);
       this.dialogRef.close();
