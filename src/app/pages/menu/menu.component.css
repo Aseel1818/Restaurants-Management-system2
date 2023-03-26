@@ -43,6 +43,7 @@ mat-card-content {
 .name {
   margin-right: 1rem;
   font-size: medium;
+  font-weight: bold;
 }
 
 .categories {
