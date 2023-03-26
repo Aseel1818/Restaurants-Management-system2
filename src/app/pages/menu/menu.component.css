@@ -88,9 +88,14 @@ input[type="text"] {
   flex-direction: column;
 }
 
+.order-details{
+  display: flex;
+  height: 80vh;
+}
+
 .card {
-  height: 70%;
-  width: 85%;
+  height: 90%;
+  width: 300px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -105,6 +110,7 @@ input[type="text"] {
 .card-content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 1rem;
 }
 
@@ -203,7 +209,7 @@ input[type="text"] {
 
 .note {
   justify-content: center;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 1rem 1rem 0rem 1rem;
   border-style: solid black;
   width: 100%;
 }

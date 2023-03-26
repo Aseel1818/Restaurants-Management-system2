@@ -9,7 +9,7 @@
     </a>
 </div>
 <div class="container row ">
-    <div class="item_container row  wrap">
+    <div class="item_container row wrap">
         <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" >
             <img class="itemImg" mat-card-image src="{{item.imageUrl}}">
             <mat-card-content class="items_content center smoke wrap">
@@ -20,7 +20,7 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <div class="container">
+    <div class="order-details">
         <div *ngIf="order?.orderDetails?.length" class="bill-container">
             <mat-card class="card">
                 <mat-card-content class="card-content">
