@@ -21,17 +21,16 @@ th {
   color: black;
 }
 
-.paymentStatus{
+.paymentStatus {
   width: 150px;
   font-size: small;
   padding-top: 20px;
 }
 
-.payment-status{
-  width: 70%;
+.payment-status {
   font-size: medium;
   height: 30px;
-  background-color:#cbe7f9;
+  background-color: #cbe7f9;
   color: black;
 }
 
