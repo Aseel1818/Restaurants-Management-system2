@@ -1,10 +1,91 @@
-.form-signin {
-    max-width: 330px;
- 
-    padding: 15px;
-    margin: 0 auto;
- }
- 
- input {
-    margin-bottom: 20px;
- }
+.background {
+  background-color: #f6e3ce;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.card-image {
+  background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/1be00a85542463.5d7f6e343fab0.jpg");
+  background-size: cover;
+  width: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.card {
+  display: flex;
+  background-color: #ffffff;
+  width: 1000px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  margin-top: 30%;
+  color: black;
+  font-size: larger;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+form {
+  width: 300px;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header,
+.card-body {
+  display: flex;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-left: 7%;
+}
+
+.card-content {
+  width: 50%;
+}
+
+label {
+  font-size: x-large;
+  padding-right: 7px;
+  color: black;
+}
+
+input {
+  border-radius: 7px;
+  border-radius: none;
+  margin-bottom: 5px;
+  width: 280px;
+  height: 30px;
+}
+
+.button {
+  background-color: rgb(222, 117, 60);
+  margin-top: 15%;
+  width: 285px;
+}
