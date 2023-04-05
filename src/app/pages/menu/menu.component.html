@@ -11,7 +11,7 @@
 <div class="container row">
     <div class="item_container row wrap ">
         <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" >
-            <img class="itemImg" mat-card-image src="{{item.imageUrl}}">
+            <img class="item-img full-width" mat-card-image src="{{item.imageUrl}}">
             <mat-card-content class="items_content center smoke wrap">
                 <div class="name custom-width">{{item.name}}</div>
                 <div class="price ">
@@ -24,7 +24,7 @@
         <div *ngIf="order?.orderDetails?.length" class="bill-container">
             <mat-card class="card">
                 <mat-card-content class="card-content">
-                    <table class="table">
+                    <table class="table full-width">
                         <thead>
                         <tr>
                             <th class="table-header">Name</th>
@@ -41,7 +41,7 @@
                         </tbody>
                     </table>
                 </mat-card-content>
-                <mat-form-field class="note">
+                <mat-form-field class="note full-width">
                     <mat-label for="note">Leave a note:</mat-label>
                     <input [(ngModel)]="note" id="note" matInput placeholder="Ex. Delivery" type="text">
                 </mat-form-field>

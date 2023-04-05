@@ -15,8 +15,7 @@ mat-card {
 }
 
 
-.itemImg {
-  width: 100%;
+.item-img {
   height: 80%;
 }
 
@@ -115,7 +114,6 @@ input[type="text"] {
 }
 
 .table {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -211,5 +209,4 @@ input[type="text"] {
   justify-content: center;
   padding: 1rem 1rem 0rem 1rem;
   border-style: solid black;
-  width: 100%;
 }
