@@ -1,4 +1,8 @@
-.sidenav-container {
+.sidenavmat-nav-list {
+  margin-top: 20%;
+}
+
+-container {
   height: 100%;
 }
 
@@ -18,9 +22,9 @@
 
 .mat-toolbar {
   background: inherit;
-
 }
 
-mat-nav-list {
-  margin-top: 20%;
+.logout-icon{
+  position: absolute;
+  bottom: 0;
 }

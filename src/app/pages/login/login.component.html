@@ -8,10 +8,10 @@
         <div class="card-body full-width row center">
           <form class="login-form">
             <label for="username">Username</label>
-            <input type="text" id="username" class="username"><br>
+            <input type="text" id="username" class="username" name="username" [(ngModel)]="username"><br>
             <label for="password">Password </label>
-            <input type="password" id="password" class="password"><br>
-            <button class="login-button button">Login</button>
+            <input type="password" id="password" class="password" name="password" [(ngModel)]="password"><br>
+            <button  (click)="login()" class="login-button button">Login</button>
           </form>
         </div>
       </div>
