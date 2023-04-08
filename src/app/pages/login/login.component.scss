@@ -1,3 +1,5 @@
+@import "../../../assets/styles/global.scss";
+
 form {
   width: 300px;
   max-width: 100%;
@@ -9,7 +11,6 @@ form {
 
 form label {
   font-size: 1rem;
-  padding-right: 7px;
   color: black;
 }
 
@@ -19,6 +20,13 @@ form input {
   width: 280px;
   height: 32px;
   padding: 5px;
+}
+
+.login {
+  @extend .pink-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-image {
@@ -52,21 +60,16 @@ form input {
   border-bottom-right-radius: 10px;
 }
 
-.container {
-  justify-content: center;
-}
-
-
 .card-content {
   width: 50%;
 }
 
-.login {
+.login-button {
+  @extend .orange-background;
   margin-top: 15%;
   width: 285px;
 }
 
-.login:hover {
+.login-button:hover {
   background-color: #11060684;
 }
-

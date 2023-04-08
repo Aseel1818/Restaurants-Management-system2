@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +22,7 @@ import { LoginComponent } from './pages/login/login.component';
     AppComponent,
     MenuComponent,
     LoginComponent
-          ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,13 +33,13 @@ import { LoginComponent } from './pages/login/login.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule ,
+    MatListModule,
     FormsModule,
     MatCardModule,
     MatInputModule,
-		MatSelectModule,
-		MatIconModule
-    ],
+    MatSelectModule,
+    MatIconModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
