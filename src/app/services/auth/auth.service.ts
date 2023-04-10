@@ -1,33 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public loggedInSubject = new BehaviorSubject<boolean>(false);
-  public tokenExpirationSubject = new BehaviorSubject<Date | null>(null);
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  private tokenExpirationSubject = new BehaviorSubject<Date | null>(null);
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router) { }
+
+  login(username: string, password: string) {
     this.checkAuthStatus();
-  }
-
-  get loggedIn(): Observable<boolean> {
-    return this.loggedInSubject.asObservable();
-  }
-
-  get tokenExpiration(): Observable<Date | null> {
-    return this.tokenExpirationSubject.asObservable();
-  }
-
-  login(username: string, password: number) {
-    if (username == 'admin' && password == 123) {
-      const expirationDate = new Date('2023-04-08T16:40:00Z');
+    if (username == 'admin' && password == '123') {
+      const expirationDate = new Date('2024-04-08T16:40:00Z');
       localStorage.setItem('tokenExpiration', expirationDate.toISOString());
       this.tokenExpirationSubject.next(expirationDate);
       this.loggedInSubject.next(true);
+      localStorage.setItem('isLoggedIn', 'true');
+      this.router.navigate(['/']);
       console.log("logged in");
     }
   }
@@ -42,6 +34,7 @@ export class AuthService {
       this.loggedInSubject.next(false);
       this.tokenExpirationSubject.next(null);
       localStorage.removeItem('tokenExpiration');
+      localStorage.removeItem('isLoggedIn');
     }
   }
 
@@ -56,11 +49,13 @@ export class AuthService {
   isLoggedIn(): boolean {
     const loggedIn = this.loggedInSubject.getValue();
     const tokenExpired = this.isTokenExpired();
-    return loggedIn && !tokenExpired;
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    return (loggedIn && !tokenExpired) || isLoggedIn;
   }
 
   logout() {
     localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('isLoggedIn');
     this.loggedInSubject.next(false);
     this.tokenExpirationSubject.next(null);
     this.router.navigate(['/login']);

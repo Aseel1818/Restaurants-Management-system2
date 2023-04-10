@@ -1,14 +1,5 @@
 @import "../../../assets/styles/global.scss";
 
-form {
-  width: 300px;
-  max-width: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 7%;
-}
-
 form label {
   font-size: 1rem;
   color: black;
@@ -22,15 +13,19 @@ form input {
   padding: 5px;
 }
 
+.login-form {
+  width: 300px;
+  max-width: 100%;
+  margin-left: 7%;
+}
+
 .login {
   @extend .pink-background;
-  display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .card-image {
-  background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/1be00a85542463.5d7f6e343fab0.jpg");
+  background-image: url("/assets/images/loginBackground.jpg");
   background-size: cover;
   width: 50%;
   border-top-left-radius: 10px;
@@ -72,4 +67,10 @@ form input {
 
 .login-button:hover {
   background-color: #11060684;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

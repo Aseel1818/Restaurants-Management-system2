@@ -1,19 +1,31 @@
-<div class="login full-height full-width fixed">
+<div class="login full-height full-width fixed center">
     <div class="card row white-background">
-      <div class="card-image"></div>
-      <div class="card-content full-height">
-        <div class="card-header center row">
-          <h1>Login Page</h1>
+        <div class="card-image"></div>
+        <div class="card-content full-height">
+            <div class="card-header center row">
+                <h1>Login Page</h1>
+            </div>
+            <div class="card-body full-width row center">
+                <form (submit)="onSubmit()" class="login-form">
+                    <label for="username">Username</label>
+                    <input [formControl]="username" class="username" id="username" name="username" type="text"/>
+                    <label for="password">Password</label>
+                    <input [formControl]="password" class="password" id="password" name="password" type="password"/>
+                    <div *ngIf="showErrorMessages && (username.invalid || password.invalid)">
+                        <div *ngIf="username.errors?.['required']" class="error-message">
+                            *Username is required.
+                        </div>
+                        <div *ngIf="password.errors?.['required']" class="error-message">
+                            *Password is required.
+                        </div>
+                        <div *ngIf="password.errors?.['pattern']" class="error-message">
+                            *Password must be at least 8 characters and contain at least one
+                            uppercase letter, one digit, and no spaces.
+                        </div>
+                    </div>
+                    <button (click)="login()" class="login-button button">Login</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body full-width row center">
-          <form class="login-form">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="username" name="username" [(ngModel)]="username"><br>
-            <label for="password">Password </label>
-            <input type="password" id="password" class="password" name="password" [(ngModel)]="password"><br>
-            <button  (click)="login()" class="login-button button">Login</button>
-          </form>
-        </div>
-      </div>
     </div>
 </div>
