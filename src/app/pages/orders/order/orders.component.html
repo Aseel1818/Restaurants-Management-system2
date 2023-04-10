@@ -1,6 +1,31 @@
 <div class="align-table overflow row">
+	<!-- Add join button -->
+
+	<mat-chip-listbox class="functionality">
+		<mat-chip-option (click)="joinSelectedOrders()">Join Order</mat-chip-option>
+		<mat-chip-option (click)="splitOrders()">Split Order</mat-chip-option>
+		<mat-chip-option (click)="editOrder()">EDIT</mat-chip-option>
+	  </mat-chip-listbox>
+	
+
 	<div class="orders">
+		
 		<table [dataSource]="orders" mat-table>
+			<ng-container matColumnDef="select">
+				<th mat-header-cell *matHeaderCellDef>
+				  <mat-checkbox *ngIf="showCheckboxes" (change)="$event ? masterToggle() : null"
+								[checked]="selection.hasValue() && isAllSelected()"
+								[indeterminate]="selection.hasValue() && !isAllSelected()">
+				  </mat-checkbox>
+				</th>
+				<td mat-cell *matCellDef="let row">
+				  <mat-checkbox *ngIf="showCheckboxes" (click)="$event.stopPropagation()"
+								(change)="$event ? selection.toggle(row) : null"
+								[checked]="selection.isSelected(row)">
+				  </mat-checkbox>
+				</td>
+			</ng-container>
+			  
 			<ng-container matColumnDef="OrderID">
 				<th *matHeaderCellDef mat-header-cell> Order ID</th>
 				<td *matCellDef="let order " mat-cell> {{order.id}} </td>
@@ -41,8 +66,47 @@
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-			<tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-		</table>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns; " 
+			 ></tr>	
+			</table>
+
+			<div class="doJoin">
+				<button (click)="doJoin()"  *ngIf="showNewButton"  mat-raised-button color="primary">JOIN Orders selectied </button>
+
+			</div>
 	</div>
+	
 	<app-orders-payment-details [id]="selectedOrderId" *ngIf="selectedOrderId"></app-orders-payment-details>
+
+	 
 </div>
+
+<div class="selected-orders" *ngIf="selectedOrders.length > 0">
+	<h3>Selected Orders:</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Order ID</th>
+		  <th>Item Name</th>
+		  <th>Quantity</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr *ngFor="let order of selectedOrders">
+		  <td>{{order.id}}</td>
+		  <td>
+			<ul>
+			  <li *ngFor="let detail of order.orderDetails">{{detail.item.name}}</li>
+			</ul>
+		  </td>
+		  <td>
+			<ul>
+			  <li *ngFor="let detail of order.orderDetails">{{detail.quantity}}</li>
+			</ul>
+		  </td>
+		</tr>
+	  </tbody>
+	</table>
+  </div>
+  
+  

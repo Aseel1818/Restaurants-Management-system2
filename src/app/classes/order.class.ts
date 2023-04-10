@@ -2,6 +2,9 @@ import { OrderDetail } from '../interfaces/orderDetail.interface';
 import { Item } from '../interfaces/item.interface';
 
 export class Order {
+	name(name: any): void {
+		throw new Error('Method not implemented.');
+	}
 	id!: number;
 	total: number = 0;
 	subTotal!: number;
@@ -9,6 +12,7 @@ export class Order {
 	notes!: string | null ;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
+	isSelected!: boolean ;
 	
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
@@ -27,21 +31,5 @@ export class Order {
 		this.orderDetails.forEach(orderDetail => {
 			this.total += (orderDetail.item.price * orderDetail.quantity);
 		});
-	}
-
-	removeItem(item: Item) {
-		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
-		if (index !== -1) {
-			const orderDetail = this.orderDetails[index];
-			if (orderDetail.quantity > 1) {
-				orderDetail.quantity--;
-			} else {
-				this.orderDetails.splice(index, 1);
-			}
-		}
-	}
-
-	clearSelection() {
-		this.orderDetails = [];
 	}
 }

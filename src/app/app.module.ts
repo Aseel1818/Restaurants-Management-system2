@@ -15,12 +15,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent
-      ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,7 +37,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatInputModule,
 		MatSelectModule,
-		MatIconModule
+		MatIconModule , 
+    MatChipsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
