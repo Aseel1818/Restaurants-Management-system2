@@ -6,19 +6,20 @@
                 <h1>Login Page</h1>
             </div>
             <div class="card-body full-width row center">
-                <form (submit)="onSubmit()" class="login-form">
+                <form [formGroup]="loginForm" (submit)="onSubmit()" class="login-form">
                     <label for="username">Username</label>
-                    <input [formControl]="username" class="username" id="username" name="username" type="text"/>
+                    <input formControlName="username" class="username" id="username" name="username" type="text" />
                     <label for="password">Password</label>
-                    <input [formControl]="password" class="password" id="password" name="password" type="password"/>
-                    <div *ngIf="showErrorMessages && (username.invalid || password.invalid)">
-                        <div *ngIf="username.errors?.['required']" class="error-message">
+                    <input formControlName="password" class="password" id="password" name="password" type="password" />
+                    <div
+                        *ngIf="showErrorMessages && (loginForm.get('username')?.invalid || loginForm.get('password')?.invalid)">
+                        <div *ngIf="loginForm.get('username')?.errors?.['required']" class="error-message">
                             *Username is required.
                         </div>
-                        <div *ngIf="password.errors?.['required']" class="error-message">
+                        <div *ngIf="loginForm.get('password')?.errors?.['required']" class="error-message">
                             *Password is required.
                         </div>
-                        <div *ngIf="password.errors?.['pattern']" class="error-message">
+                        <div *ngIf="loginForm.get('password')?.errors?.['pattern']" class="error-message">
                             *Password must be at least 8 characters and contain at least one
                             uppercase letter, one digit, and no spaces.
                         </div>
