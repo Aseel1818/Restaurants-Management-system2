@@ -88,21 +88,21 @@ export class OrdersComponent implements OnInit {
 		
 	  }
 
-	  doJoin() {
+	  
+	  doJoin(){
+		
 		const selectedOrders = this.selection.selected;
-		if (selectedOrders.length >= 2) {
+		if (selectedOrders.length >=2 ) {
 			// Do something with the selected orders
 			this.selectedOrders = selectedOrders;
-		} else {
+		  } else {
 			// Show a message indicating that no orders were selected
-		}
-		console.log(selectedOrders);
-
-		// Calculate the total and notes of the selected orders
-		let selectedOrdersTotal = 0;
-		let selectedOrdersNotes = '';
-		for (let order of this.selectedOrders) {
-			selectedOrdersTotal += order.total;
+		  }
+		  console.log(selectedOrders);
+		  //join the notes of the selected orders
+		  let selectedOrdersNotes = '';
+		  for (let order of this.selectedOrders) {
+			//selectedOrdersTotal += order.total;
 			if (order.notes) {
 				if (selectedOrdersNotes === '') {
 					selectedOrdersNotes = order.notes;
@@ -111,26 +111,24 @@ export class OrdersComponent implements OnInit {
 				}
 			}
 		}
-
-		if (this.selectedOrders.length > 0) {
+		
+		  if (this.selectedOrders.length > 0) {
 			let firstOrder = this.selectedOrders[0];
-
+		
 			// Check if any of the selected items are already present in the first order
 			for (let i = 1; i < this.selectedOrders.length; i++) {
-				const order = this.selectedOrders[i];
-				for (let orderDetail of order.orderDetails) {
-					let foundItem = firstOrder.orderDetails.find((od: { itemId: any; }) => od.itemId === orderDetail.itemId);
-					if (foundItem) {
-						// If the item is already present in the first order, update its quantity
-						foundItem.quantity += orderDetail.quantity;
-					} else {
-						// If the item is not present, add it to the first order
-						//firstOrder.orderDetails.push(orderDetail);
-						// Add the order details to the first selected order
-						firstOrder.orderDetails.push(...order.orderDetails);
-					}
+			  const order = this.selectedOrders[i];
+			  for (let orderDetail of order.orderDetails) {
+				let foundItem = firstOrder.orderDetails.find((od: { itemId: any; }) => od.itemId === orderDetail.itemId);
+				if (foundItem) {
+				  // If the item is already present in the first order, update its quantity
+				  foundItem.quantity += orderDetail.quantity;
+				} else {
+				  // If the item is not present, add it to the first order
+				  firstOrder.orderDetails.push(orderDetail);
 				}
-				// Remove the merged order from the orders array
+			  }
+			  //Remove the merged order from the orders array
 				this.orders.splice(this.orders.indexOf(order), 1);
 
 				// Append notes of the other orders to the first order's notes
@@ -141,21 +139,32 @@ export class OrdersComponent implements OnInit {
 					firstOrder.notes += ', ' + order.notes;
 				}
 			}
-
+		
 			// Update the total and notes of the first order with the selected orders total and notes
-			firstOrder.total = selectedOrdersTotal;
 			firstOrder.notes = selectedOrdersNotes;
-		}
+		  }
+		
 		// Update local storage
 		localStorage.setItem('orders', JSON.stringify(this.orders));
-
-		// Clear the selection and update the orders data source
-		this.selection.clear();
-		this.ordersDataSource.data = this.orders.slice();
-		this.selection.clear();
-	}
-
-
+		  // Get the first selected order
+		  const firstOrder = selectedOrders[0];
+		
+		  // Loop through the remaining selected orders
+		  for (let i = 1; i < selectedOrders.length; i++) {
+			const order = selectedOrders[i];
+		
+			// Add the order details to the first selected order
+			firstOrder.orderDetails.push(...order.orderDetails);
+		
+			// Update the total of the first selected order
+			firstOrder.total += order.total;
+		  }
+   
+		  // Clear the selection and update the orders data source
+		  this.selection.clear();
+		  this.ordersDataSource.data = this.orders.slice();
+		  this.selection.clear();
+	  }
 
 
 
