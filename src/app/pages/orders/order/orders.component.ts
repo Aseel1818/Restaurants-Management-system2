@@ -92,15 +92,20 @@ export class OrdersComponent implements OnInit {
 	  doJoin(){
 		
 		const selectedOrders = this.selection.selected;
+		
 		if (selectedOrders.length >=2 ) {
 			// Do something with the selected orders
 			this.selectedOrders = selectedOrders;
 		  } else {
 			// Show a message indicating that no orders were selected
 		  }
+		  
+
+		  
 		  console.log(selectedOrders);
 		  //join the notes of the selected orders
 		  let selectedOrdersNotes = '';
+		 
 		  for (let order of this.selectedOrders) {
 			//selectedOrdersTotal += order.total;
 			if (order.notes) {
@@ -117,6 +122,7 @@ export class OrdersComponent implements OnInit {
 		
 			// Check if any of the selected items are already present in the first order
 			for (let i = 1; i < this.selectedOrders.length; i++) {
+				
 			  const order = this.selectedOrders[i];
 			  for (let orderDetail of order.orderDetails) {
 				let foundItem = firstOrder.orderDetails.find((od: { itemId: any; }) => od.itemId === orderDetail.itemId);

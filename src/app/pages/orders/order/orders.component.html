@@ -2,7 +2,7 @@
 	<!-- Add join button -->
 
 	<mat-chip-listbox class="functionality">
-		<mat-chip-option (click)="joinSelectedOrders()">Join Order</mat-chip-option>
+		<mat-chip-option [(ngModel)]="statusOptions" (selectionChange)="paidOrders('notPaid')" (click)="joinSelectedOrders()">Join Order</mat-chip-option>
 		<mat-chip-option (click)="splitOrders()">Split Order</mat-chip-option>
 		<mat-chip-option (click)="editOrder()">EDIT</mat-chip-option>
 	  </mat-chip-listbox>
