@@ -13,7 +13,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     this.checkAuthStatus();
-    if (username == 'admin' && password == '123') {
+    if (username == 'admin' && password == 'Admin1') {
       const expirationDate = new Date('2024-04-08T16:40:00Z');
       localStorage.setItem('tokenExpiration', expirationDate.toISOString());
       this.tokenExpirationSubject.next(expirationDate);

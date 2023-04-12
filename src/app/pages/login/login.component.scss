@@ -69,6 +69,11 @@ form input {
   background-color: #11060684;
 }
 
+.login-button:disabled {
+  background-color: #11060684;
+  cursor: auto;
+}
+
 .error-message {
   color: red;
   font-size: 14px;

@@ -6,7 +6,7 @@
                 <h1>Login Page</h1>
             </div>
             <div class="card-body full-width row center">
-                <form [formGroup]="loginForm" (submit)="onSubmit()" class="login-form">
+                <form [formGroup]="loginForm" class="login-form">
                     <label for="username">Username</label>
                     <input formControlName="username" class="username" id="username" name="username" type="text" />
                     <label for="password">Password</label>
@@ -20,11 +20,11 @@
                             *Password is required.
                         </div>
                         <div *ngIf="loginForm.get('password')?.errors?.['pattern']" class="error-message">
-                            *Password must be at least 8 characters and contain at least one
+                            *Password must be at contain at least one
                             uppercase letter, one digit, and no spaces.
                         </div>
                     </div>
-                    <button (click)="login()" class="login-button button">Login</button>
+                    <button (click)="login()" class="login-button button" [disabled]="loginForm.invalid">Login</button>
                 </form>
             </div>
         </div>

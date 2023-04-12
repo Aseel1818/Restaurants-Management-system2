@@ -12,32 +12,27 @@ export class LoginComponent implements OnInit {
     username: new FormControl('', Validators.required),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('^((?!.*[s])(?=.*[A-Z])(?=.*d).{8,99})')
+      Validators.pattern('^((?!.*[s])(?=.*[A-Z])(?=.*d).{4,99})')
     ])
   });
 
   showErrorMessages = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {}
-
-  onSubmit() {
-    let hasError = false;
-    if (this.loginForm.invalid) {
-      hasError = true;
-    }
-    if (!hasError) {
-      this.login();
-    }
-    this.showErrorMessages = hasError;
+  ngOnInit() {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.showErrorMessages = true;
+    });
   }
 
   login() {
     this.authService.checkAuthStatus();
-    const username = this.loginForm.get('username')?.value;
+    if (this.loginForm.valid) {
+       const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
     this.authService.login(username!, password!);
+    }
+    return;
   }
 }
