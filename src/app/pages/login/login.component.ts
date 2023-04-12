@@ -28,11 +28,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.checkAuthStatus();
-    if (this.loginForm.valid) {
-       const username = this.loginForm.get('username')?.value;
+    const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
     this.authService.login(username!, password!);
-    }
-    return;
   }
 }
