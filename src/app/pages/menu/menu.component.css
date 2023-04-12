@@ -1,5 +1,13 @@
-.item_container {
+mat-card:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+mat-card-content {
   justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.50rem;
+  height: 60px;
   display: flex;
 }
 
@@ -14,25 +22,22 @@ mat-card {
   height: 280px;
 }
 
+input[type="text"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background-color: inherit;
+}
+
+.item_container {
+  justify-content: center;
+  display: flex;
+}
 
 .item-img {
   height: 80%;
 }
-
-mat-card:hover {
-  opacity: 0.9;
-  cursor: pointer;
-}
-
-mat-card-content {
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0.50rem;
-  height: 60px;
-  display: flex;
-
-}
-
 
 .price {
   font-weight: bold;
@@ -72,22 +77,13 @@ mat-card-content {
   margin-bottom: 1rem;
 }
 
-input[type="text"] {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  background-color: inherit;
-}
-
-
 .bill-container {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.order-details{
+.order-details {
   display: flex;
   height: 80vh;
 }

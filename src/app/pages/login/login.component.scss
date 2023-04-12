@@ -1,15 +1,7 @@
-form {
-  width: 300px;
-  max-width: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-left: 7%;
-}
+@import "../../../assets/styles/global.scss";
 
 form label {
   font-size: 1rem;
-  padding-right: 7px;
   color: black;
 }
 
@@ -21,8 +13,19 @@ form input {
   padding: 5px;
 }
 
+.login-form {
+  width: 300px;
+  max-width: 100%;
+  margin-left: 7%;
+}
+
+.login {
+  @extend .pink-background;
+  justify-content: center;
+}
+
 .card-image {
-  background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/1be00a85542463.5d7f6e343fab0.jpg");
+  background-image: url("/assets/images/loginBackground.jpg");
   background-size: cover;
   width: 50%;
   border-top-left-radius: 10px;
@@ -52,21 +55,27 @@ form input {
   border-bottom-right-radius: 10px;
 }
 
-.container {
-  justify-content: center;
-}
-
-
 .card-content {
   width: 50%;
 }
 
-.login {
+.login-button {
+  @extend .orange-background;
   margin-top: 15%;
   width: 285px;
 }
 
-.login:hover {
+.login-button:hover {
   background-color: #11060684;
 }
 
+.login-button:disabled {
+  background-color: #11060684;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
