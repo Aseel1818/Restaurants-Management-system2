@@ -67,5 +67,17 @@ export class OrdersService {
 		}
 		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
 	}
+
+
+	deleteOrderById (orders: Order[] , idToDelete:number ) : void {
+		console.log(idToDelete);
+
+		const indexToDelete = orders.findIndex(order => order.id === idToDelete);
+
+		if ( indexToDelete !== -1){
+			orders.splice(indexToDelete,1);
+		}
+
+	}
 	
 }

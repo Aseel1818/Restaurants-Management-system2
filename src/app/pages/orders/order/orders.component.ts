@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, Inject, Injectable, OnInit } from '@angular/core';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { SplitOrderComponent } from '../split-order/split-order.component';
 
 @Component({
 	selector: 'app-orders',
@@ -8,21 +11,41 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 	styleUrls: ['./orders.component.css']
 })
 
-export class OrdersComponent implements OnInit {
+
+
+export class OrdersComponent implements OnInit, DoCheck {
+
 	selectedOrderId!: number;
+	selectedOrderId2!: number;
 	displayedColumns: string[] = ['OrderID', 'total', 'details', 'table', 'isPaid', 'pay'];
 	orders: Order[] = [];
 	statusOptions = ['paid', 'not paid'];
+	showSplit = true;
 
-	constructor(private orderService: OrdersService) { }
+	constructor(private orderService: OrdersService, private dialog: MatDialog) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 	}
 
+	ngDoCheck(): void {
+		this.orders.forEach(order => {
+			order.orderDetails.forEach(orderDetail => {
+				if (!orderDetail.isPaid === false) {
+					this.showSplit = false;
+				}
+				else {
+					this.showSplit = true;
+				}
+
+			})
+		})
+	}
+
 	goToPayments(orderID: number) {
 		this.selectedOrderId = orderID
+
 	}
 
 	isOrderPaid(order: Order): boolean {
@@ -37,9 +60,19 @@ export class OrdersComponent implements OnInit {
 				if (orderStatus === "paid") {
 					return this.isOrderPaid(order);
 				} else {
+
 					return !this.isOrderPaid(order);
 				}
 			});
 		}
 	}
+
+	goToSplitOrder(orderID: number) {
+		this.dialog.open(SplitOrderComponent, {
+			width: '100%',
+			height: '100%',
+			data: { id: orderID }
+		})
+	}
+
 }

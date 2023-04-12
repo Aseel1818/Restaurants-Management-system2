@@ -30,6 +30,8 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
+    if(parseFloat(this.amount)>=0){
+
     this.sum += parseFloat(this.amount);
     if (this.amount !== undefined) {
       this.remainingValue = this.sum - (this.order.subTotal);
@@ -39,14 +41,17 @@ export class PaymentComponent implements OnInit {
     }
     this.amount = '0';
   }
+  }
 
   dollarRemaining() {
     this.showAlert = false;
     if (!this.order) {
       return
     }
+
     if (this.amount !== undefined) {
-      this.dollarConvert = parseFloat(this.amount) * 3.67;
+     if(parseFloat(this.amount)>=0){
+         this.dollarConvert = parseFloat(this.amount) * 3.67;
       this.sum += this.dollarConvert;
       this.remainingValue = this.sum - (this.order.subTotal);
       if (this.remainingValue < 0) {
@@ -54,6 +59,8 @@ export class PaymentComponent implements OnInit {
       }
     }
     this.amount = '0';
+     }
+   
   }
   
   pay() {

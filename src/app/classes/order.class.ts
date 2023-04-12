@@ -8,6 +8,7 @@ export class Order {
 	subTotals:number=0;
 	notes!: string | null ;
 	orderDetails: OrderDetail[] = [];
+
 	tableID!: number | null;
 	
 	addItem(item: Item) {
@@ -19,7 +20,8 @@ export class Order {
 				item,
 				quantity: 1,
 				isChecked: false,
-				isPaid: false
+				isPaid: false,
+				selectedNumber: 0 
 			});
 		}
 

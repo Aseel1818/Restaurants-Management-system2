@@ -38,6 +38,8 @@
 				</th>
 				<td *matCellDef="let order" mat-cell>
 					<button (click)="goToPayments(order.id)" class="paymentButton button" mat-raised-button>Pay</button>
+					<button *ngIf="showSplit" (click)="goToSplitOrder(order.id)" mat-raised-button>Split</button>
+
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
@@ -45,4 +47,5 @@
 		</table>
 	</div>
 	<app-orders-payment-details [id]="selectedOrderId" *ngIf="selectedOrderId"></app-orders-payment-details>
+
 </div>

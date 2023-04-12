@@ -26,9 +26,10 @@ mat-card-title {
   }
 }
 
-.pay-button-container {
+.payButtonContainer {
   justify-content: center;
   align-items: flex-end;
+  height: 100%;
 }
 
 .payButton:hover {
@@ -45,6 +46,7 @@ mat-card-title {
   margin-top: 12px;
   margin-bottom: 10px;
   display: table;
+  width: 100%;
 }
 
 .details-item,

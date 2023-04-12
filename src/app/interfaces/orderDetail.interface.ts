@@ -5,4 +5,6 @@ export interface OrderDetail {
 	quantity: number;
 	isChecked: boolean;
 	isPaid: boolean;
+	selectedNumber: number;
+
 }

@@ -1,0 +1,43 @@
+<div class="payments row" mat-dialog-content *ngIf="order">
+    <button class="close" mat-button (click)="close()" >X</button>
+
+    <mat-card class="mat">
+
+        <mat-card-actions>
+            <mat-card-content>
+
+                <label>Number of splits</label>
+                <input id="cashReceived" type="text" [(ngModel)]="splitsNumber">
+
+                <button (click)="split()">split</button>
+                <label class="order">Order{{id}}</label>
+
+                <div *ngIf="showSplitAlert" class="alert alert-danger">
+                    The number of items inside this order is not enough to split to {{splitsNumber}} orders
+                </div>
+
+
+                <div class="items" *ngFor="let orderDetail of order?.orderDetails">
+                    <div *ngFor="let i of [].constructor(orderDetail.quantity)">
+
+                        <mat-card class="detail">
+                            <mat-card-actions>
+                                <div class="row ml-3 mr-3 mt-3">
+                                    <select class="form-control"  [(ngModel)]="orderDetail.selectedNumber">
+                                        <option *ngFor="let item of numbers">{{item}}</option>
+                                    </select>
+                                </div>
+                                <div class="details-item-name wrap"><span> Name{{orderDetail.item.name}}</span></div>
+                                <div class="details-item"><span> quantity 1</span></div>
+                                <div class="details-item"><span>price{{orderDetail.item.price}}</span></div>
+                                <div class="details-item"><span>price{{order.notes}}</span></div>
+
+                            </mat-card-actions>
+
+                        </mat-card>
+
+                    </div>
+                    <button (click)="createNewOrders()" mat-button>submit</button>
+
+                </div>
+            </mat-card-content>
