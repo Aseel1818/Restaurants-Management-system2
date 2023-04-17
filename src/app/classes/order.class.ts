@@ -9,6 +9,7 @@ export class Order {
 	notes!: string | null ;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
+	subscribe: any;
 	
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
@@ -44,4 +45,6 @@ export class Order {
 	clearSelection() {
 		this.orderDetails = [];
 	}
+
+	
 }

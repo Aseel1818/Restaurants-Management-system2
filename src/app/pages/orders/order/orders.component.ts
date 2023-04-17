@@ -42,4 +42,11 @@ export class OrdersComponent implements OnInit {
 			});
 		}
 	}
+
+
+	
+	editOrder(orderID:number): void {
+		this.orderService.editOrder(orderID);
+	}
+	
 }

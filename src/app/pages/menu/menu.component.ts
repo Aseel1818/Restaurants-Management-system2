@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
@@ -7,13 +7,13 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { Order } from 'src/app/classes/order.class';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { Table } from 'src/app/interfaces/table.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
 	styleUrls: ['./menu.component.css']
 })
-
 export class MenuComponent implements OnInit {
 	items: Item[] = [];
 	categories: Category[] = [];
@@ -26,6 +26,8 @@ export class MenuComponent implements OnInit {
 	note : string = '';
 	@Input() id: number =0;
 
+	private orderSubscription: Subscription = new Subscription();
+
 	constructor(private route: ActivatedRoute,
 		private router: Router,
 		private itemsService: ItemsService,
@@ -34,8 +36,12 @@ export class MenuComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.ordersService.createNewOrder();
-		this.order = this.ordersService.currentOrder
+		//this.ordersService.createNewOrder();
+		//this.order = this.ordersService.currentOrder
+		
+		this.orderSubscription = this.ordersService.getOrderObservable().subscribe((order: Order) => {
+			this.order = order;
+		  });
 
 		this.route.paramMap.subscribe(params => {
 			const categoryID = params?.get('categoryID');
@@ -47,6 +53,7 @@ export class MenuComponent implements OnInit {
 				this.getAllItems();
 			}
 		});
+		
 
 		this.itemsService.getAllCategories().subscribe(categories => {
 			this.categories = categories;
@@ -59,6 +66,7 @@ export class MenuComponent implements OnInit {
 			});
 	}
 
+	
 	getAllItems() {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
@@ -102,4 +110,22 @@ export class MenuComponent implements OnInit {
             this.router.navigate(['/orders']);
         }
     }
+
+	
+	  
+
+	deleteItem(item: any) {
+		const index = this.order.orderDetails.findIndex((detail: any) => detail.item.id === item.item.id);
+		if (index > -1) {
+			if (this.order.orderDetails[index].quantity > 1) {
+				this.order.orderDetails[index].quantity--;
+			} else {
+				this.order.orderDetails.splice(index, 1);
+			}
+			this.order.total = this.order.orderDetails.reduce((total: number, detail: any) => {
+				return total + detail.item.price * detail.quantity;
+			},
+				0);
+		}
+	}
 }
