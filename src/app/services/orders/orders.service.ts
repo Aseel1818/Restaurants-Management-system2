@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, map, of } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { Order } from 'src/app/classes/order.class';
 import { Table } from 'src/app/interfaces/table.interface';
 import { environment } from 'src/environments/environment';
