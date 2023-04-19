@@ -10,7 +10,7 @@
 </div>
 <div class="container row">
     <div class="item_container row wrap ">
-        <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items" >
+        <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items">
             <img class="item-img full-width" mat-card-image src="{{item.imageUrl}}">
             <mat-card-content class="items_content center smoke wrap">
                 <div class="name custom-width">{{item.name}}</div>
@@ -26,23 +26,23 @@
                 <mat-card-content class="card-content">
                     <table class="table full-width">
                         <thead>
-                        <tr>
-                            <th class="table-header">Name</th>
-                            <th class="table-header">Quantity</th>
-                            <th class="table-header">Price</th>
-                        </tr>
+                            <tr>
+                                <th class="table-header">Name</th>
+                                <th class="table-header">Quantity</th>
+                                <th class="table-header">Price</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of order.orderDetails" class="table-row">
-                            <td class="table-cell">{{item.item.name}}</td>
-                            <td class="table-cell">{{item.quantity}}</td>
-                            <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>
+                            <tr *ngFor="let item of order.orderDetails" class="table-row">
+                                <td class="table-cell">{{item.item.name}}</td>
+                                <td class="table-cell">{{item.quantity}}</td>
+                                <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>
                                 <td class="table-cell">
                                     <button mat-icon-button (click)="deleteItem(item)" class="delete-button">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </td>
-                        </tr>
+                            </tr>
                         </tbody>
                     </table>
                 </mat-card-content>

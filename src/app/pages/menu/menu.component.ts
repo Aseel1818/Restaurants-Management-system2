@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
@@ -101,6 +101,12 @@ export class MenuComponent implements OnInit {
 		const tableToUpdate = this.tables.find(table => table.id === tableID);
 		console.log(tableToUpdate)
 		this.order.notes = note;
+		this.tableService.getTableById(this.order.tableID!).subscribe(table => {
+			this.tableService.updateTable(table).subscribe(table => {
+				console.log(table.status);
+			});
+		});
+
 		if (tableToUpdate) {
 			this.order.tableID = tableID;
 			this.tableService.updateTable(tableToUpdate).subscribe(
