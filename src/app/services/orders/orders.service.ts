@@ -35,6 +35,7 @@ export class OrdersService {
 			order.id = this.generateNewOrderId();
 			this.orders.push(order);
 		}
+		localStorage.setItem('orders', JSON.stringify(this.orders));
 	}
 
 	generateNewOrderId(): number {
