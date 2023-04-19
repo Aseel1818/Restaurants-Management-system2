@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, ParamMap, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
@@ -23,8 +23,8 @@ export class MenuComponent implements OnInit {
 	order!: Order;
 	tables: Table[] = [];
 	selectedTable!: number;
-	note : string = '';
-	@Input() id: number =0;
+	note: string = '';
+	@Input() id: number = 0;
 
 	private orderSubscription: Subscription = new Subscription();
 
@@ -36,12 +36,10 @@ export class MenuComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		//this.ordersService.createNewOrder();
-		//this.order = this.ordersService.currentOrder
-		
 		this.orderSubscription = this.ordersService.getOrderObservable().subscribe((order: Order) => {
 			this.order = order;
-		  });
+			this.note = order.notes || '';
+		});
 
 		this.route.paramMap.subscribe(params => {
 			const categoryID = params?.get('categoryID');
@@ -53,7 +51,6 @@ export class MenuComponent implements OnInit {
 				this.getAllItems();
 			}
 		});
-		
 
 		this.itemsService.getAllCategories().subscribe(categories => {
 			this.categories = categories;
@@ -66,7 +63,6 @@ export class MenuComponent implements OnInit {
 			});
 	}
 
-	
 	getAllItems() {
 		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
@@ -74,8 +70,21 @@ export class MenuComponent implements OnInit {
 		});
 	}
 
-	addToOrder(item: Item): void {
-		this.order.addItem(item);
+	addToOrder(item: Item) {
+		const orderItem = this.order.orderDetails.find((oi: any) => oi.item.id === item.id);
+		if (orderItem) {
+			orderItem.quantity++;
+
+		} else {
+			this.order.orderDetails.push({
+				item, quantity: 1,
+				isChecked: false,
+				isPaid: false
+			});
+		}
+		this.order.total = this.order.orderDetails.reduce((total: number, detail: any) => {
+			return total + detail.item.price * detail.quantity;
+		}, 0);
 	}
 
 	filterItems() {
@@ -87,32 +96,30 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = this.items;
 		}
 	}
-	
-	addSelectedItemsToOrder(tableID: number ,note:string) {
-        const tableToUpdate = this.tables.find(table => table.id === tableID);
-        console.log(tableToUpdate)
-        this.order.notes = note ;
-        if (tableToUpdate) {
-            this.order.tableID = tableID;
-            this.tableService.updateTable(tableToUpdate).subscribe(
-                updatedTable => {
-                    tableToUpdate.status = updatedTable.status;
-                    this.ordersService.add(this.order);
-                    console.log(tableToUpdate)
-                    this.router.navigate(['/orders']);
-                },
-                error => console.error(error)
-            );
-        } else {
-            this.order.notes = note;
-            this.ordersService.add(this.order);
-            console.log(this.order.notes)
-            this.router.navigate(['/orders']);
-        }
-    }
 
-	
-	  
+	addSelectedItemsToOrder(tableID: number, note: string) {
+		const tableToUpdate = this.tables.find(table => table.id === tableID);
+		console.log(tableToUpdate)
+		this.order.notes = note;
+		if (tableToUpdate) {
+			this.order.tableID = tableID;
+			this.tableService.updateTable(tableToUpdate).subscribe(
+				updatedTable => {
+					tableToUpdate.status = updatedTable.status;
+					this.ordersService.add(this.order);
+					console.log(tableToUpdate)
+					this.router.navigate(['/orders']);
+				},
+				error => console.error(error)
+			);
+		} else {
+			this.order.notes = note;
+			this.ordersService.add(this.order);
+			console.log(this.order.notes)
+			this.router.navigate(['/orders']);
+		}
+	}
+
 
 	deleteItem(item: any) {
 		const index = this.order.orderDetails.findIndex((detail: any) => detail.item.id === item.item.id);

@@ -38,9 +38,9 @@
 				</th>
 				<td *matCellDef="let order" mat-cell>
 					<button (click)="goToPayments(order.id)" class="paymentButton button" mat-raised-button>Pay</button>
-					<button (click)="editOrder(order.id)"  mat-icon-button>
+					<button (click)="editOrder(order.id)" [disabled]="isOrderPaid(order)" mat-icon-button>
 						<mat-icon>edit</mat-icon>
-					  </button> 
+					</button>
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
