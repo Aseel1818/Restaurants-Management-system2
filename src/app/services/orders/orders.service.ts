@@ -84,8 +84,6 @@ export class OrdersService {
 			this.updateOrderSubject(orderToUpdate);
 			console.log(orderToUpdate);
 			this.router.navigate(['/menu', { id: orderToUpdate.id }]);
-		} else {
-			console.log(`Order with ID ${orderId} not found`);
 		}
 	}
 }	
