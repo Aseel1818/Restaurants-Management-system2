@@ -35,7 +35,6 @@ export class OrdersService {
 			order.id = this.generateNewOrderId();
 			this.orders.push(order);
 		}
-		localStorage.setItem('orders', JSON.stringify(this.orders));
 	}
 
 	generateNewOrderId(): number {
@@ -83,7 +82,6 @@ export class OrdersService {
 		const orderToUpdate = this.getOrderByID(orderId);
 		if (orderToUpdate) {
 			this.updateOrderSubject(orderToUpdate);
-			this.currentOrder = orderToUpdate;
 			console.log(orderToUpdate);
 			this.router.navigate(['/menu', { id: orderToUpdate.id }]);
 		} else {

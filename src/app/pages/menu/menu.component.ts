@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, ParamMap, Router } from '@angular/router';
+import { Component, Input, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item.interface';
 import { Category } from 'src/app/interfaces/category.interface';
 import { ItemsService } from 'src/app/services/items/items.service';
