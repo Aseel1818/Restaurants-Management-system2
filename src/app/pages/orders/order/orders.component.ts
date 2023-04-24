@@ -4,6 +4,7 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SplitOrderComponent } from '../split-order/split-order.component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-orders',
@@ -22,7 +23,7 @@ export class OrdersComponent implements OnInit, DoCheck {
 	statusOptions = ['paid', 'not paid'];
 	showSplit = true;
 
-	constructor(private orderService: OrdersService, private dialog: MatDialog) { }
+	constructor(private orderService: OrdersService, private dialog: MatDialog,private router: Router) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
@@ -68,11 +69,8 @@ export class OrdersComponent implements OnInit, DoCheck {
 	}
 
 	goToSplitOrder(orderID: number) {
-		this.dialog.open(SplitOrderComponent, {
-			width: '100%',
-			height: '100%',
-			data: { id: orderID }
-		})
-	}
+		this.selectedOrderId = orderID;
 
+		this.router.navigate(['/split'], { queryParams: { orderId: this.selectedOrderId } });
+	}
 }
