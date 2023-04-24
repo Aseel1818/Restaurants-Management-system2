@@ -22,7 +22,6 @@ export class MenuComponent implements OnInit {
 	order!: Order;
 	tables: Table[] = [];
 	selectedTable!: number;
-	note: string = "";
 
 	constructor(
 		private route: ActivatedRoute,
@@ -31,13 +30,12 @@ export class MenuComponent implements OnInit {
 		private ordersService: OrdersService,
 		private tableService: TablesService
 	) { }
-	  
+
 	ngOnInit(): void {
 		this.order = new Order();
 
 		if (this.ordersService.currentOrder) {
-			this.order = this.ordersService.currentOrder;
-			this.note = this.order.notes || "";
+			Object.assign(this.order, this.ordersService.currentOrder);
 		}
 
 		this.route.paramMap.subscribe((params) => {
@@ -63,29 +61,14 @@ export class MenuComponent implements OnInit {
 	}
 
 	getAllItems() {
-		this.itemsService.getAllItems().subscribe((items) => {
+		this.itemsService.getAllItems().subscribe(items => {
 			this.items = items;
 			this.filteredItems = items;
 		});
 	}
 
 	addToOrder(item: Item) {
-		const orderItem = this.order.orderDetails.find(
-			(oi: any) => oi.item.id === item.id
-		);
-		if (orderItem) {
-			orderItem.quantity++;
-		} else {
-			this.order.orderDetails.push({
-				item,
-				quantity: 1,
-				isChecked: false,
-				isPaid: false,
-			});
-		}
-		this.order.total = this.order.orderDetails.reduce((total: number, detail: any) => {
-			return total + detail.item.price * detail.quantity;
-		}, 0);
+		this.order.addItem(item);
 	}
 
 	filterItems() {
@@ -99,37 +82,28 @@ export class MenuComponent implements OnInit {
 	}
 
 	addSelectedItemsToOrder(tableID: number, note: string) {
-		const tableToUpdate = this.tables.find((table) => table.id === tableID);
-		console.log(tableToUpdate);
-		this.order.notes = note;
-		if (tableToUpdate) {
-			this.tableService.getTableById(this.order.tableID!).subscribe(table => {
-				this.tableService.updateTable(table).subscribe(table => {
-					console.log(table.status);
+		if (tableID) {
+			const tableToUpdate = this.tables.find(table => table.id === tableID);
+			if (tableToUpdate) {
+				this.tableService.getTableById(this.order.tableID!).subscribe(table => {
+					this.tableService.updateTable(table).subscribe(table => {
+						console.log(table.status);
+					});
 				});
-			});
-			this.order.tableID = tableID;
-			this.tableService.updateTable(tableToUpdate).subscribe(
-				(updatedTable) => {
-					tableToUpdate.status = updatedTable.status;
-				},
-				(error) => console.error(error)
-			);
+				this.order.tableID = tableID;
+				this.tableService.updateTable(tableToUpdate).subscribe(updatedTable => {
+					console.log(updatedTable.status);
+				}
+				);
+			}
 		}
+		this.order.notes = note;
 		this.ordersService.add(this.order);
 		this.router.navigate(["/orders"]);
 	}
 
 	removeItem(item: Item) {
-		const index = this.order.orderDetails.findIndex((detail: any) => detail.item.id === item.id);
-		if (index > -1) {
-			if (this.order.orderDetails[index].quantity > 1) {
-				this.order.orderDetails[index].quantity--;
-			} else {
-				this.order.orderDetails.splice(index, 1);
-			}
-			this.order.updateTotal();
-		}
+		this.order.removeItem(item);
 	}
 
 	get buttonText() {
@@ -137,6 +111,6 @@ export class MenuComponent implements OnInit {
 	}
 
 	ngOnDestroy(): void {
-		this.ordersService.currentOrder = new Order;
+		this.ordersService.currentOrder = new Order();
 	}
 }

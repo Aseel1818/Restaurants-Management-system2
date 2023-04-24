@@ -22,7 +22,7 @@ export class PaymentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) { }
 
   ngOnInit(): void {
-    this.order = this.orderService.getOrderByID(this.data.orderId)!;
+    this.order = this.orderService.getOrderByID(this.data.orderId);
   }
 
   remaining() {
