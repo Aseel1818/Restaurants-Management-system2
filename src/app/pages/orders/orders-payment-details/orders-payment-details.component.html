@@ -9,7 +9,7 @@
         <div class="details-item"><span>Name</span></div>
         <div class="details-item"><span>Qnt</span></div>
         <div class="details-item"><span>Price</span></div>
-        <button class="selectAll button" (click)="selectAll()"> 
+        <button class="selectAll btn-blue" (click)="selectAll()"> 
           Select All 
         </button>
       </div>
@@ -28,7 +28,7 @@
       </div>
     </mat-card-content>
     <div class="pay-button-container row full-height">
-      <button class="button payButton" (click)="openPayment()">Pay</button>
+      <button class="btn-blue payButton" (click)="openPayment()">Pay</button>
     </div>
     <div *ngIf="showAlert" class="alert alert-danger">
       There is no item selected to pay </div>

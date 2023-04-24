@@ -22,28 +22,16 @@ export class Order {
 				isPaid: false
 			});
 		}
-
 		this.total = 0;
 		this.orderDetails.forEach(orderDetail => {
 			this.total += (orderDetail.item.price * orderDetail.quantity);
 		});
 	}
 
-	removeItem(item: Item) {
-		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
-		if (index !== -1) {
-			const orderDetail = this.orderDetails[index];
-			if (orderDetail.quantity > 1) {
-				orderDetail.quantity--;
-			} else {
-				this.orderDetails.splice(index, 1);
-			}
-		}
+	updateTotal() {
+		this.total = 0;
+		this.orderDetails.forEach(orderDetail => {
+			this.total += (orderDetail.item.price * orderDetail.quantity);
+		});
 	}
-
-	clearSelection() {
-		this.orderDetails = [];
-	}
-
-	
 }

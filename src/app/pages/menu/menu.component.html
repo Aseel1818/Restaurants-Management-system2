@@ -38,8 +38,8 @@
                                 <td class="table-cell">{{item.quantity}}</td>
                                 <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>
                                 <td class="table-cell">
-                                    <button mat-icon-button (click)="deleteItem(item)" class="delete-button">
-                                        <mat-icon>delete</mat-icon>
+                                    <button mat-icon-button (click)="removeItem(item.item)" [disabled]="item.isPaid==true">
+                                        <mat-icon class="btn-red">delete</mat-icon>
                                     </button>
                                 </td>
                             </tr>
@@ -56,7 +56,9 @@
                             <mat-option [value]="table.id">Table{{table.id}}</mat-option>
                         </ng-container>
                     </mat-select>
-                    <button (click)="addSelectedItemsToOrder(selectedTable,note)" class="order-button">ORDER</button>
+                    <button (click)="addSelectedItemsToOrder(selectedTable, note)" class="order-button">
+                        {{ buttonText }}
+                    </button>
                 </mat-card-actions>
             </mat-card>
         </div>

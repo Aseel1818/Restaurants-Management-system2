@@ -43,7 +43,7 @@ export class OrdersComponent implements OnInit {
 		}
 	}
 
-	editOrder(orderID: number): void {
-		this.orderService.editOrder(orderID);
+	editOrder(order: Order): void {
+		this.orderService.editOrder(order);
 	}
 }

@@ -14,8 +14,6 @@ export class OrdersService {
 	currentOrder!: Order;
 	tables!: Table;
 
-	private orderSubject = new BehaviorSubject<Order>(new Order());
-
 	constructor(private http: HttpClient, private router: Router) {
 		const storedOrders = localStorage.getItem('orders');
 		if (storedOrders) {
@@ -70,21 +68,9 @@ export class OrdersService {
 		this.currentOrder.id = this.generateNewOrderId();
 	}
 
-	getOrderObservable(): Observable<Order> {
-		return this.orderSubject.asObservable();
-	}
-
-	updateOrderSubject(orderToUpdate: Order): void {
-		this.currentOrder = orderToUpdate;
-		this.orderSubject.next(orderToUpdate);
-	}
-
-	editOrder(orderId: number) {
-		const orderToUpdate = this.getOrderByID(orderId);
-		if (orderToUpdate) {
-			this.updateOrderSubject(orderToUpdate);
-			console.log(orderToUpdate);
-			this.router.navigate(['/menu', { id: orderToUpdate.id }]);
-		}
+	editOrder(order: Order) {
+		this.currentOrder = order;
+		console.log(order);
+		this.router.navigate(['/menu']);
 	}
 }	
