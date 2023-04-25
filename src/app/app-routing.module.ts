@@ -5,7 +5,12 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/menu', pathMatch: 'full' },
+	{
+		path: '',
+		redirectTo: '/menu',
+		pathMatch: 'full'
+
+	},
 	{
 		path: 'login',
 		component: MenuComponent
@@ -36,7 +41,7 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
 	},
 	{ path: 'split', component: SplitOrderComponent }
-	
+
 ];
 
 @NgModule({
