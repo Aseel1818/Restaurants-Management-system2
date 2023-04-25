@@ -39,10 +39,8 @@ export class SplitOrderComponent implements OnInit {
     this.createLists();
   }
 
-  
-
   showToast() {
-    this.toaster.showToaster("Successfull", "your split done successfully");
+    this.toaster.showToaster("Successfull", "your split done successfully",'success');
   }
 
   createLists() {
