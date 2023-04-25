@@ -5,7 +5,7 @@
       <label>Table: {{order.tableID}}</label>
     </mat-card-title>
     <mat-card-actions align="start">
-      <div class="column-container">
+      <div class="column-container full-width">
         <div class="details-item"><span>Name</span></div>
         <div class="details-item"><span>Qnt</span></div>
         <div class="details-item"><span>Price</span></div>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </mat-card-content>
-    <div class="payButtonContainer row">
+    <div class="pay-button-container row full-height">
       <button class="button payButton" (click)="openPayment()">Pay</button>
     </div>
     <div *ngIf="showAlert" class="alert alert-danger">

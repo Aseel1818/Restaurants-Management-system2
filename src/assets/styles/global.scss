@@ -1,3 +1,5 @@
+@use "src/assets/styles/variables/colors.scss" as v;
+
 .row {
     display: flex;
 }
@@ -13,10 +15,6 @@
     border-radius: 100rem;
 }
 
-body {
-    overflow-y: auto;
-}
-
 .height {
     height: 280px;
 }
@@ -27,4 +25,43 @@ body {
 
 .custom-width{
     width: 60%;
+}
+
+.button {
+    background-color: #8AE6F9;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    width: 84px;
+    height: 39px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.smoke {
+    background-color: #f0f0f0;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.pink-background{
+    background-color: v.$baby-pink;
+}
+
+.orange-background{
+    background-color: v.$orange;
+}
+
+.white-background{
+    background-color: v.$white;
 }

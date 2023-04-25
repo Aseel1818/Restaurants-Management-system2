@@ -1,10 +1,7 @@
-import { Component, DoCheck, Inject, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { Dialog } from '@angular/cdk/dialog';
-import { MatDialog } from '@angular/material/dialog';
-import { SplitOrderComponent } from '../split-order/split-order.component';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-orders',
@@ -12,41 +9,22 @@ import { Router } from '@angular/router';
 	styleUrls: ['./orders.component.css']
 })
 
-
-
-export class OrdersComponent implements OnInit, DoCheck {
-
+export class OrdersComponent implements OnInit {
 	selectedOrderId!: number;
-	selectedOrderId2!: number;
 	displayedColumns: string[] = ['OrderID', 'total', 'details', 'table', 'isPaid', 'pay'];
 	orders: Order[] = [];
 	statusOptions = ['paid', 'not paid'];
 	showSplit = true;
 
-	constructor(private orderService: OrdersService, private dialog: MatDialog,private router: Router) { }
+	constructor(private orderService: OrdersService,private router: Router) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 	}
 
-	ngDoCheck(): void {
-		this.orders.forEach(order => {
-			order.orderDetails.forEach(orderDetail => {
-				if (!orderDetail.isPaid === false) {
-					this.showSplit = false;
-				}
-				else {
-					this.showSplit = true;
-				}
-
-			})
-		})
-	}
-
 	goToPayments(orderID: number) {
 		this.selectedOrderId = orderID
-
 	}
 
 	isOrderPaid(order: Order): boolean {
@@ -61,7 +39,6 @@ export class OrdersComponent implements OnInit, DoCheck {
 				if (orderStatus === "paid") {
 					return this.isOrderPaid(order);
 				} else {
-
 					return !this.isOrderPaid(order);
 				}
 			});

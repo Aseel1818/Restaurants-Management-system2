@@ -26,25 +26,18 @@ export class PaymentComponent implements OnInit {
   }
 
   remaining() {
-
     this.showAlert = false;
-
     if (!this.order) {
       return
     }
-
-    if (this.amount >= 0) {
-      this.sum += this.amount;
-
-      if (this.amount !== undefined) {
-        this.remainingValue = this.sum - (this.order.subTotal);
-
-        if (this.remainingValue < 0) {
-          this.remainingValue = 0;
-        }
+    this.sum += this.amount;
+    if (this.amount !== undefined) {
+      this.remainingValue = this.sum - (this.order.subTotal);
+      if (this.remainingValue < 0) {
+        this.remainingValue = 0;
       }
-      this.amount = 0;
     }
+    this.amount = 0;
   }
 
   dollarRemaining() {
@@ -52,21 +45,17 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
-
     if (this.amount !== undefined) {
-      if (this.amount >= 0) {
-        this.dollarConvert = this.amount * 3.67;
-        this.sum += this.dollarConvert;
-        this.remainingValue = this.sum - (this.order.subTotal);
-        if (this.remainingValue < 0) {
-          this.remainingValue = 0;
-        }
+      this.dollarConvert = this.amount * 3.67;
+      this.sum += this.dollarConvert;
+      this.remainingValue = this.sum - (this.order.subTotal);
+      if (this.remainingValue < 0) {
+        this.remainingValue = 0;
       }
-      this.amount = 0;
     }
-
+    this.amount = 0;
   }
-
+  
   pay() {
     if (this.sum == this.order?.subTotal || this.sum > this.order!.subTotal) {
       if (!this.order) {
@@ -82,18 +71,15 @@ export class PaymentComponent implements OnInit {
           isFullyPaid = false;
         }
         orderDetail.isChecked = false;
-      }
-      );
+      });
       if (isFullyPaid) {
         if (this.order?.tableID) {
           console.log(this.order.tableID)
           this.tableService.getTableById(this.order.tableID).subscribe(table => {
             this.tableService.updateTable(table).subscribe(table => {
               console.log(table.status);
-            }
-            );
-          }
-          );
+            });
+          });
         }
         this.orderService.addOrder(this.order).subscribe(
           (response) => {

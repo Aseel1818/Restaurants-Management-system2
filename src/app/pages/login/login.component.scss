@@ -1,0 +1,81 @@
+@import "../../../assets/styles/global.scss";
+
+form label {
+  font-size: 1rem;
+  color: black;
+}
+
+form input {
+  border-radius: 7px;
+  margin-bottom: 5px;
+  width: 280px;
+  height: 32px;
+  padding: 5px;
+}
+
+.login-form {
+  width: 300px;
+  max-width: 100%;
+  margin-left: 7%;
+}
+
+.login {
+  @extend .pink-background;
+  justify-content: center;
+}
+
+.card-image {
+  background-image: url("/assets/images/loginBackground.jpg");
+  background-size: cover;
+  width: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.card {
+  width: 1000px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  margin-top: 75px;
+  color: black;
+  font-size: 1rem;
+}
+
+.card-body {
+  justify-content: center;
+}
+
+.card-header,
+.card-body {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.card-content {
+  width: 50%;
+}
+
+.login-button {
+  @extend .orange-background;
+  margin-top: 15%;
+  width: 285px;
+}
+
+.login-button:hover {
+  background-color: #11060684;
+}
+
+.login-button:disabled {
+  background-color: #11060684;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

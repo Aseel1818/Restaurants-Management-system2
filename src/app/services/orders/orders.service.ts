@@ -67,7 +67,5 @@ export class OrdersService {
 		}
 		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
 	}
-
-
 	
 }

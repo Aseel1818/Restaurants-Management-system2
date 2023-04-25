@@ -1,23 +1,32 @@
-  <div class="background">
-    <div class="container center">
-      <div class="card">
+<div class="login full-height full-width fixed center">
+    <div class="card row white-background">
         <div class="card-image"></div>
-        <div class="card-content">
-          <div class="loginForm">
-            <div class="card-header">
-              <h1>Login Page</h1>
+        <div class="card-content full-height">
+            <div class="card-header center row">
+                <h1>Login Page</h1>
             </div>
-            <div class="card-body">
-              <form>
-                <label for="username">Username</label>
-                <input type="text" id="username" class="username"><br>
-                <label for="password">Password </label>
-                <input type="password" id="password" class="password"><br>
-                <button class="Login button">Login</button>
-              </form>
+            <div class="card-body full-width row center">
+                <form [formGroup]="loginForm" class="login-form">
+                    <label for="username">Username</label>
+                    <input formControlName="username" class="username" id="username" name="username" type="text" />
+                    <label for="password">Password</label>
+                    <input formControlName="password" class="password" id="password" name="password" type="password" />
+                    <div
+                        *ngIf="showErrorMessages && (loginForm.get('username')?.invalid || loginForm.get('password')?.invalid)">
+                        <div *ngIf="loginForm.get('username')?.errors?.['required']" class="error-message">
+                            *Username is required.
+                        </div>
+                        <div *ngIf="loginForm.get('password')?.errors?.['required']" class="error-message">
+                            *Password is required.
+                        </div>
+                        <div *ngIf="loginForm.get('password')?.errors?.['pattern']" class="error-message">
+                            *Password must be at contain at least one
+                            uppercase letter, one digit, and no spaces.
+                        </div>
+                    </div>
+                    <button (click)="login()" class="login-button button" [disabled]="loginForm.invalid">Login</button>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
