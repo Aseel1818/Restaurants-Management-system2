@@ -11,7 +11,7 @@ import { ToasterService } from 'src/app/services/toaster/toaster.service';
   templateUrl: './split-order.component.html',
   styleUrls: ['./split-order.component.css']
 })
-export class SplitOrderComponent implements OnInit, DoCheck {
+export class SplitOrderComponent implements OnInit {
   
   @Input() id: number = 0;
 
@@ -40,9 +40,7 @@ export class SplitOrderComponent implements OnInit, DoCheck {
     this.createLists();
   }
 
-  ngDoCheck(): void {
-    this.order = this.orderService.getOrderByID(this.id);
-  }
+  
 
   showToast() {
     this.toaster.showToaster("Successfull", "your split done successfully");
