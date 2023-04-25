@@ -16,9 +16,8 @@ export class SplitOrderComponent implements OnInit {
   @Input() id: number = 0;
 
   order!: Order | null;
-  todo: OrderDetail[] = [];
-  done: OrderDetail[] = [];
-  doneLists: OrderDetail[][] = [];
+  currentOrder: OrderDetail[] = [];
+  ordersLists: OrderDetail[][] = [];
   numberOfLists: number = 0;
 
   constructor(
@@ -34,7 +33,7 @@ export class SplitOrderComponent implements OnInit {
     this.order = this.orderService.getOrderByID(this.id);
 
     if (this.order) {
-      this.todo = this.order.orderDetails;
+      this.currentOrder = this.order.orderDetails;
     }
 
     this.createLists();
@@ -47,23 +46,23 @@ export class SplitOrderComponent implements OnInit {
   }
 
   createLists() {
-    this.doneLists = Array.from({ length: this.numberOfLists }, () => []);
+    this.ordersLists = Array.from({ length: this.numberOfLists }, () => []);
   }
 
-  drop(event: CdkDragDrop<OrderDetail[]>, listIndex: number) {
+  splitListsDrop(event: CdkDragDrop<OrderDetail[]>, listIndex: number) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
         event.previousContainer.data,
-        this.doneLists[listIndex],
+        this.ordersLists[listIndex],
         event.previousIndex,
         event.currentIndex
       );
     }
   }
 
-  drop2(event: CdkDragDrop<OrderDetail[]>) {
+  currentOrderDrop(event: CdkDragDrop<OrderDetail[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
