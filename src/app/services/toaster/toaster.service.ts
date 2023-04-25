@@ -22,5 +22,8 @@ export class ToasterService {
 
       this.toastr.info(title, message);
     }
+    else{
+      console.warn(`invalid  message type ...  ${type}`)
+    }
   }
 }
