@@ -10,12 +10,12 @@ import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  amount!: string;
+  amount!: number;
   remainingValue!: number;
   dollarConvert!: number;
   order!: Order | null;
   showAlert = false;
-  sum: number = 0;
+  sum : number =0;
   constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>,
     private orderService: OrdersService,
     private tableService: TablesService,
@@ -30,17 +30,17 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
-    if(parseFloat(this.amount)>=0){
+    if (this.amount >= 0) {
 
-    this.sum += parseFloat(this.amount);
-    if (this.amount !== undefined) {
-      this.remainingValue = this.sum - (this.order.subTotal);
-      if (this.remainingValue < 0) {
-        this.remainingValue = 0;
+      this.sum += this.amount;
+      if (this.amount !== undefined) {
+        this.remainingValue = this.sum - (this.order.subTotal);
+        if (this.remainingValue < 0) {
+          this.remainingValue = 0;
+        }
       }
+      this.amount = 0;
     }
-    this.amount = '0';
-  }
   }
 
   dollarRemaining() {
@@ -50,19 +50,19 @@ export class PaymentComponent implements OnInit {
     }
 
     if (this.amount !== undefined) {
-     if(parseFloat(this.amount)>=0){
-         this.dollarConvert = parseFloat(this.amount) * 3.67;
-      this.sum += this.dollarConvert;
-      this.remainingValue = this.sum - (this.order.subTotal);
-      if (this.remainingValue < 0) {
-        this.remainingValue = 0;
+      if (this.amount >= 0) {
+        this.dollarConvert = this.amount * 3.67;
+        this.sum += this.dollarConvert;
+        this.remainingValue = this.sum - (this.order.subTotal);
+        if (this.remainingValue < 0) {
+          this.remainingValue = 0;
+        }
       }
+      this.amount = 0;
     }
-    this.amount = '0';
-     }
-   
+
   }
-  
+
   pay() {
     if (this.sum == this.order?.subTotal || this.sum > this.order!.subTotal) {
       if (!this.order) {
