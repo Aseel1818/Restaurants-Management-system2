@@ -5,20 +5,20 @@
 </form>
 
 <div cdkDropListGroup>
-  <div class="example-container">
+  <div class="split-order-container">
     <h2>Order {{id}}</h2>
 
-    <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop2($event)">
-      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.item.name}} {{item.quantity}}</div>
+    <div cdkDropList [cdkDropListData]="todo" class="split-order-list" (cdkDropListDropped)="drop2($event)">
+      <div class="split-order-box" *ngFor="let item of todo" cdkDrag>{{item.item.name}} {{item.quantity}}</div>
     </div>
   </div>
 
   <ng-container *ngFor="let list of doneLists; let i = index">
-    <div class="example-container">
+    <div class="split-order-container">
       <h2>Order {{i + 1}}</h2>
 
-      <div cdkDropList [cdkDropListData]="list" class="example-list" (cdkDropListDropped)="drop($event, i)">
-        <div class="example-box" *ngFor="let item of list" cdkDrag>{{ item.item.name }}</div>
+      <div cdkDropList [cdkDropListData]="list" class="split-order-list" (cdkDropListDropped)="drop($event, i)">
+        <div class="split-order-box" *ngFor="let item of list" cdkDrag>{{ item.item.name }}</div>
       </div>
     </div>
   </ng-container>

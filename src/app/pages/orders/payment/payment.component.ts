@@ -15,7 +15,7 @@ export class PaymentComponent implements OnInit {
   dollarConvert!: number;
   order!: Order | null;
   showAlert = false;
-  sum : number =0;
+  sum: number = 0;
   constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>,
     private orderService: OrdersService,
     private tableService: TablesService,
@@ -26,15 +26,19 @@ export class PaymentComponent implements OnInit {
   }
 
   remaining() {
+
     this.showAlert = false;
+
     if (!this.order) {
       return
     }
-    if (this.amount >= 0) {
 
+    if (this.amount >= 0) {
       this.sum += this.amount;
+
       if (this.amount !== undefined) {
         this.remainingValue = this.sum - (this.order.subTotal);
+
         if (this.remainingValue < 0) {
           this.remainingValue = 0;
         }
@@ -78,15 +82,18 @@ export class PaymentComponent implements OnInit {
           isFullyPaid = false;
         }
         orderDetail.isChecked = false;
-      });
+      }
+      );
       if (isFullyPaid) {
         if (this.order?.tableID) {
           console.log(this.order.tableID)
           this.tableService.getTableById(this.order.tableID).subscribe(table => {
             this.tableService.updateTable(table).subscribe(table => {
               console.log(table.status);
-            });
-          });
+            }
+            );
+          }
+          );
         }
         this.orderService.addOrder(this.order).subscribe(
           (response) => {
