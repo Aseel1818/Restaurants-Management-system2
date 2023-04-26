@@ -12,6 +12,8 @@ export class OrdersService {
 	private orders: Order[] = [];
 	currentOrder: Order | null = null;
 	tables!: Table;
+	tableIds: number[] = [];
+
 
 	constructor(
 		private http: HttpClient,

@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit {
 
 		if (this.ordersService.currentOrder) {
 			Object.assign(this.order, this.ordersService.currentOrder);
+			this.selectedTable = this.order.tableID!;
 		}
 
 		this.route.paramMap.subscribe((params) => {
@@ -82,24 +83,17 @@ export class MenuComponent implements OnInit {
 	}
 
 	addSelectedItemsToOrder(tableID: number) {
-		console.log("tableID", tableID);
-
 		const tableIDs: number[] = [];
 		if (tableID) {
 			tableIDs.push(tableID);
 			console.log(this.order.tableID);
 		}
-
 		if (this.order.tableID) {
-			tableIDs.push(this.order.tableID);
+			tableIDs.push(this.order.tableID!);
 		}
-
-		console.log(tableIDs);
-
-		this.order.tableID = tableID;
-		this.tableService.updateTable(tableIDs).subscribe(res => {
-			console.log("res", res);
-
+		this.order.tableID = tableID!;
+		this.tableService.updateTable(tableIDs).subscribe(table => {
+			console.log("updated table" + this.order.tableID);
 		});
 		this.ordersService.add(this.order);
 		this.router.navigate(["/orders"]);

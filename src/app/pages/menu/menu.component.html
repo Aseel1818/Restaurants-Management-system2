@@ -38,7 +38,8 @@
                                 <td class="table-cell">{{item.quantity}}</td>
                                 <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>
                                 <td class="table-cell">
-                                    <button mat-icon-button (click)="removeItem(item.item)" [disabled]="item.isPaid==true">
+                                    <button mat-icon-button (click)="removeItem(item.item)"
+                                        [disabled]="item.isPaid==true">
                                         <mat-icon class="btn-red">delete</mat-icon>
                                     </button>
                                 </td>
