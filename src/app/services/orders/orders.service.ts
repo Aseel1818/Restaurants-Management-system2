@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from 'src/app/classes/order.class';
 import { Table } from 'src/app/interfaces/table.interface';
 import { environment } from 'src/environments/environment';
@@ -11,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrdersService {
 	private orders: Order[] = [];
-	currentOrder!: Order;
+	currentOrder: Order | null = null;
 	tables!: Table;
 
 	constructor(

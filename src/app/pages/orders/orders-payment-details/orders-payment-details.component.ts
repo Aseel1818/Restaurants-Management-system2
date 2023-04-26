@@ -47,7 +47,6 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
     })
 
     this.order.subTotal = subTotal
-    this.order.subTotals += subTotal
   }
 
   openPayment() {

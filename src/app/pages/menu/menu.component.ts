@@ -81,23 +81,26 @@ export class MenuComponent implements OnInit {
 		}
 	}
 
-	addSelectedItemsToOrder(tableID: number, note: string) {
+	addSelectedItemsToOrder(tableID: number) {
+		console.log("tableID", tableID);
+
+		const tableIDs: number[] = [];
 		if (tableID) {
-			const tableToUpdate = this.tables.find(table => table.id === tableID);
-			if (tableToUpdate) {
-				this.tableService.getTableById(this.order.tableID!).subscribe(table => {
-					this.tableService.updateTable(table).subscribe(table => {
-						console.log(table.status);
-					});
-				});
-				this.order.tableID = tableID;
-				this.tableService.updateTable(tableToUpdate).subscribe(updatedTable => {
-					console.log(updatedTable.status);
-				}
-				);
-			}
+			tableIDs.push(tableID);
+			console.log(this.order.tableID);
 		}
-		this.order.notes = note;
+
+		if (this.order.tableID) {
+			tableIDs.push(this.order.tableID);
+		}
+
+		console.log(tableIDs);
+
+		this.order.tableID = tableID;
+		this.tableService.updateTable(tableIDs).subscribe(res => {
+			console.log("res", res);
+
+		});
 		this.ordersService.add(this.order);
 		this.router.navigate(["/orders"]);
 	}
@@ -111,6 +114,6 @@ export class MenuComponent implements OnInit {
 	}
 
 	ngOnDestroy(): void {
-		this.ordersService.currentOrder = new Order();
+		this.ordersService.currentOrder = null;
 	}
 }

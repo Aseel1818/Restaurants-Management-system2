@@ -48,7 +48,7 @@
                 </mat-card-content>
                 <mat-form-field class="note full-width">
                     <mat-label for="note">Leave a note:</mat-label>
-                    <input [(ngModel)]="order.notes" id="note" matInput placeholder="Ex. Delivery" type="text">
+                    <input [(ngModel)]="order.notes" matInput placeholder="Ex. Delivery" type="text">
                 </mat-form-field>
                 <mat-card-actions class="card-actions">
                     <mat-select [(ngModel)]="selectedTable" class="select-table" placeholder="Select table">
@@ -56,7 +56,7 @@
                             <mat-option [value]="table.id">Table{{table.id}}</mat-option>
                         </ng-container>
                     </mat-select>
-                    <button (click)="addSelectedItemsToOrder(selectedTable, order.notes!)" class="order-button">
+                    <button (click)="addSelectedItemsToOrder(selectedTable)" class="order-button">
                         {{ buttonText }}
                     </button>
                 </mat-card-actions>
