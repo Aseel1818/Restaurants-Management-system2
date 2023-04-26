@@ -32,7 +32,15 @@ export class OrdersService {
 
 	createNewOrder() {
 		this.currentOrder = new Order();
-		this.currentOrder.id = this.generateNewOrderId();
+		//this.currentOrder.id = this.generateNewOrderId();
+		
+
+		this.currentOrder = new Order();
+  this.currentOrder.id = this.generateNewOrderId();
+  this.currentOrder.total = 0;
+  this.currentOrder.notes = null;
+  this.currentOrder.orderDetails = [];
+
 	}
 
 	generateNewOrderId(): number {
