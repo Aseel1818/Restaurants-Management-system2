@@ -7,6 +7,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { Table } from 'src/app/interfaces/table.interface';
+import { TablesService } from 'src/app/services/tables/tables.service';
+import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 
 @Component({
 	selector: 'app-orders',
@@ -35,14 +37,22 @@ export class OrdersComponent implements OnInit {
  
 	selectedOrdersTotal: number = 0;
 	tables: Table[] = [];
+	orderDetailJoined : OrderDetail[] = [] ; 
 	selectedTable!: number;
 	ordersDataSource!: MatTableDataSource<Order>;
+	
 
-	constructor(private orderService: OrdersService) { }
+	constructor(private orderService: OrdersService, private tableService: TablesService) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
+
+			this.tableService.getAll()
+			.subscribe((tables: Table[]) => {
+				this.tables = tables.filter(t => t.status === false);
+			});
+		
 	}
 
 	goToPayments(orderID: number) {
@@ -108,15 +118,20 @@ export class OrdersComponent implements OnInit {
 			Swal.fire("Note !","select 2 items or more to join orders","error");
 			return;
 		}
+		
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder;
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
+		
+		
+		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
+		
 		this.selectedOrders = selectedOrders;
 	
 		Swal.fire("Done ..!","the item u select was joined","success");
 	
-		// Join the notes of the selected orders
+		
 		let selectedOrdersNotes = '';
 	
 		for (let order of this.selectedOrders) {
@@ -127,12 +142,15 @@ export class OrdersComponent implements OnInit {
 					selectedOrdersNotes += ', ' + order.notes;
 				}
 			}
+			
 		}
 	
 		let lastOrder = this.orders[this.orders.length - 1];
 		for (let i = 0; i < this.selectedOrders.length; i++) {
 			const order = this.selectedOrders[i];
 			for (let orderDetail of order.orderDetails) {
+				this.orderDetailJoined.push(orderDetail) ; 
+				
 				let foundItem = lastOrder.orderDetails.find(od => od.item === orderDetail.item);
 				if (foundItem) {
 					foundItem.quantity += orderDetail.quantity;
@@ -140,19 +158,16 @@ export class OrdersComponent implements OnInit {
 					lastOrder.orderDetails.push(orderDetail);
 				}
 			}
-			
 		}
-		
 	
 		lastOrder.notes = selectedOrdersNotes;
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
 	
 		localStorage.setItem('orders', JSON.stringify(this.orders));
-	
-		this.ordersDataSource.data = this.orders.slice();
-	
 		this.selection.clear();
+		this.ordersDataSource.data = this.orders.slice();
 	}
+
 	
 	  
 

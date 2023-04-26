@@ -48,9 +48,9 @@
 					<mat-form-field appearance="fill">
 					<mat-label>{{order.tableID}}</mat-label>
 					  <mat-select [(ngModel)]="selectedTable" class="select-table" placeholder="Select table">
-                        <ng-container *ngFor="let table of tables">
-                            <mat-option [value]="table.id">Table{{table.id}}</mat-option>
-                        </ng-container>
+                        
+                            <mat-option *ngFor="let table of tables" [value]="table.id">Table{{table.id}}</mat-option>
+                        
                     </mat-select>
 					</mat-form-field>
 				  </td>
