@@ -90,7 +90,7 @@ input[type="text"] {
 
 .card {
   height: 90%;
-  width: 300px;
+  width: 350px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -105,7 +105,7 @@ input[type="text"] {
 .card-content {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   padding: 1rem;
 }
 
@@ -126,7 +126,6 @@ input[type="text"] {
 }
 
 .table-cell {
-  padding: 0.5rem;
   text-align: left;
 }
 
@@ -205,4 +204,9 @@ input[type="text"] {
   justify-content: center;
   padding: 1rem 1rem 0rem 1rem;
   border-style: solid black;
+}
+
+button[disabled] .btn-red {
+  color: #11060684;
+  cursor: not-allowed;
 }

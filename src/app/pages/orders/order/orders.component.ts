@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/classes/order.class';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 
@@ -14,11 +15,13 @@ export class OrdersComponent implements OnInit {
 	orders: Order[] = [];
 	statusOptions = ['paid', 'not paid'];
 
-	constructor(private orderService: OrdersService) { }
+	constructor(private orderService: OrdersService
+		, private router: Router) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
+		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
 	}
 
 	goToPayments(orderID: number) {
@@ -41,5 +44,14 @@ export class OrdersComponent implements OnInit {
 				}
 			});
 		}
+	}
+
+	editOrder(order: Order): void {
+		this.orderService.editOrder(order);
+	}
+
+	goToSplitOrder(orderID: number) {
+		this.selectedOrderId = orderID;
+		this.router.navigate(['/split'], { queryParams: { orderId: this.selectedOrderId } });
 	}
 }

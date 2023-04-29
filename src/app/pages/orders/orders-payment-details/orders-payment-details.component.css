@@ -9,6 +9,11 @@ mat-card-title {
   top: 7px;
 }
 
+mat-card-content {
+  height: 1500px;
+  overflow-y: auto;
+}
+
 .paymentDet {
   transform: translateX(25%);
 }

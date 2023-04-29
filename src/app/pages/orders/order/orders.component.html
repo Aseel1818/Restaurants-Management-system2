@@ -21,7 +21,7 @@
 				<th *matHeaderCellDef mat-header-cell></th>
 				<td *matCellDef="let order" mat-cell>
 					<button
-						class="payment-status button {{isOrderPaid(order) ? 'paid' : 'not-paid'}}">{{isOrderPaid(order)
+						class="payment-status btn-blue {{isOrderPaid(order) ? 'paid' : 'not-paid'}}">{{isOrderPaid(order)
 						? 'Paid' : 'Not paid'}}</button>
 				</td>
 			</ng-container>
@@ -37,7 +37,11 @@
 					</mat-form-field>
 				</th>
 				<td *matCellDef="let order" mat-cell>
-					<button (click)="goToPayments(order.id)" class="paymentButton button" mat-raised-button>Pay</button>
+					<button (click)="goToPayments(order.id)" class="paymentButton btn-blue" mat-raised-button>Pay</button>
+					<button  (click)="goToSplitOrder(order.id)" mat-raised-button>Split</button>
+					<button (click)="editOrder(order)" [disabled]="isOrderPaid(order)" mat-icon-button>
+						<mat-icon>edit</mat-icon>
+					</button>
 				</td>
 			</ng-container>
 			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>

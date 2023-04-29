@@ -1,0 +1,25 @@
+<form>
+    <label for="numberOfLists">Enter the number of orders:</label>
+    <input type="number" id="numberOfLists" name="numberOfLists" [(ngModel)]="numberOfLists" required>
+    <button type="button" (click)="createLists()">Create orders</button>
+</form>
+<div cdkDropListGroup>
+    <div class="split-order-container">
+        <h2>Order {{id}}</h2>
+        <div cdkDropList [cdkDropListData]="currentOrder" class="split-order-list"
+            (cdkDropListDropped)="currentOrderDrop($event)">
+            <div class="split-order-box" *ngFor="let item of currentOrder" cdkDrag>{{item.item.name}} {{item.quantity}}
+            </div>
+        </div>
+    </div>
+    <ng-container *ngFor="let list of ordersLists; let i = index">
+        <div class="split-order-container">
+            <h2>Order{{lastOrderID+i+1}}</h2>
+            <div cdkDropList [cdkDropListData]="list" class="split-order-list"
+                (cdkDropListDropped)="splitListsDrop($event, i)">
+                <div class="split-order-box" *ngFor="let item of list" cdkDrag>{{ item.item.name }}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<button (click)="showToast()">Submit</button>

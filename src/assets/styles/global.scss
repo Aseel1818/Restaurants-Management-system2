@@ -23,11 +23,11 @@
     flex-wrap: wrap;
 }
 
-.custom-width{
+.custom-width {
     width: 60%;
 }
 
-.button {
+.btn-blue {
     background-color: #8AE6F9;
     border-radius: 10px;
     border: none;
@@ -54,14 +54,18 @@
     position: fixed;
 }
 
-.pink-background{
+.pink-background {
     background-color: v.$baby-pink;
 }
 
-.orange-background{
+.orange-background {
     background-color: v.$orange;
 }
 
-.white-background{
+.white-background {
     background-color: v.$white;
+}
+
+.btn-red {
+    color: red;
 }
