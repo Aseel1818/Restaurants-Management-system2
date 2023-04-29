@@ -37,10 +37,9 @@ export class OrdersComponent implements OnInit {
  
 	selectedOrdersTotal: number = 0;
 	tables: Table[] = [];
-	orderDetailJoined : OrderDetail[] = [] ; 
 	selectedTable!: number;
 	ordersDataSource!: MatTableDataSource<Order>;
-	
+	selectedItemsDetails : OrderDetail[] = [];
 
 	constructor(private orderService: OrdersService, private tableService: TablesService) { }
 
@@ -113,64 +112,59 @@ export class OrdersComponent implements OnInit {
 
 	doJoin() {
 		const selectedOrders = this.selection.selected;
-	
+	  
 		if (selectedOrders.length < 2) {
-			Swal.fire("Note !","select 2 items or more to join orders","error");
-			return;
+		  Swal.fire("Note !", "select 2 items or more to join orders", "error");
+		  return;
 		}
-		
+	  
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder;
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
-		
-		
+	  
 		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
-		
+	  
 		this.selectedOrders = selectedOrders;
-	
-		Swal.fire("Done ..!","the item u select was joined","success");
-	
-		
-		let selectedOrdersNotes = '';
-	
+		this.selectedItemsDetails = [];
+	  
+		Swal.fire("Done ..!", "the item u select was joined", "success");
+	  
+		let selectedOrdersNotes = "";
+	  
 		for (let order of this.selectedOrders) {
-			if (order.notes) {
-				if (selectedOrdersNotes === '') {
-					selectedOrdersNotes = order.notes;
-				} else {
-					selectedOrdersNotes += ', ' + order.notes;
-				}
+		  if (order.notes) {
+			if (selectedOrdersNotes === "") {
+			  selectedOrdersNotes = order.notes;
+			} else {
+			  selectedOrdersNotes += ", " + order.notes;
 			}
-			
+		  }
+		  this.selectedItemsDetails.push(...order.orderDetails);
 		}
-	
+	  
 		let lastOrder = this.orders[this.orders.length - 1];
-		for (let i = 0; i < this.selectedOrders.length; i++) {
-			const order = this.selectedOrders[i];
-			for (let orderDetail of order.orderDetails) {
-				this.orderDetailJoined.push(orderDetail) ; 
-				
-				let foundItem = lastOrder.orderDetails.find(od => od.item === orderDetail.item);
-				if (foundItem) {
-					foundItem.quantity += orderDetail.quantity;
-				} else {
-					lastOrder.orderDetails.push(orderDetail);
-				}
-			}
-		}
-	
+	  
+		for (let orderDetail of this.selectedItemsDetails) {
+		  let foundItem = lastOrder.orderDetails.find(
+			od => od.item.name === orderDetail.item.name
+		  );
+		  if (foundItem) {
+			foundItem.quantity += orderDetail.quantity;
+		  } else {
+			lastOrder.orderDetails.push(orderDetail);
+		  }
+		} 
+	  
 		lastOrder.notes = selectedOrdersNotes;
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
 	
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
 		this.ordersDataSource.data = this.orders.slice();
-	}
 
-	
+	  }
 	  
-
 	splitOrders() {
 		//this.showNewButton = false;
 
@@ -179,7 +173,6 @@ export class OrdersComponent implements OnInit {
 		//this.showNewButton = false;
 
 	}
-
 
 	masterToggle() {
 		this.isAllSelected() ?
