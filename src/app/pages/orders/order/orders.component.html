@@ -38,6 +38,7 @@
 				</th>
 				<td *matCellDef="let order" mat-cell>
 					<button (click)="goToPayments(order.id)" class="paymentButton btn-blue" mat-raised-button>Pay</button>
+					<button  (click)="goToSplitOrder(order.id)" mat-raised-button>Split</button>
 					<button (click)="editOrder(order)" [disabled]="isOrderPaid(order)" mat-icon-button>
 						<mat-icon>edit</mat-icon>
 					</button>

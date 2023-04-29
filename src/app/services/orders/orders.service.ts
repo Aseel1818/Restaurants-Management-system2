@@ -44,7 +44,13 @@ export class OrdersService {
 	}
 
 	getOrderByID(orderID: number): Order | null {
-		return this.orders.find(order => order.id === orderID) || null;
+		let foundOrder: Order | null = null
+		this.orders.forEach(order => {
+			if (order.id == orderID) {
+				foundOrder = order
+			}
+		})
+		return foundOrder
 	}
 
 	addOrder(order: Order) {

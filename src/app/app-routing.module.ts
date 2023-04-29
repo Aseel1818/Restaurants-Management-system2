@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { AuthGuard } from './guard/auth.guard';
+import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 
 const routes: Routes = [
 	{
@@ -13,7 +14,7 @@ const routes: Routes = [
 	},
 
 	{
-		path: 'login',
+		path: 'api/auth/signin',
 		component: LoginComponent,
 
 	},
@@ -33,6 +34,11 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 		loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
 	},
+	{
+        path: 'split',
+        canActivate: [AuthGuard],
+        component: SplitOrderComponent
+    },
 	{
 		path: '**',
 		redirectTo:'/',

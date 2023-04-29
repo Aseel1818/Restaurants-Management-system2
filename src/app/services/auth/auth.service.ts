@@ -13,7 +13,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     this.checkAuthStatus();
-    if (username == 'admin' && password == 'Admin1') {
+    if (username == 'admin' && password == 'Admin1!') {
       const expirationDate = new Date('2024-04-08T16:40:00Z');
       localStorage.setItem('tokenExpiration', expirationDate.toISOString());
       this.tokenExpirationSubject.next(expirationDate);
@@ -58,6 +58,6 @@ export class AuthService {
     localStorage.removeItem('isLoggedIn');
     this.loggedInSubject.next(false);
     this.tokenExpirationSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/api/auth/signin']);
   }
 }

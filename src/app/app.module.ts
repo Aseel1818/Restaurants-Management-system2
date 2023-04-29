@@ -16,12 +16,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './pages/login/login.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ToastrModule } from 'ngx-toastr';
+import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    LoginComponent
+    LoginComponent,
+    SplitOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,9 @@ import { LoginComponent } from './pages/login/login.component';
     MatSelectModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
