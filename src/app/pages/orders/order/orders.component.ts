@@ -105,33 +105,27 @@ export class OrdersComponent implements OnInit {
 	}
 	joinSelectedOrders() {
 		this.showNewButton = true;
-		this.showCheckboxes = true;
-		/////
-		
+		this.showCheckboxes = true;		
 	}
 
-	doJoin() {
+	doJoin(selectedTable: number | null = null) {
 		const selectedOrders = this.selection.selected;
 	  
 		if (selectedOrders.length < 2) {
 		  Swal.fire("Note !", "select 2 items or more to join orders", "error");
 		  return;
 		}
-	  
+		
+		
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder;
+	    newOrder.tableID = selectedTable;
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
-	  
 		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
-	  
 		this.selectedOrders = selectedOrders;
 		this.selectedItemsDetails = [];
-	  
-		Swal.fire("Done ..!", "the item u select was joined", "success");
-	  
 		let selectedOrdersNotes = "";
-	  
 		for (let order of this.selectedOrders) {
 		  if (order.notes) {
 			if (selectedOrdersNotes === "") {
@@ -155,14 +149,12 @@ export class OrdersComponent implements OnInit {
 			lastOrder.orderDetails.push(orderDetail);
 		  }
 		} 
-	  
 		lastOrder.notes = selectedOrdersNotes;
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
-	
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
 		this.ordersDataSource.data = this.orders.slice();
-
+		Swal.fire("Done ..!", "the item u select was joined", "success");
 	  }
 	  
 	splitOrders() {
