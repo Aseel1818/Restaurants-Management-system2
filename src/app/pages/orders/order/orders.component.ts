@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Table } from 'src/app/interfaces/table.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
+import { state } from '@angular/animations';
 
 @Component({
 	selector: 'app-orders',
@@ -34,9 +35,10 @@ export class OrdersComponent implements OnInit {
 	showCheckboxes = false;
 
 	selectedOrders: any[] = [];
- 
+	
 	selectedOrdersTotal: number = 0;
 	tables: Table[] = [];
+	tableId:Table |null =null  ; 
 	selectedTable!: number;
 	ordersDataSource!: MatTableDataSource<Order>;
 	selectedItemsDetails : OrderDetail[] = [];
@@ -108,7 +110,7 @@ export class OrdersComponent implements OnInit {
 		this.showCheckboxes = true;		
 	}
 
-	doJoin(selectedTable: number | null = null) {
+	joinOrders(selectedTable: number | null = null) {
 		const selectedOrders = this.selection.selected;
 	  
 		if (selectedOrders.length < 2) {
@@ -119,7 +121,10 @@ export class OrdersComponent implements OnInit {
 		
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder;
-	    newOrder.tableID = selectedTable;
+		newOrder.tableID = selectedTable;
+
+	 
+		
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
 		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
