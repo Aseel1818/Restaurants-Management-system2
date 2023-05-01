@@ -11,7 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MenuComponent } from './pages/menu/menu.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -41,10 +41,9 @@ import { SplitOrderComponent } from './pages/orders/split-order/split-order.comp
     FormsModule,
     MatCardModule,
     MatInputModule,
-	MatSelectModule,
-	MatIconModule ,
-    MatChipsModule
-    FormsModule,
+    MatSelectModule,
+    MatIconModule,
+    MatChipsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     DragDropModule

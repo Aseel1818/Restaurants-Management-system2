@@ -11,12 +11,9 @@ export class Order {
 	notes!: string | null;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
-<<<<<<< HEAD
 	isSelected!: boolean ;
 	
-=======
 
->>>>>>> ff33e1b0ebf382d83341e656e69f21882b26fdf2
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
 		if (index !== -1) {
