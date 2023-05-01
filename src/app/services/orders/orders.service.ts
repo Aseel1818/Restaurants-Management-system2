@@ -39,6 +39,19 @@ export class OrdersService {
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 	}
 
+	createNewOrder() {
+		this.currentOrder = new Order();
+		//this.currentOrder.id = this.generateNewOrderId();
+		
+
+		this.currentOrder = new Order();
+  this.currentOrder.id = this.generateNewOrderId();
+  this.currentOrder.total = 0;
+  this.currentOrder.notes = null;
+  this.currentOrder.orderDetails = [];
+
+	}
+
 	generateNewOrderId(): number {
 		return this.orders.length + 1
 	}
@@ -72,14 +85,11 @@ export class OrdersService {
 		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
 	}
 
-	createNewOrder() {
-		this.currentOrder = new Order();
-		this.currentOrder.id = this.generateNewOrderId();
-	}
+	
 
 	editOrder(order: Order) {
 		this.currentOrder = order;
 		console.log(order);
 		this.router.navigate(['/menu']);
 	}
-}	
+}

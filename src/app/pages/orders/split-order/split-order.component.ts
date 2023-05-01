@@ -71,7 +71,11 @@ export class SplitOrderComponent implements OnInit {
           },
           updateTotal: function (): void {
             throw new Error('Function not implemented.');
-          }
+          },
+          name: function (name: any): void {
+            throw new Error('Function not implemented.');
+          },
+          isSelected: false
         };
         this.orders.push(order);
         this.orderService.add(order);

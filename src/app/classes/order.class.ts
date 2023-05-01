@@ -2,12 +2,17 @@ import { OrderDetail } from '../interfaces/orderDetail.interface';
 import { Item } from '../interfaces/item.interface';
 
 export class Order {
+	name(name: any): void {
+		throw new Error('Method not implemented.');
+	}
 	id!: number;
 	total: number = 0;
 	subTotal!: number;
 	notes!: string | null;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
+	isSelected!: boolean ;
+	
 
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);

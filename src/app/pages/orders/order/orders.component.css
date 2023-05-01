@@ -41,3 +41,34 @@ th {
 .not-paid {
   background-color: #FF9999;
 }
+
+/*************************/
+.orders {
+  /* existing styles */
+  position: relative; /* add this to make the child button position absolute */
+}
+
+.joinButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.table-busy {
+  background-color: #C0F181;
+}
+
+.functionality{
+  position: absolute;
+  top: 0;
+  right: 50%;
+  margin: 20px;
+  
+
+}
+.doJoin{
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
