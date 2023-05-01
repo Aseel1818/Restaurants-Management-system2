@@ -21,7 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 		OrdersComponent,
 		OrdersPaymentDetailsComponent,
 		PaymentComponent,
-  JoinOrdersComponentComponent,
+  JoinOrdersComponentComponent
 		
 	],
 	imports: [
@@ -34,7 +34,6 @@ import { MatChipsModule } from '@angular/material/chips';
 		MatButtonModule,
 		MatFormFieldModule,
 		MatSelectModule,
-		FormsModule, 
 		MatIconModule , 
 		MatCheckboxModule , 
 		MatChipsModule

@@ -1,40 +1,35 @@
-/*import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent{
-username: string='';
-  password: string='';
-  constructor(private http: HttpClient, private router: Router) { }
-  
-
-  onSubmit() {
-    this.http.post('/api/authenticate', { username: this.username, password: this.password })
-      .subscribe((response: any) => {
-        localStorage.setItem('access_token', response.access_token);
-        this.router.navigate(['/home']);
-      });
-  }
-  /*canActivate() {
-    const isUserLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isUserLoggedIn) {
-      this.router.navigate(['/menu']);
-      return true;
-    }
-    this.router.navigate(['/login']);
-    return false;
-  }
-  
+export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^((?!.*[s])(?=.*[A-Z])(?=.*d).{4,99})')
+    ])
   });
-  hide = true;
 
+  showErrorMessages = false;
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.showErrorMessages = true;
+    });
+  }
+
+  login() {
+    this.authService.checkAuthStatus();
+    const username = this.loginForm.get('username')?.value;
+    const password = this.loginForm.get('password')?.value;
+    this.authService.login(username!, password!);
+  }
 }
-*/

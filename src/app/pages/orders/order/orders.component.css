@@ -3,11 +3,6 @@ table {
   width: 768px;
 }
 
-.orders {
-  height: calc(100vh - 100px);
-  overflow: auto;
-}
-
 td {
   text-align: center;
   padding: 5px;
@@ -19,6 +14,11 @@ th {
   padding: 5px;
   background-color: #EAF0F0;
   color: black;
+}
+
+.orders {
+  height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 .paymentStatus {

@@ -8,12 +8,15 @@ export class Order {
 	id!: number;
 	total: number = 0;
 	subTotal!: number;
-	subTotals:number=0;
-	notes!: string | null ;
+	notes!: string | null;
 	orderDetails: OrderDetail[] = [];
 	tableID!: number | null;
+<<<<<<< HEAD
 	isSelected!: boolean ;
 	
+=======
+
+>>>>>>> ff33e1b0ebf382d83341e656e69f21882b26fdf2
 	addItem(item: Item) {
 		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
 		if (index !== -1) {
@@ -26,7 +29,22 @@ export class Order {
 				isPaid: false
 			});
 		}
+		this.updateTotal();
+	}
 
+	removeItem(item: Item) {
+		const index = this.orderDetails.findIndex((detail: any) => detail.item.id === item.id);
+		if (index > -1) {
+			if (this.orderDetails[index].quantity > 1) {
+				this.orderDetails[index].quantity--;
+			} else {
+				this.orderDetails.splice(index, 1);
+			}
+		}
+		this.updateTotal();
+	}
+
+	updateTotal() {
 		this.total = 0;
 		this.orderDetails.forEach(orderDetail => {
 			this.total += (orderDetail.item.price * orderDetail.quantity);

@@ -105,6 +105,12 @@ export class OrdersComponent implements OnInit {
 				break;
 		}
 	}
+	editOrder() {
+		throw new Error('Method not implemented.');
+	}
+	splitOrders() {
+		throw new Error('Method not implemented.');
+	}
 	joinSelectedOrders() {
 		this.showNewButton = true;
 		this.showCheckboxes = true;		
@@ -120,10 +126,10 @@ export class OrdersComponent implements OnInit {
 		
 		
 		this.orderService.createNewOrder();
-		const newOrder = this.orderService.currentOrder;
+		const newOrder = this.orderService.currentOrder!;
 		newOrder.tableID = selectedTable;
 
-	 
+	
 		
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
@@ -162,14 +168,6 @@ export class OrdersComponent implements OnInit {
 		Swal.fire("Done ..!", "the item u select was joined", "success");
 	  }
 	  
-	splitOrders() {
-		//this.showNewButton = false;
-
-	}
-	editOrder() {
-		//this.showNewButton = false;
-
-	}
 
 	masterToggle() {
 		this.isAllSelected() ?

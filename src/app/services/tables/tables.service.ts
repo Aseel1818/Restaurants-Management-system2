@@ -20,8 +20,9 @@ export class TablesService {
 		return this.http.get<Table[]>(`${environment.serverUrl}/tables`);
 	}
 
-	updateTable(table: Table): Observable<Table> {
-		return this.http.put<Table>(`${environment.serverUrl}/updateTable/${table.id}`, table).pipe(
+	updateTable(tableIDs: number[]): Observable<Table> {
+		console.log("tableIDs",tableIDs);
+		return this.http.put<Table>(`${environment.serverUrl}/updateTable`, {tableIDs}).pipe(
 			map((table: any) => {
 				return table;
 			})
