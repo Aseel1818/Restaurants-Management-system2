@@ -20,22 +20,16 @@ import { Router } from '@angular/router';
 export class OrdersComponent implements OnInit {
 	selectedOrderId!: number;
 	selectedRow: Order | null = null;
-
 	displayedColumns: string[] = ['select', 'OrderID', 'total', 'details', 'table', 'isPaid', 'pay'];
 	orders: Order[] = [];
 	statusOptions = ['paid', 'not paid'];
-	//ordertype: 'paid' | 'not paid'
 	allSelected: any;
-
 	selectedItems: Item[] = [];
 	isSelectingItems: boolean = false;
 	@ViewChild(MatCheckbox) checkbox!: MatCheckbox;
 	selection = new SelectionModel<any>(true, []);
-
 	showCheckboxes = false;
-
 	selectedOrders: any[] = [];
-
 	selectedOrdersTotal: number = 0;
 	tables: Table[] = [];
 	tableId: Table | null = null;
@@ -43,21 +37,21 @@ export class OrdersComponent implements OnInit {
 	selectedItemsDetails: OrderDetail[] = [];
 
 	constructor(private orderService: OrdersService,
-		 private tableService: TablesService, private router: Router) { }
+		private tableService: TablesService, private router: Router) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 
-		this.orders.forEach(order=>{
+		this.orders.forEach(order => {
 			this.orderService.deleteOrder(order);
-})
+		})
 
 		this.tableService.getAll()
 			.subscribe((tables: Table[]) => {
 				this.tables = tables.filter(t => t.status === false);
 			});
-			
+
 		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
 	}
 
@@ -82,16 +76,16 @@ export class OrdersComponent implements OnInit {
 			});
 		}
 	}
+
 	selectAll() {
 		for (const order of this.orders) {
 			order.isSelected = this.allSelected;
 		}
 	}
 
-
 	showNewButton = false;
 
-	buttons = [{ label: 'Join Order', action: 'join' }, { label: 'Split Order', action: 'split' }, { label: 'Edit Order', action: 'edit' }];
+	buttons = [{ label: 'Join Order', action: 'join' }];
 
 	handleAction(action: string) {
 		switch (action) {
@@ -122,12 +116,9 @@ export class OrdersComponent implements OnInit {
 			return;
 		}
 
-
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder!;
 		newOrder.tableID = selectedTable;
-
-
 
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
@@ -165,7 +156,6 @@ export class OrdersComponent implements OnInit {
 		Swal.fire("Done ..!", "the item u select was joined", "success");
 	}
 
-
 	masterToggle() {
 		this.isAllSelected() ?
 			this.selection.clear() :
@@ -181,9 +171,9 @@ export class OrdersComponent implements OnInit {
 	editOrder(order: Order): void {
 		this.orderService.editOrder(order);
 	}
+
 	goToSplitOrder(orderID: number) {
 		this.selectedOrderId = orderID;
 		this.router.navigate(['/split'], { queryParams: { orderId: this.selectedOrderId } });
 	}
-
 }
