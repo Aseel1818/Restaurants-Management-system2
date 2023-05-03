@@ -2,9 +2,6 @@ import { OrderDetail } from '../interfaces/orderDetail.interface';
 import { Item } from '../interfaces/item.interface';
 
 export class Order {
-	name(name: any): void {
-		throw new Error('Method not implemented.');
-	}
 	id!: number;
 	total: number = 0;
 	subTotal!: number;

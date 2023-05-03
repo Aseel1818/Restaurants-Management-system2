@@ -19,7 +19,7 @@ const routes: Routes = [
 
 	},
 	{
-		path: 'categories/:categoryID',
+		path: 'rest/category/:categoryID',
 		component: MenuComponent,
 		canActivate: [AuthGuard]
 

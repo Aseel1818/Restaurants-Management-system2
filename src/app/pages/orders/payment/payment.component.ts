@@ -75,6 +75,7 @@ export class PaymentComponent implements OnInit {
       if (isFullyPaid) {
         if (this.order?.tableID) {
           console.log(this.order.tableID + " is already")
+          this.orderService.tableIds.length=0;
           this.orderService.tableIds.push(this.order.tableID);
           this.tableService.updateTable(this.orderService.tableIds)
             .subscribe(table => {

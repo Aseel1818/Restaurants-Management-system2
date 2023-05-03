@@ -92,4 +92,13 @@ export class OrdersService {
 		console.log(order);
 		this.router.navigate(['/menu']);
 	}
+
+	deleteOrder(order: Order) {
+        if (order.orderDetails.length === 0) {
+          const index = this.orders.indexOf(order);
+          if (index > -1) {
+            this.orders.splice(index, 1);
+          }
+        }
+      }
 }

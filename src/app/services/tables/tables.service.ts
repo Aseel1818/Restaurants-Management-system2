@@ -11,18 +11,18 @@ import { environment } from 'src/environments/environment';
 export class TablesService {
 
 	constructor(private http: HttpClient) {}
-
+     accessToken = localStorage.getItem('accessToken');
 	getTableById(id: number): Observable<Table> {
-		return this.http.get<Table>(`${environment.serverUrl}/findTable/${id}`);
+		return this.http.get<Table>(`${environment.serverUrl}/rest/table/findTable/${id}`);
 	}
 
 	getAll(): Observable<Table[]> {
-		return this.http.get<Table[]>(`${environment.serverUrl}/tables`);
+		return this.http.get<Table[]>(`${environment.serverUrl}/rest/table/tables`);
 	}
 
 	updateTable(tableIDs: number[]): Observable<Table> {
 		console.log("tableIDs",tableIDs);
-		return this.http.put<Table>(`${environment.serverUrl}/updateTable`, {tableIDs}).pipe(
+		return this.http.put<Table>(`${environment.serverUrl}/rest/table/updateTable`, {tableIDs}).pipe(
 			map((table: any) => {
 				return table;
 			})

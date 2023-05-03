@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { User } from 'src/app/interfaces/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,53 +12,38 @@ export class AuthService {
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   private tokenExpirationSubject = new BehaviorSubject<Date | null>(null);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private httpClient: HttpClient) { }
 
   login(username: string, password: string) {
-    this.checkAuthStatus();
-    if (username == 'admin' && password == 'Admin1!') {
-      const expirationDate = new Date('2024-04-08T16:40:00Z');
-      localStorage.setItem('tokenExpiration', expirationDate.toISOString());
-      this.tokenExpirationSubject.next(expirationDate);
-      this.loggedInSubject.next(true);
-      localStorage.setItem('isLoggedIn', 'true');
-      this.router.navigate(['/']);
-      console.log("logged in");
-    }
+    this.httpClient.post<User>(`${environment.serverUrl}/api/auth/signin`, { username, password })
+      .subscribe((res: User) => {
+        console.log("RES", res);
+        localStorage.setItem('accessToken', res.accessToken);
+        this.router.navigate(['/']);
+      });
   }
 
-  checkAuthStatus() {
-    // const expirationDate = this.tokenExpirationSubject.getValue();
-    const expirationDate = localStorage.getItem('tokenExpiration');
-    if (expirationDate && new Date(expirationDate) > new Date()) {
-      this.loggedInSubject.next(true);
-      this.tokenExpirationSubject.next(new Date(expirationDate));
-    } else {
-      this.loggedInSubject.next(false);
-      this.tokenExpirationSubject.next(null);
-      localStorage.removeItem('tokenExpiration');
-      localStorage.removeItem('isLoggedIn');
-    }
+  checkAuthStatus(){
+    
   }
-
-  isTokenExpired(): boolean {
+  //call israa service in the backedn that check if the token expird or not
+  /*isTokenExpired(): boolean {
     const tokenExpirationDate = this.tokenExpirationSubject.getValue();
     if (!tokenExpirationDate) {
       return true;
     }
     return new Date() > tokenExpirationDate;
-  }
+  }*/
+
 
   isLoggedIn(): boolean {
-    const loggedIn = this.loggedInSubject.getValue();
-    const tokenExpired = this.isTokenExpired();
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    return (loggedIn && !tokenExpired) || isLoggedIn;
+    const accessToken = localStorage.getItem('accessToken');
+    return accessToken !== null;
   }
 
   logout() {
-    localStorage.removeItem('tokenExpiration');
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('accessToken');
     this.loggedInSubject.next(false);
     this.tokenExpirationSubject.next(null);
     this.router.navigate(['/api/auth/signin']);

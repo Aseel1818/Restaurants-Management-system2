@@ -56,27 +56,10 @@ export class SplitOrderComponent implements OnInit {
             orderDetail.quantity * orderDetail.item.price;
         }
         )
-        let order: Order = {
-          orderDetails,
-          total: this.total,
-          id: this.orders.length + 1,
-          tableID: 3,
-          subTotal: 0,
-          notes: '',
-          addItem: function (item: Item): void {
-            throw new Error('Function not implemented.');
-          },
-          removeItem: function (item: Item): void {
-            throw new Error('Function not implemented.');
-          },
-          updateTotal: function (): void {
-            throw new Error('Function not implemented.');
-          },
-          name: function (name: any): void {
-            throw new Error('Function not implemented.');
-          },
-          isSelected: false
-        };
+        let order = new Order();
+        order.orderDetails = orderDetails;
+        order.total = this.total;
+        order.id=this.lastOrderID+i+1;
         this.orders.push(order);
         this.orderService.add(order);
       }

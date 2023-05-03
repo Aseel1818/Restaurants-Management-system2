@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 import { Table } from 'src/app/interfaces/table.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
-import { state } from '@angular/animations';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,7 +40,6 @@ export class OrdersComponent implements OnInit {
 	tables: Table[] = [];
 	tableId: Table | null = null;
 	selectedTable!: number;
-	ordersDataSource!: MatTableDataSource<Order>;
 	selectedItemsDetails: OrderDetail[] = [];
 
 	constructor(private orderService: OrdersService,
@@ -51,11 +49,16 @@ export class OrdersComponent implements OnInit {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 
+		this.orders.forEach(order=>{
+			this.orderService.deleteOrder(order);
+})
+
 		this.tableService.getAll()
 			.subscribe((tables: Table[]) => {
 				this.tables = tables.filter(t => t.status === false);
 			});
-
+			
+		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
 	}
 
 	goToPayments(orderID: number) {
@@ -159,7 +162,6 @@ export class OrdersComponent implements OnInit {
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
-		this.ordersDataSource.data = this.orders.slice();
 		Swal.fire("Done ..!", "the item u select was joined", "success");
 	}
 
