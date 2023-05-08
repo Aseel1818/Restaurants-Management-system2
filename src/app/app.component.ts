@@ -24,6 +24,12 @@ export class AppComponent {
       shareReplay()
     );
 
+    ngOnInit() {
+      setInterval(() => {
+        this.authService.checkAuth();
+      }, 300000);
+    }
+    
   logout() {
     this.authService.logout();
   }                     

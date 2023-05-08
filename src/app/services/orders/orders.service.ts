@@ -41,14 +41,10 @@ export class OrdersService {
 
 	createNewOrder() {
 		this.currentOrder = new Order();
-		//this.currentOrder.id = this.generateNewOrderId();
-		
-
-		this.currentOrder = new Order();
-  this.currentOrder.id = this.generateNewOrderId();
-  this.currentOrder.total = 0;
-  this.currentOrder.notes = null;
-  this.currentOrder.orderDetails = [];
+		this.currentOrder.id = this.generateNewOrderId();
+		this.currentOrder.total = 0;
+		this.currentOrder.notes = null;
+		this.currentOrder.orderDetails = [];
 
 	}
 
@@ -82,10 +78,8 @@ export class OrdersService {
 			tables: order.tableID,
 			orderDetail: orderDetailArray
 		}
-		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
+		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
-
-	
 
 	editOrder(order: Order) {
 		this.currentOrder = order;
@@ -94,11 +88,11 @@ export class OrdersService {
 	}
 
 	deleteOrder(order: Order) {
-        if (order.orderDetails.length === 0) {
-          const index = this.orders.indexOf(order);
-          if (index > -1) {
-            this.orders.splice(index, 1);
-          }
-        }
-      }
+		if (order.orderDetails.length === 0) {
+			const index = this.orders.indexOf(order);
+			if (index > -1) {
+				this.orders.splice(index, 1);
+			}
+		}
+	}
 }

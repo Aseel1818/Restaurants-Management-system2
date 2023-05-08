@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from "ngx-toastr";
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedInSubject = new BehaviorSubject<boolean>(false);
-  private tokenExpirationSubject = new BehaviorSubject<Date | null>(null);
 
   constructor(private router: Router,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private toastr: ToastrService
+  ) { }
 
   login(username: string, password: string) {
     this.httpClient.post<User>(`${environment.serverUrl}/api/auth/signin`, { username, password })
@@ -24,18 +26,23 @@ export class AuthService {
       });
   }
 
-  checkAuthStatus(){
-    
+  checkAuth() {
+    this.httpClient.get(`${environment.serverUrl}/api/auth/vtoken`).subscribe(res => {
+      if (res) {
+        console.log("is valid token");
+      } else {
+        console.log("Token is not valid");
+        this.toastr.warning('Your session has expired. Please save you work you"ll need login again in 10sec.', 'Warning', {
+          timeOut: 10000,
+          progressBar: true,
+        });
+        const delayObservable = of('').pipe(delay(10000));
+        delayObservable.subscribe(() => {
+          this.logout();
+        });
+      }
+    });
   }
-  //call israa service in the backedn that check if the token expird or not
-  /*isTokenExpired(): boolean {
-    const tokenExpirationDate = this.tokenExpirationSubject.getValue();
-    if (!tokenExpirationDate) {
-      return true;
-    }
-    return new Date() > tokenExpirationDate;
-  }*/
-
 
   isLoggedIn(): boolean {
     const accessToken = localStorage.getItem('accessToken');
@@ -44,8 +51,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('accessToken');
-    this.loggedInSubject.next(false);
-    this.tokenExpirationSubject.next(null);
     this.router.navigate(['/api/auth/signin']);
   }
 }
