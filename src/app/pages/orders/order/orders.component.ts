@@ -4,12 +4,11 @@ import { Item } from 'src/app/interfaces/item.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 import { Table } from 'src/app/interfaces/table.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-orders',
@@ -37,7 +36,10 @@ export class OrdersComponent implements OnInit {
 	selectedItemsDetails: OrderDetail[] = [];
 
 	constructor(private orderService: OrdersService,
-		private tableService: TablesService, private router: Router) { }
+		private tableService: TablesService,
+		 private router: Router,
+		 private toastr: ToastrService
+		 ) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
@@ -112,7 +114,7 @@ export class OrdersComponent implements OnInit {
 		const selectedOrders = this.selection.selected;
 
 		if (selectedOrders.length < 2) {
-			Swal.fire("Note !", "select 2 items or more to join orders", "error");
+			this.toastr.error("select 2 items or more to join orders","Note !")
 			return;
 		}
 
@@ -153,7 +155,7 @@ export class OrdersComponent implements OnInit {
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
-		Swal.fire("Done ..!", "the item u select was joined", "success");
+		this.toastr.success("the item u select was joined","Done ..!")
 	}
 
 	masterToggle() {

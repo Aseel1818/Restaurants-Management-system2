@@ -4,11 +4,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { AuthGuard } from './guard/auth.guard';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: MenuComponent,
+		//component: MenuComponent,
+		component: DashboardComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
 	},

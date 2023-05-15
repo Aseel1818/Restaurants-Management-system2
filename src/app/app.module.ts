@@ -21,12 +21,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ToastrModule } from 'ngx-toastr';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 import { ApiInterceptor } from './interceptors/api.interceptor';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     LoginComponent,
-    SplitOrderComponent
+    SplitOrderComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
     MatChipsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    DragDropModule
+    DragDropModule,
+    NgChartsModule,
   ],
   providers: [
     { 

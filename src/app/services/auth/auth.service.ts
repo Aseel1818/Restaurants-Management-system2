@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from "ngx-toastr";
-import { delay } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +21,19 @@ export class AuthService {
       .subscribe((res: User) => {
         console.log("RES", res);
         localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('roles', JSON.stringify(res.roles));
         this.router.navigate(['/']);
       });
   }
 
   checkAuth() {
-    this.httpClient.get(`${environment.serverUrl}/api/auth/vtoken`).subscribe(res => {
+
+    this.httpClient.get(`${environment.serverUrl}/api/auth/vtoken`).subscribe(res  => {
       if (res) {
         console.log("is valid token");
       } else {
         console.log("Token is not valid");
-        this.toastr.warning('Your session has expired. Please save you work you"ll need login again in 10sec.', 'Warning', {
+        this.toastr.warning('Your session has expired. Please save your work, you\'ll need to log in again in 10 seconds.', 'Warning', {
           timeOut: 10000,
           progressBar: true,
         });
@@ -42,11 +43,16 @@ export class AuthService {
         });
       }
     });
-  }
+  } 
 
-  isLoggedIn(): boolean {
+  isAuthenticated(): boolean {
     const accessToken = localStorage.getItem('accessToken');
-    return accessToken !== null;
+    if(accessToken){
+      this.checkAuth();
+      return accessToken !== null;
+    }
+    else 
+    return false;
   }
 
   logout() {

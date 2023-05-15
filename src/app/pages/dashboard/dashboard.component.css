@@ -1,0 +1,13 @@
+.chart-container, .freq-items{
+    width: 50%;
+    height: 50%;
+}
+
+.title{
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.monthly-report{
+    margin-right: 12px;
+}
