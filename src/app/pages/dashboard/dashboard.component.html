@@ -1,14 +1,31 @@
 <div class="sales-reports">
     <h1>Sales reports</h1>
-    
+    <div class="chart-container row">
+        <div class="monthly-report">
+            <div class="title">Monthly sales</div>
+            <div class="nav"></div>
+            <div calss="chart-wrapper">
+                <canvas baseChart width="600" height="400" type="bar" [data]="barChartDataMonthly"></canvas>
+            </div>
+        </div>
+        <div class="weekly-report">
+            <div class="title">Weekly sales</div>
+            <div class="nav"></div>
+            <div calss="chart-wrapper">
+                <canvas baseChart width="600" height="400" type="bar" [data]="barChartDataWeekly"></canvas>
+            </div>
+        </div>
+    </div>
     <div class="center">
         <div class="daily-report">
             <div class="title">Daily sales</div>
             <div class="nav"></div>
-            <div calss="chart-wrapper">
+            <div class="chart-wrapper">
                 <canvas baseChart width="600" height="400" type="bar" [data]="barChartDataDaily"></canvas>
             </div>
         </div>
     </div>
 </div>
+
+
 

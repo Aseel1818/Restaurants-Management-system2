@@ -5,6 +5,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { AuthGuard } from './guard/auth.guard';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ChartDataResolver } from './resolvers/chart-data.resolver';
 
 const routes: Routes = [
 	{
@@ -13,6 +14,9 @@ const routes: Routes = [
 		component: DashboardComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 
 	{
