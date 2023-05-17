@@ -1,3 +1,23 @@
+<div class="frequency-selling">
+    <h1>Statistics</h1>
+    <div class="frequency row">
+        <div class="freq-items">
+            <div class="title">Items selling</div>
+            <div class="nav"></div>
+            <div class="chart-container">
+                <canvas baseChart type="pie" [data]="pieChartData"></canvas>
+            </div>
+        </div>
+        <div class="monthly-report">
+            <div class="title">Users sales</div>
+            <div class="nav"></div>
+            <div calss="chart-wrapper">
+                <canvas baseChart type="pie" [data]="barChartUserSales"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="sales-reports">
     <h1>Sales reports</h1>
     <div class="chart-container row">
@@ -8,15 +28,6 @@
                 <canvas baseChart width="600" height="400" type="bar" [data]="barChartDataMonthly"></canvas>
             </div>
         </div>
-        <div class="weekly-report">
-            <div class="title">Weekly sales</div>
-            <div class="nav"></div>
-            <div calss="chart-wrapper">
-                <canvas baseChart width="600" height="400" type="bar" [data]="barChartDataWeekly"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="center">
         <div class="daily-report">
             <div class="title">Daily sales</div>
             <div class="nav"></div>
@@ -26,6 +37,3 @@
         </div>
     </div>
 </div>
-
-
-

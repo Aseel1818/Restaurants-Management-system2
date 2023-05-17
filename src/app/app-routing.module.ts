@@ -10,8 +10,7 @@ import { ChartDataResolver } from './resolvers/chart-data.resolver';
 const routes: Routes = [
 	{
 		path: '',
-		//component: MenuComponent,
-		component: DashboardComponent,
+		component: MenuComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
 		resolve: {
@@ -29,6 +28,14 @@ const routes: Routes = [
 		component: MenuComponent,
 		canActivate: [AuthGuard]
 
+	},
+	{
+		path: 'dashboard',
+		component: DashboardComponent,
+		canActivate: [AuthGuard],
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 	{
 		path: 'tables',

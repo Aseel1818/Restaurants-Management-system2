@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Order } from 'src/app/classes/order.class';
+import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,17 +21,6 @@ export class DashboardComponent implements OnInit {
     ]
   };
 
-  barChartDataWeekly = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-    datasets: [
-      {
-        data: [0, 0, 0, 0],
-        label: 'Sales perc',
-        backgroundColor: 'rgb(54, 162, 235)',
-      }
-    ]
-  };
-
   barChartDataMonthly = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
@@ -37,6 +28,28 @@ export class DashboardComponent implements OnInit {
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         label: 'Sales perc',
         backgroundColor: 'rgb(75, 192, 192)',
+      }
+    ]
+  };
+
+  barChartUserSales = {
+    labels: ['Isra', 'Noor', 'Aseel', 'Sana'],
+    datasets: [
+      {
+        data: [5, 10, 20, 1],
+        label: 'best items Sales perc',
+        backgroundColor: ['rgb(255, 99, 132)']
+      }
+    ]
+  } 
+
+  pieChartData = {
+    labels: [""],
+    datasets: [
+      {
+        data: [0],
+        label: 'best items Sales perc',
+        backgroundColor: ['rgb(255, 99, 132)']
       }
     ]
   };
@@ -49,15 +62,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const orders = this.route.snapshot.data['orders'];
-    console.log('Orders:', orders);
 
-    this.dailyOrdersData = this.calculateDailyOrders(orders);
-    this.weeklyOrdersData = this.calculateWeeklyOrders(orders);
-    this.monthlyOrdersData = this.calculateMonthlyOrders(orders);
+    if (orders) {
+      this.dailyOrdersData = this.calculateDailyOrders(orders);
+      this.monthlyOrdersData = this.calculateMonthlyOrders(orders);
 
-    this.updateBarChartDataDaily();
-    this.updateBarChartDataWeekly();
-    this.updateBarChartDataMonthly();
+      this.updateBarChartDataDaily();
+      this.updateBarChartDataMonthly();
+      this.calculateFreqSelling(orders);
+    }
   }
 
   calculateDailyOrders(orders: any[]): number[] {
@@ -71,24 +84,6 @@ export class DashboardComponent implements OnInit {
     return dailyOrders;
   }
 
-  calculateWeeklyOrders(orders: any[]): number[] {
-    const weeklyOrders: number[] = [0, 0, 0, 0];
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-  
-    orders.forEach(order => {
-      const paymentDate = new Date(order.payment_date);
-      const orderMonth = paymentDate.getMonth();
-  
-      if (orderMonth === currentMonth) {
-        const weekNumber = Math.floor((paymentDate.getDate() - 1) / 7);
-        weeklyOrders[weekNumber]++;
-      }
-    });
-  
-    return weeklyOrders;
-  }  
-
   calculateMonthlyOrders(orders: any[]): number[] {
     const monthlyOrders: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     orders.forEach(order => {
@@ -100,12 +95,49 @@ export class DashboardComponent implements OnInit {
     return monthlyOrders;
   }
 
-  updateBarChartDataDaily() {
-    this.barChartDataDaily.datasets[0].data = this.dailyOrdersData;
+  calculateFreqSelling(orders: Order[]): void {
+    const itemQuantities: { [itemId: string]: { label: string, quantity: number } } = {};
+    let totalQuantity = 0;
+
+    orders.forEach((order: Order) => {
+      order.orderDetail.forEach((orderDetail: OrderDetail) => {
+        const { id, name } = orderDetail.item;
+        const quantity = orderDetail.quantity;
+
+        if (!itemQuantities[id]) {
+          itemQuantities[id] = { label: name, quantity: 0 };
+        }
+
+        itemQuantities[id].quantity += quantity;
+        totalQuantity += quantity;
+      });
+    });
+
+    const sortedItems = Object.entries(itemQuantities).sort((a, b) => b[1].quantity - a[1].quantity);
+    const limitedItems = sortedItems.slice(0, 5);
+
+    const { datasets } = this.pieChartData;
+    datasets[0].data = [];
+    datasets[0].backgroundColor = [];
+    this.pieChartData.labels = [];
+
+    limitedItems.forEach(([id, itemData]) => {
+      const { label, quantity } = itemData;
+      const percentage = (quantity / totalQuantity) * 100;
+      datasets[0].data.push(percentage);
+
+      const randomColor = `rgb(${this.getRandomValue()}, ${this.getRandomValue()}, ${this.getRandomValue()})`;
+      datasets[0].backgroundColor.push(randomColor);
+      this.pieChartData.labels.push(label);
+    });
   }
 
-  updateBarChartDataWeekly() {
-    this.barChartDataWeekly.datasets[0].data = this.weeklyOrdersData;
+  getRandomValue(): number {
+    return Math.floor(Math.random() * 256);
+  }
+
+  updateBarChartDataDaily() {
+    this.barChartDataDaily.datasets[0].data = this.dailyOrdersData;
   }
 
   updateBarChartDataMonthly() {

@@ -40,7 +40,7 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
     }
 
     let subTotal = 0
-    this.order.orderDetails.forEach(orderDetail => {
+    this.order.orderDetail.forEach(orderDetail => {
       if (orderDetail.isChecked) {
         subTotal += (orderDetail.item.price * orderDetail.quantity)
       }
@@ -51,8 +51,8 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
 
   openPayment() {
     let showAlert = false;
-    if (this.order?.orderDetails.every(obj => obj.isChecked === false)) {
-      if (this.order?.orderDetails.every(obj => obj.isPaid === true)) {
+    if (this.order?.orderDetail.every(obj => obj.isChecked === false)) {
+      if (this.order?.orderDetail.every(obj => obj.isPaid === true)) {
         this.showAlert = false;
         this.showAlertAllPaid = true;
         setTimeout(() => { this.showAlertAllPaid = false; }, 5000);
@@ -72,7 +72,7 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
   }
 
   selectAll() {
-    this.order?.orderDetails.forEach(orderDetail => {
+    this.order?.orderDetail.forEach(orderDetail => {
       if (!orderDetail.isPaid) {
         orderDetail.isChecked = true;
         this.updateSubTotal();

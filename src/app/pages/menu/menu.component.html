@@ -21,7 +21,7 @@
         </mat-card>
     </div>
     <div class="order-details">
-        <div *ngIf="order?.orderDetails?.length" class="bill-container">
+        <div *ngIf="order?.orderDetail?.length" class="bill-container">
             <mat-card class="card">
                 <mat-card-content class="card-content">
                     <table class="table full-width">
@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of order.orderDetails" class="table-row">
+                            <tr *ngFor="let item of order.orderDetail" class="table-row">
                                 <td class="table-cell">{{item.item.name}}</td>
                                 <td class="table-cell">{{item.quantity}}</td>
                                 <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>

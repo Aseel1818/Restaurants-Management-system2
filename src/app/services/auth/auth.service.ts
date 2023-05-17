@@ -21,7 +21,6 @@ export class AuthService {
       .subscribe((res: User) => {
         console.log("RES", res);
         localStorage.setItem('accessToken', res.accessToken);
-        localStorage.setItem('roles', JSON.stringify(res.roles));
         this.router.navigate(['/']);
       });
   }
@@ -51,8 +50,10 @@ export class AuthService {
       this.checkAuth();
       return accessToken !== null;
     }
-    else 
-    return false;
+    else {
+      this.logout();
+      return false;
+    }
   }
 
   logout() {
