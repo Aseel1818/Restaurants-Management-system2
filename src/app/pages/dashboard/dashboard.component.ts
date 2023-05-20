@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
   calculateDailyOrders(orders: any[]): number[] {
     const dailyOrders: number[] = [0, 0, 0, 0, 0, 0, 0];
     orders.forEach(order => {
-      const paymentDate = new Date(order.payment_date);
+      const paymentDate = new Date(order.creationDate);
       const dayOfWeek = paymentDate.getDay();
       dailyOrders[dayOfWeek]++;
     });
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
   calculateMonthlyOrders(orders: any[]): number[] {
     const monthlyOrders: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     orders.forEach(order => {
-      const paymentDate = new Date(order.payment_date);
+      const paymentDate = new Date(order.creationDate);
       const month = paymentDate.getMonth();
       monthlyOrders[month]++;
     });
