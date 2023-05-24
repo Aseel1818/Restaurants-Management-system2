@@ -10,7 +10,7 @@ import { OrdersPaymentDetailsComponent } from '../orders-payment-details/orders-
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  amount!: number;
+  amount!: string;
   remainingValue!: number;
   dollarConvert!: number;
   order!: Order | null;
@@ -22,6 +22,7 @@ export class PaymentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { orderId: number }) { }
 
   ngOnInit(): void {
+    
     this.order = this.orderService.getOrderByID(this.data.orderId);
   }
 
@@ -30,14 +31,14 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
-    this.sum += this.amount;
+    this.sum += parseFloat(this.amount);
     if (this.amount !== undefined) {
       this.remainingValue = this.sum - (this.order.subTotal);
       if (this.remainingValue < 0) {
         this.remainingValue = 0;
       }
     }
-    this.amount = 0;
+    this.amount = '0';
   }
 
   dollarRemaining() {
@@ -46,16 +47,16 @@ export class PaymentComponent implements OnInit {
       return
     }
     if (this.amount !== undefined) {
-      this.dollarConvert =this.amount * 3.67;
+      this.dollarConvert = parseFloat(this.amount) * 3.67;
       this.sum += this.dollarConvert;
       this.remainingValue = this.sum - (this.order.subTotal);
       if (this.remainingValue < 0) {
         this.remainingValue = 0;
       }
     }
-    this.amount = 0;
+    this.amount = '0';
   }
-  
+
   pay() {
     if (this.sum == this.order?.subTotal || this.sum > this.order!.subTotal) {
       if (!this.order) {
@@ -75,6 +76,7 @@ export class PaymentComponent implements OnInit {
       if (isFullyPaid) {
         if (this.order?.tableID) {
           console.log(this.order.tableID + " is already")
+          this.orderService.tableIds.length = 0;
           this.orderService.tableIds.push(this.order.tableID);
           this.tableService.updateTable(this.orderService.tableIds)
             .subscribe(table => {
@@ -92,6 +94,7 @@ export class PaymentComponent implements OnInit {
         );
       }
       this.orderService.add(this.order);
+      this.orderService.delteOrderFromStorge(this.order);
       this.dialogRef.close();
     }
     else {

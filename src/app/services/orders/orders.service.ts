@@ -41,14 +41,10 @@ export class OrdersService {
 
 	createNewOrder() {
 		this.currentOrder = new Order();
-		//this.currentOrder.id = this.generateNewOrderId();
-		
-
-		this.currentOrder = new Order();
-  this.currentOrder.id = this.generateNewOrderId();
-  this.currentOrder.total = 0;
-  this.currentOrder.notes = null;
-  this.currentOrder.orderDetails = [];
+		this.currentOrder.id = this.generateNewOrderId();
+		this.currentOrder.total = 0;
+		this.currentOrder.notes = null;
+		this.currentOrder.orderDetails= [];
 
 	}
 
@@ -80,16 +76,33 @@ export class OrdersService {
 			note: order.notes,
 			total: order.total,
 			tables: order.tableID,
-			orderDetail: orderDetailArray
+			orderDetails: orderDetailArray
 		}
-		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
+		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
-
-	
 
 	editOrder(order: Order) {
 		this.currentOrder = order;
 		console.log(order);
 		this.router.navigate(['/menu']);
 	}
+
+	deleteOrder(order: Order) {
+		if (order.orderDetails.length === 0) {
+			const index = this.orders.indexOf(order);
+			if (index > -1) {
+				this.orders.splice(index, 1);
+			}
+		}
+	}
+
+	delteOrderFromStorge (order:Order){
+		for(let i=0;i<this.orders.length;i++){
+		 if(this.orders[i].orderDetails.every(orderDetail=>orderDetail.isPaid===true)){
+			 this.orders.splice(i,1)
+		 }
+		}
+		localStorage.setItem('orders', JSON.stringify(this.orders));
+		location.reload();
+	 }
 }

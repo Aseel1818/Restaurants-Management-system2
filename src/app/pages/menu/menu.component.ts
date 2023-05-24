@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Item } from "src/app/interfaces/item.interface";
 import { Category } from "src/app/interfaces/category.interface";
@@ -7,6 +7,8 @@ import { OrdersService } from "../../services/orders/orders.service";
 import { Order } from "src/app/classes/order.class";
 import { TablesService } from "src/app/services/tables/tables.service";
 import { Table } from "src/app/interfaces/table.interface";
+import { OrderDetail } from "src/app/interfaces/orderDetail.interface";
+import { ToasterService } from "src/app/services/toaster/toaster.service";
 
 @Component({
 	selector: "app-menu",
@@ -28,7 +30,8 @@ export class MenuComponent implements OnInit {
 		private router: Router,
 		private itemsService: ItemsService,
 		private ordersService: OrdersService,
-		private tableService: TablesService
+		private tableService: TablesService,
+		private toaster: ToasterService
 	) { }
 
 	ngOnInit(): void {
@@ -67,9 +70,22 @@ export class MenuComponent implements OnInit {
 			this.filteredItems = items;
 		});
 	}
+	increment(orderDetail: OrderDetail) {
+
+		orderDetail.quantity++;
+		this.order.total += orderDetail.item.price;
+	}
+
+
+	deccrement(orderDetail: OrderDetail) {
+		orderDetail.quantity--;
+		this.order.total -= orderDetail.item.price;
+
+	}
 
 	addToOrder(item: Item) {
 		this.order.addItem(item);
+		this.toaster.showToaster('success', item.name+' added successfully', 'success');
 	}
 
 	filterItems() {

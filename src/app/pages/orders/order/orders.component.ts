@@ -4,13 +4,11 @@ import { Item } from 'src/app/interfaces/item.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 import { Table } from 'src/app/interfaces/table.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
-import { state } from '@angular/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from 'src/app/services/toaster/toaster.service';
 
 @Component({
 	selector: 'app-orders',
@@ -21,41 +19,57 @@ import { Router } from '@angular/router';
 export class OrdersComponent implements OnInit {
 	selectedOrderId!: number;
 	selectedRow: Order | null = null;
-
 	displayedColumns: string[] = ['select', 'OrderID', 'total', 'details', 'table', 'isPaid', 'pay'];
 	orders: Order[] = [];
 	statusOptions = ['paid', 'not paid'];
-	//ordertype: 'paid' | 'not paid'
 	allSelected: any;
-
 	selectedItems: Item[] = [];
 	isSelectingItems: boolean = false;
 	@ViewChild(MatCheckbox) checkbox!: MatCheckbox;
 	selection = new SelectionModel<any>(true, []);
-
 	showCheckboxes = false;
-
 	selectedOrders: any[] = [];
-
 	selectedOrdersTotal: number = 0;
 	tables: Table[] = [];
 	tableId: Table | null = null;
 	selectedTable!: number;
-	ordersDataSource!: MatTableDataSource<Order>;
 	selectedItemsDetails: OrderDetail[] = [];
+	dbOrders: Order[] = [];
+	allOrders:Order[]=[];
 
 	constructor(private orderService: OrdersService,
-		 private tableService: TablesService, private router: Router) { }
+		private tableService: TablesService,
+		 private router: Router,
+		 private toastr: ToasterService,
+		 private route: ActivatedRoute,
+
+		 ) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
 		console.log(this.orders);
 
+		this.orders.forEach(order => {
+			this.orderService.deleteOrder(order);
+		})
+
 		this.tableService.getAll()
 			.subscribe((tables: Table[]) => {
-				this.tables = tables.filter(t => t.status === false);
+				this.tables = tables.filter(table => table.status === false);
 			});
 
+		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
+		this.dbOrders = this.route.snapshot.data['orders'];
+		console.log('Orders:', this.dbOrders);
+		
+		this.dbOrders.forEach(order => {
+			order.orderDetails.forEach(orderDetail => {
+				orderDetail.isPaid = true;
+			})
+		});
+
+		this.allOrders = this.orders.concat(this.dbOrders); 
+		console.log(this.allOrders)
 	}
 
 	goToPayments(orderID: number) {
@@ -68,9 +82,9 @@ export class OrdersComponent implements OnInit {
 
 	paidOrders(orderStatus: string) {
 		if (orderStatus === "all") {
-			this.orders = this.orderService.getAll();
+			this.orders=this.allOrders ;
 		} else {
-			this.orders = this.orderService.getAll().filter(order => {
+			this.orders = this.allOrders.filter(order => {
 				if (orderStatus === "paid") {
 					return this.isOrderPaid(order);
 				} else {
@@ -79,16 +93,16 @@ export class OrdersComponent implements OnInit {
 			});
 		}
 	}
+
 	selectAll() {
 		for (const order of this.orders) {
 			order.isSelected = this.allSelected;
 		}
 	}
 
-
 	showNewButton = false;
 
-	buttons = [{ label: 'Join Order', action: 'join' }, { label: 'Split Order', action: 'split' }, { label: 'Edit Order', action: 'edit' }];
+	buttons = [{ label: 'Join Order', action: 'join' }];
 
 	handleAction(action: string) {
 		switch (action) {
@@ -115,16 +129,13 @@ export class OrdersComponent implements OnInit {
 		const selectedOrders = this.selection.selected;
 
 		if (selectedOrders.length < 2) {
-			Swal.fire("Note !", "select 2 items or more to join orders", "error");
+			this.toastr.showToaster('warning', 'select 2 orders or more to join', 'error');
 			return;
 		}
-
 
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder!;
 		newOrder.tableID = selectedTable;
-
-
 
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
@@ -159,10 +170,9 @@ export class OrdersComponent implements OnInit {
 		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
-		this.ordersDataSource.data = this.orders.slice();
-		Swal.fire("Done ..!", "the item u select was joined", "success");
+		this.toastr.showToaster('success', 'the item you selected was joined successfully', 'success');
+		location.reload();
 	}
-
 
 	masterToggle() {
 		this.isAllSelected() ?
@@ -179,9 +189,9 @@ export class OrdersComponent implements OnInit {
 	editOrder(order: Order): void {
 		this.orderService.editOrder(order);
 	}
+
 	goToSplitOrder(orderID: number) {
 		this.selectedOrderId = orderID;
 		this.router.navigate(['/split'], { queryParams: { orderId: this.selectedOrderId } });
 	}
-
 }

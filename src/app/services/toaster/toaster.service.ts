@@ -5,13 +5,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ToasterService {
   constructor(private toastr: ToastrService) { }
-  showToaster(message: string, title: string, type: String) {
+  showToaster(title: string, message: string, type: String) {
     if (type === 'success') {
-      this.toastr.success(title, message);
+      this.toastr.success(message, title);
     } else if (type === 'error') {
-      this.toastr.error(title, message);
+      this.toastr.error(message, title);
     } else if (type === 'info') {
-      this.toastr.info(title, message);
+      this.toastr.info(message, title);
     }
     else{
       console.warn(`invalid  message type ...  ${type}`)

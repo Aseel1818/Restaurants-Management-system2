@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
@@ -10,7 +10,7 @@ import { AuthService } from "./services/auth/auth.service";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     public router: Router,
@@ -24,6 +24,12 @@ export class AppComponent {
       shareReplay()
     );
 
+    ngOnInit() {
+      setInterval(() => {
+        this.authService.isAuthenticated();
+      }, 200000);
+    }
+    
   logout() {
     this.authService.logout();
   }                     

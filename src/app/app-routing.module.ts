@@ -4,6 +4,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { AuthGuard } from './guard/auth.guard';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ChartDataResolver } from './resolvers/chart-data.resolver';
 
 const routes: Routes = [
 	{
@@ -11,6 +13,9 @@ const routes: Routes = [
 		component: MenuComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 
 	{
@@ -19,10 +24,18 @@ const routes: Routes = [
 
 	},
 	{
-		path: 'categories/:categoryID',
+		path: 'rest/category/:categoryID',
 		component: MenuComponent,
 		canActivate: [AuthGuard]
 
+	},
+	{
+		path: 'dashboard',
+		component: DashboardComponent,
+		canActivate: [AuthGuard],
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 	{
 		path: 'tables',
@@ -33,6 +46,9 @@ const routes: Routes = [
 		path: 'orders',
 		canActivate: [AuthGuard],
 		loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 	{
         path: 'split',

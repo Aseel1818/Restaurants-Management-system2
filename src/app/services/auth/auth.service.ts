@@ -1,63 +1,63 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { User } from 'src/app/interfaces/user.interface';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from "ngx-toastr";
+import { delay, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedInSubject = new BehaviorSubject<boolean>(false);
-  private tokenExpirationSubject = new BehaviorSubject<Date | null>(null);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private httpClient: HttpClient,
+    private toastr: ToastrService
+  ) { }
 
   login(username: string, password: string) {
-    this.checkAuthStatus();
-    if (username == 'admin' && password == 'Admin1!') {
-      const expirationDate = new Date('2024-04-08T16:40:00Z');
-      localStorage.setItem('tokenExpiration', expirationDate.toISOString());
-      this.tokenExpirationSubject.next(expirationDate);
-      this.loggedInSubject.next(true);
-      localStorage.setItem('isLoggedIn', 'true');
-      this.router.navigate(['/']);
-      console.log("logged in");
-    }
+    this.httpClient.post<User>(`${environment.serverUrl}/api/auth/signin`, { username, password })
+      .subscribe((res: User) => {
+        console.log("RES", res);
+        localStorage.setItem('accessToken', res.accessToken);
+        this.router.navigate(['/']);
+      });
   }
 
-  checkAuthStatus() {
-    // const expirationDate = this.tokenExpirationSubject.getValue();
-    const expirationDate = localStorage.getItem('tokenExpiration');
-    if (expirationDate && new Date(expirationDate) > new Date()) {
-      this.loggedInSubject.next(true);
-      this.tokenExpirationSubject.next(new Date(expirationDate));
-    } else {
-      this.loggedInSubject.next(false);
-      this.tokenExpirationSubject.next(null);
-      localStorage.removeItem('tokenExpiration');
-      localStorage.removeItem('isLoggedIn');
-    }
-  }
+  checkAuth() {
 
-  isTokenExpired(): boolean {
-    const tokenExpirationDate = this.tokenExpirationSubject.getValue();
-    if (!tokenExpirationDate) {
-      return true;
-    }
-    return new Date() > tokenExpirationDate;
-  }
+    this.httpClient.get(`${environment.serverUrl}/api/auth/vtoken`).subscribe(res  => {
+      if (res) {
+        console.log("is valid token");
+      } else {
+        console.log("Token is not valid");
+        this.toastr.warning('Your session has expired. Please save your work, you\'ll need to log in again in 10 seconds.', 'Warning', {
+          timeOut: 10000,
+          progressBar: true,
+        });
+        const delayObservable = of('').pipe(delay(10000));
+        delayObservable.subscribe(() => {
+          this.logout();
+        });
+      }
+    });
+  } 
 
-  isLoggedIn(): boolean {
-    const loggedIn = this.loggedInSubject.getValue();
-    const tokenExpired = this.isTokenExpired();
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    return (loggedIn && !tokenExpired) || isLoggedIn;
+  isAuthenticated(): boolean {
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken){
+      this.checkAuth();
+      return accessToken !== null;
+    }
+    else {
+      this.logout();
+      return false;
+    }
   }
 
   logout() {
-    localStorage.removeItem('tokenExpiration');
-    localStorage.removeItem('isLoggedIn');
-    this.loggedInSubject.next(false);
-    this.tokenExpirationSubject.next(null);
+    localStorage.removeItem('accessToken');
     this.router.navigate(['/api/auth/signin']);
   }
 }
