@@ -54,7 +54,7 @@ export class OrdersComponent implements OnInit {
 				this.tables = tables.filter(t => t.status === false);
 			});
 
-		this.orders = this.orders.filter(order => order.orderDetail.length > 0);
+		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
 	}
 
 	goToPayments(orderID: number) {
@@ -62,7 +62,7 @@ export class OrdersComponent implements OnInit {
 	}
 
 	isOrderPaid(order: Order): boolean {
-		return order.orderDetail.every(obj => obj.isPaid === true);
+		return order.orderDetails.every(obj => obj.isPaid === true);
 	}
 
 	paidOrders(orderStatus: string) {
@@ -142,13 +142,13 @@ export class OrdersComponent implements OnInit {
 		let lastOrder = this.orders[this.orders.length - 1];
 
 		for (let orderDetail of this.selectedItemsDetails) {
-			let foundItem = lastOrder.orderDetail.find(
+			let foundItem = lastOrder.orderDetails.find(
 				od => od.item.name === orderDetail.item.name
 			);
 			if (foundItem) {
 				foundItem.quantity += orderDetail.quantity;
 			} else {
-				lastOrder.orderDetail.push(orderDetail);
+				lastOrder.orderDetails.push(orderDetail);
 			}
 		}
 		lastOrder.notes = selectedOrdersNotes;

@@ -1,0 +1,15 @@
+<div *ngIf="role !== null">
+    <ng-container *ngIf="role === 'ROLE_ADMIN'">
+      <h1 mat-button color="primary" (click)="navigateToRolePage()"></h1>
+    </ng-container>
+  
+    <ng-container *ngIf="role === 'ROLE_USER'">
+      <h1 mat-button color="primary" (click)="navigateToRolePage()"></h1>
+    </ng-container>
+  </div>
+  
+  <div *ngIf="role === null">
+    <h1>You have no authority, please sign in</h1>
+    <button mat-button color="primary" (click)="navigateToRolePage()">Sign In</button>
+  </div>
+  

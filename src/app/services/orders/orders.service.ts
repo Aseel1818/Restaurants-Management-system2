@@ -44,7 +44,7 @@ export class OrdersService {
 		this.currentOrder.id = this.generateNewOrderId();
 		this.currentOrder.total = 0;
 		this.currentOrder.notes = null;
-		this.currentOrder.orderDetail = [];
+		this.currentOrder.orderDetails = [];
 
 	}
 
@@ -64,9 +64,9 @@ export class OrdersService {
 
 	addOrder(order: Order) {
 		const orderDetailArray: any[] = []
-		order.orderDetail.forEach(orderDetail => {
-			const itemId = orderDetail.item.id;
-			const quantity = orderDetail.quantity;
+		order.orderDetails.forEach(orderDetails => {
+			const itemId = orderDetails.item.id;
+			const quantity = orderDetails.quantity;
 			orderDetailArray.push({
 				itemId,
 				quantity
@@ -76,7 +76,7 @@ export class OrdersService {
 			note: order.notes,
 			total: order.total,
 			tables: order.tableID,
-			orderDetail: orderDetailArray
+			orderDetails: orderDetailArray
 		}
 		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
@@ -88,7 +88,7 @@ export class OrdersService {
 	}
 
 	deleteOrder(order: Order) {
-		if (order.orderDetail.length === 0) {
+		if (order.orderDetails.length === 0) {
 			const index = this.orders.indexOf(order);
 			if (index > -1) {
 				this.orders.splice(index, 1);

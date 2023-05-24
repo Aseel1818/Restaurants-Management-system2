@@ -15,7 +15,7 @@
       </div>
     </mat-card-actions>
     <mat-card-content>
-      <div class="items" *ngFor="let orderDetail of order.orderDetail">
+      <div class="items" *ngFor="let orderDetail of order.orderDetails">
         <div class="container_details" [ngClass]="{'isPaid':orderDetail.isPaid }">
           <div class="details-item-name wrap"><span>{{orderDetail.item.name}}</span></div>
           <div class="details-item"><span>{{orderDetail.quantity}}</span></div>

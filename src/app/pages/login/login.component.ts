@@ -9,8 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl('iisraa', Validators.required),
-    password: new FormControl('israa@iii!', [
+    username: new FormControl('admin', Validators.required),
+    password: new FormControl('admin@123', [
       Validators.required,
       //Validators.pattern('^((?=.*d).{4,99})')
     ])

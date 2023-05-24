@@ -6,11 +6,12 @@ import { AuthGuard } from './guard/auth.guard';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ChartDataResolver } from './resolvers/chart-data.resolver';
+import { HomeComponentComponent } from './home-component/home-component.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: MenuComponent,
+		component: HomeComponentComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
 		resolve: {
@@ -36,6 +37,11 @@ const routes: Routes = [
 		resolve: {
 			orders: ChartDataResolver,
 		}
+	},
+	{
+		path: 'menu',
+		component: MenuComponent,
+		canActivate: [AuthGuard],
 	},
 	{
 		path: 'tables',

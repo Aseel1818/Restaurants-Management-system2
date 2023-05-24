@@ -34,7 +34,7 @@ export class SplitOrderComponent implements OnInit {
     console.log(this.id)
     this.order = this.orderService.getOrderByID(this.id);
     if (this.order) {
-      this.currentOrder = this.order.orderDetail;
+      this.currentOrder = this.order.orderDetails;
     }
     this.lastOrderID = this.orders.length;
   }
@@ -57,7 +57,7 @@ export class SplitOrderComponent implements OnInit {
         }
         )
         let order = new Order();
-        order.orderDetail = orderDetails;
+        order.orderDetails = orderDetails;
         order.total = this.total;
         order.id=this.lastOrderID+i+1;
         this.orders.push(order);

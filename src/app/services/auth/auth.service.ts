@@ -21,6 +21,8 @@ export class AuthService {
       .subscribe((res: User) => {
         console.log("RES", res);
         localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('role', res.roles[0]);
+
         this.router.navigate(['/']);
       });
   }
@@ -60,4 +62,8 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     this.router.navigate(['/api/auth/signin']);
   }
+  getUserRole(): string| null  {
+    const role = localStorage.getItem('role');
+    return role;
+}
 }
