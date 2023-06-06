@@ -1,3 +1,3 @@
 export const environment = {
-    serverUrl: "http://localhost:8086"
+    serverUrl: "http://localhost:8085"
 }

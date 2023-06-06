@@ -47,7 +47,6 @@ export class OrdersComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
-		console.log(this.orders);
 
 		this.orders.forEach(order => {
 			this.orderService.deleteOrder(order);
@@ -58,18 +57,18 @@ export class OrdersComponent implements OnInit {
 				this.tables = tables.filter(table => table.status === false);
 			});
 
-		this.orders = this.orders.filter(order => order.orderDetails.length > 0);
+		this.orders = this.orders.filter(order => order.orderDetail.length > 0);
 		this.dbOrders = this.route.snapshot.data['orders'];
-		console.log('Orders:', this.dbOrders);
-		
 		this.dbOrders.forEach(order => {
-			order.orderDetails.forEach(orderDetail => {
-				orderDetail.isPaid = true;
-			})
+			if (order.orderDetail) {
+				order.orderDetail.forEach(orderDetail => {
+					orderDetail.isPaid = true;
+				});
+			}
 		});
 
+
 		this.allOrders = this.orders.concat(this.dbOrders); 
-		console.log(this.allOrders)
 	}
 
 	goToPayments(orderID: number) {
@@ -77,16 +76,22 @@ export class OrdersComponent implements OnInit {
 	}
 
 	isOrderPaid(order: Order): boolean {
-		return order.orderDetails.every(obj => obj.isPaid === true);
-	}
+		if (order.orderDetail ) {
+			return order.orderDetail.every(obj => obj.isPaid === true);
+		} else {
+			return false;
+		}
+			}
 
 	paidOrders(orderStatus: string) {
 		if (orderStatus === "all") {
 			this.orders=this.allOrders ;
+			console.log(this.allOrders)
 		} else {
 			this.orders = this.allOrders.filter(order => {
 				if (orderStatus === "paid") {
 					return this.isOrderPaid(order);
+					
 				} else {
 					return !this.isOrderPaid(order);
 				}
@@ -157,13 +162,13 @@ export class OrdersComponent implements OnInit {
 		let lastOrder = this.orders[this.orders.length - 1];
 
 		for (let orderDetail of this.selectedItemsDetails) {
-			let foundItem = lastOrder.orderDetails.find(
+			let foundItem = lastOrder.orderDetail.find(
 				od => od.item.name === orderDetail.item.name
 			);
 			if (foundItem) {
 				foundItem.quantity += orderDetail.quantity;
 			} else {
-				lastOrder.orderDetails.push(orderDetail);
+				lastOrder.orderDetail.push(orderDetail);
 			}
 		}
 		lastOrder.notes = selectedOrdersNotes;

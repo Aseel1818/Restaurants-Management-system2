@@ -51,7 +51,7 @@ export class SplitOrderComponent implements OnInit {
     );
     this.order = this.orderService.getOrderByID(this.id);
     if (this.order) {
-      this.currentOrder = this.order.orderDetails;
+      this.currentOrder = this.order.orderDetail;
     }
     if (this.orders.length > 0) {
       this.lastOrderID = this.orders[this.orders.length - 1].id;
@@ -109,7 +109,6 @@ export class SplitOrderComponent implements OnInit {
       let orderDetails = this.ordersLists[i];
       if (orderDetails.length > 0) {
         let newOrder: Order = {
-          orderDetails,
           total: this.totals[i],
           id: this.lastOrderID + i + 1,
           tableID: this.selectedTables[i],
@@ -124,7 +123,8 @@ export class SplitOrderComponent implements OnInit {
           updateTotal: function (): void {
             throw new Error('Function not implemented.');
           },
-          isSelected: false
+          isSelected: false,
+          orderDetail:orderDetails
         };
         this.orders.push(newOrder);
         this.orderService.add(newOrder);

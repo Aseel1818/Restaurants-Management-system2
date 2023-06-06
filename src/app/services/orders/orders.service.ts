@@ -29,7 +29,7 @@ export class OrdersService {
 	}
 
 	add(order: Order) {
-		const existingOrderIndex = this.orders.findIndex(o => o.id === order.id);
+		const existingOrderIndex = this.orders.findIndex(o=> o.id === order.id);
 		if (existingOrderIndex !== -1) {
 			this.orders[existingOrderIndex] = order;
 		} else {
@@ -44,7 +44,7 @@ export class OrdersService {
 		this.currentOrder.id = this.generateNewOrderId();
 		this.currentOrder.total = 0;
 		this.currentOrder.notes = null;
-		this.currentOrder.orderDetails= [];
+		this.currentOrder.orderDetail= [];
 
 	}
 
@@ -64,7 +64,7 @@ export class OrdersService {
 
 	addOrder(order: Order) {
 		const orderDetailArray: any[] = []
-		order.orderDetails.forEach(orderDetail => {
+		order.orderDetail.forEach(orderDetail => {
 			const itemId = orderDetail.item.id;
 			const quantity = orderDetail.quantity;
 			orderDetailArray.push({
@@ -76,7 +76,7 @@ export class OrdersService {
 			note: order.notes,
 			total: order.total,
 			tables: order.tableID,
-			orderDetails: orderDetailArray
+			orderDetail: orderDetailArray
 		}
 		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
@@ -88,7 +88,7 @@ export class OrdersService {
 	}
 
 	deleteOrder(order: Order) {
-		if (order.orderDetails.length === 0) {
+		if (order.orderDetail.length === 0) {
 			const index = this.orders.indexOf(order);
 			if (index > -1) {
 				this.orders.splice(index, 1);
@@ -98,7 +98,7 @@ export class OrdersService {
 
 	delteOrderFromStorge (order:Order){
 		for(let i=0;i<this.orders.length;i++){
-		 if(this.orders[i].orderDetails.every(orderDetail=>orderDetail.isPaid===true)){
+		 if(this.orders[i].orderDetail.every(orderDetail=>orderDetail.isPaid===true)){
 			 this.orders.splice(i,1)
 		 }
 		}

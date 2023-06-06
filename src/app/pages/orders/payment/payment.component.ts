@@ -63,7 +63,7 @@ export class PaymentComponent implements OnInit {
         return;
       }
       let isFullyPaid = true;
-      this.order.orderDetails.forEach(orderDetail => {
+      this.order.orderDetail.forEach(orderDetail => {
         if (orderDetail.isChecked && !orderDetail.isPaid) {
           orderDetail.isPaid = true;
           this.order!.subTotal -= orderDetail.item.price * orderDetail.quantity;

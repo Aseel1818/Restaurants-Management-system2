@@ -17,9 +17,11 @@ export class ItemsService {
 		return this.http.get<Category[]>(`${environment.serverUrl}/rest/category`);
 	}
 
+
 	getAllItems(): Observable<Item[]> {
 		return this.http.get<Item[]>(`${environment.serverUrl}/rest/item/items`);	
 	}
+	
 
 	getItemsByCategoryId(categoryID: number): Observable<Item[]> {
 		return this.http.get<Item[]>(`${environment.serverUrl}/rest/category/${categoryID}/items`);
