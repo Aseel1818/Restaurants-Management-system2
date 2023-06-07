@@ -23,7 +23,7 @@ import { SplitOrderComponent } from './pages/orders/split-order/split-order.comp
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
-import { HomeComponentComponent } from './home-component/home-component.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,7 @@ import { HomeComponentComponent } from './home-component/home-component.componen
     LoginComponent,
     SplitOrderComponent,
     DashboardComponent,
-    HomeComponentComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
