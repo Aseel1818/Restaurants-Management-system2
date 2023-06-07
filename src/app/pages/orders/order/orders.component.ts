@@ -35,15 +35,15 @@ export class OrdersComponent implements OnInit {
 	selectedTable!: number;
 	selectedItemsDetails: OrderDetail[] = [];
 	dbOrders: Order[] = [];
-	allOrders:Order[]=[];
+	allOrders: Order[] = [];
 
 	constructor(private orderService: OrdersService,
 		private tableService: TablesService,
-		 private router: Router,
-		 private toastr: ToasterService,
-		 private route: ActivatedRoute,
+		private router: Router,
+		private toastr: ToasterService,
+		private route: ActivatedRoute,
 
-		 ) { }
+	) { }
 
 	ngOnInit(): void {
 		this.orders = this.orderService.getAll()
@@ -68,7 +68,7 @@ export class OrdersComponent implements OnInit {
 		});
 
 
-		this.allOrders = this.orders.concat(this.dbOrders); 
+		this.allOrders = this.orders.concat(this.dbOrders);
 	}
 
 	goToPayments(orderID: number) {
@@ -76,22 +76,22 @@ export class OrdersComponent implements OnInit {
 	}
 
 	isOrderPaid(order: Order): boolean {
-		if (order.orderDetail ) {
-			return order.orderDetail.every(obj => obj.isPaid === true);
+		if (order.orderDetail) {
+			return order.orderDetail.every(object => object.isPaid === true);
 		} else {
 			return false;
 		}
-			}
+	}
 
 	paidOrders(orderStatus: string) {
 		if (orderStatus === "all") {
-			this.orders=this.allOrders ;
+			this.orders = this.allOrders;
 			console.log(this.allOrders)
 		} else {
 			this.orders = this.allOrders.filter(order => {
 				if (orderStatus === "paid") {
 					return this.isOrderPaid(order);
-					
+
 				} else {
 					return !this.isOrderPaid(order);
 				}
@@ -132,16 +132,16 @@ export class OrdersComponent implements OnInit {
 
 	joinOrders(selectedTable: number | null = null) {
 		const selectedOrders = this.selection.selected;
-
-		if (selectedOrders.length < 2) {
-			this.toastr.showToaster('warning', 'select 2 orders or more to join', 'error');
+		const tableIDs: number[] = [];
+		if (selectedTable !== null) {
+			tableIDs.push(selectedTable);
+		  }		if (selectedOrders.length < 2) {
+			this.toastr.showToaster('warning', 'Select 2 orders or more to join', 'error');
 			return;
 		}
-
 		this.orderService.createNewOrder();
 		const newOrder = this.orderService.currentOrder!;
 		newOrder.tableID = selectedTable;
-
 		this.orderService.add(newOrder);
 		this.orders = this.orderService.getAll();
 		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
@@ -156,11 +156,9 @@ export class OrdersComponent implements OnInit {
 					selectedOrdersNotes += ", " + order.notes;
 				}
 			}
-			this.selectedItemsDetails.push(...order.orderDetails);
+			this.selectedItemsDetails.push(...order.orderDetail);
 		}
-
 		let lastOrder = this.orders[this.orders.length - 1];
-
 		for (let orderDetail of this.selectedItemsDetails) {
 			let foundItem = lastOrder.orderDetail.find(
 				od => od.item.name === orderDetail.item.name
@@ -168,16 +166,18 @@ export class OrdersComponent implements OnInit {
 			if (foundItem) {
 				foundItem.quantity += orderDetail.quantity;
 			} else {
-				lastOrder.orderDetail.push(orderDetail);
+				lastOrder.orderDetail.push({ ...orderDetail });
 			}
 		}
+
 		lastOrder.notes = selectedOrdersNotes;
-		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
+		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, 0);
 		localStorage.setItem('orders', JSON.stringify(this.orders));
 		this.selection.clear();
-		this.toastr.showToaster('success', 'the item you selected was joined successfully', 'success');
+		this.toastr.showToaster('success', 'The selected orders were joined successfully', 'success');
 		location.reload();
 	}
+
 
 	masterToggle() {
 		this.isAllSelected() ?
@@ -199,4 +199,6 @@ export class OrdersComponent implements OnInit {
 		this.selectedOrderId = orderID;
 		this.router.navigate(['/split'], { queryParams: { orderId: this.selectedOrderId } });
 	}
+	
+		
 }

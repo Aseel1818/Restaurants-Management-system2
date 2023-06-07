@@ -63,6 +63,7 @@ export class OrdersService {
 	}
 
 	addOrder(order: Order) {
+		console.log(order.tableID)
 		const orderDetailArray: any[] = []
 		order.orderDetail.forEach(orderDetail => {
 			const itemId = orderDetail.item.id;
@@ -75,9 +76,10 @@ export class OrdersService {
 		const newOrder = {
 			note: order.notes,
 			total: order.total,
-			tables: order.tableID,
+			tableID: order.tableID,
 			orderDetail: orderDetailArray
 		}
+		console.log('newOrder Table'+newOrder.tableID)
 		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
 

@@ -155,7 +155,6 @@ export class SplitOrderComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-
       for (let i = 0; i < this.numberOfLists; i++) {
         this.calculateListTotal(i);
       }
