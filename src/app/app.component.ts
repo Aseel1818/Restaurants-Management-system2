@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
-
     ngOnInit() {
       setInterval(() => {
         this.authService.isAuthenticated();
@@ -32,5 +31,5 @@ export class AppComponent implements OnInit {
     
   logout() {
     this.authService.logout();
-  }                     
+  }    
 }

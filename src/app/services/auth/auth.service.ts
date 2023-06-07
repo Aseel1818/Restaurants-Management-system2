@@ -15,18 +15,16 @@ export class AuthService {
     private httpClient: HttpClient,
     private toastr: ToastrService
   ) { }
-
   login(username: string, password: string) {
     this.httpClient.post<User>(`${environment.serverUrl}/api/auth/signin`, { username, password })
       .subscribe((res: User) => {
         console.log("RES", res);
         localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('role', res.roles[0]);
         this.router.navigate(['/']);
       });
   }
-
   checkAuth() {
-
     this.httpClient.get(`${environment.serverUrl}/api/auth/vtoken`).subscribe(res  => {
       if (res) {
         console.log("is valid token");
@@ -42,8 +40,7 @@ export class AuthService {
         });
       }
     });
-  } 
-
+  }
   isAuthenticated(): boolean {
     const accessToken = localStorage.getItem('accessToken');
     if(accessToken){
@@ -55,9 +52,12 @@ export class AuthService {
       return false;
     }
   }
-
   logout() {
     localStorage.removeItem('accessToken');
     this.router.navigate(['/api/auth/signin']);
   }
+  getUserRole(): string| null  {
+    const role = localStorage.getItem('role');
+    return role;
+}
 }

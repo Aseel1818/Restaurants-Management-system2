@@ -9,6 +9,7 @@ export class Order {
 	orderDetail: OrderDetail[] = [];
 	tableID!: number | null;
 	isSelected!: boolean ;
+	userName!: string ;
 	
 
 	addItem(item: Item) {
