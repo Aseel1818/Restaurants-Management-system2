@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/classes/order.class';
-import { Item } from 'src/app/interfaces/item.interface';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ToasterService } from 'src/app/services/toaster/toaster.service';
@@ -34,7 +33,7 @@ export class SplitOrderComponent implements OnInit {
     console.log(this.id)
     this.order = this.orderService.getOrderByID(this.id);
     if (this.order) {
-      this.currentOrder = this.order.orderDetails;
+      this.currentOrder = this.order.orderDetail;
     }
     this.lastOrderID = this.orders.length;
   }
@@ -57,7 +56,7 @@ export class SplitOrderComponent implements OnInit {
         }
         )
         let order = new Order();
-        order.orderDetails = orderDetails;
+        order.orderDetail = orderDetails;
         order.total = this.total;
         order.id=this.lastOrderID+i+1;
         this.orders.push(order);

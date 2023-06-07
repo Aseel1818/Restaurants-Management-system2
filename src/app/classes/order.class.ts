@@ -6,18 +6,18 @@ export class Order {
 	total: number = 0;
 	subTotal!: number;
 	notes!: string | null;
-	orderDetails: OrderDetail[] = [];
+	orderDetail: OrderDetail[] = [];
 	tableID!: number | null;
 	isSelected!: boolean ;
 	userName!: string ;
 	
 
 	addItem(item: Item) {
-		const index = this.orderDetails.findIndex(itemObj => itemObj.item.id === item.id);
+		const index = this.orderDetail.findIndex(itemObj => itemObj.item.id === item.id);
 		if (index !== -1) {
-			this.orderDetails[index].quantity++;
+			this.orderDetail[index].quantity++;
 		} else {
-			this.orderDetails.push({
+			this.orderDetail.push({
 				item,
 				quantity: 1,
 				isChecked: false,
@@ -28,12 +28,12 @@ export class Order {
 	}
 
 	removeItem(item: Item) {
-		const index = this.orderDetails.findIndex((detail: any) => detail.item.id === item.id);
+		const index = this.orderDetail.findIndex((detail: any) => detail.item.id === item.id);
 		if (index > -1) {
-			if (this.orderDetails[index].quantity > 1) {
-				this.orderDetails[index].quantity--;
+			if (this.orderDetail[index].quantity > 1) {
+				this.orderDetail[index].quantity--;
 			} else {
-				this.orderDetails.splice(index, 1);
+				this.orderDetail.splice(index, 1);
 			}
 		}
 		this.updateTotal();
@@ -41,8 +41,8 @@ export class Order {
 
 	updateTotal() {
 		this.total = 0;
-		this.orderDetails.forEach(orderDetails => {
-			this.total += (orderDetails.item.price * orderDetails.quantity);
+		this.orderDetail.forEach(orderDetail => {
+			this.total += (orderDetail.item.price * orderDetail.quantity);
 		});
 	}
 }

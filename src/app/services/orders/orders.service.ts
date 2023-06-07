@@ -44,7 +44,7 @@ export class OrdersService {
 		this.currentOrder.id = this.generateNewOrderId();
 		this.currentOrder.total = 0;
 		this.currentOrder.notes = null;
-		this.currentOrder.orderDetails = [];
+		this.currentOrder.orderDetail = [];
 
 	}
 
@@ -64,7 +64,7 @@ export class OrdersService {
 
 	addOrder(order: Order) {
 		const orderDetailArray: any[] = []
-		order.orderDetails.forEach(orderDetails => {
+		order.orderDetail.forEach(orderDetails => {
 			const itemId = orderDetails.item.id;
 			const quantity = orderDetails.quantity;
 			orderDetailArray.push({
@@ -88,7 +88,7 @@ export class OrdersService {
 	}
 
 	deleteOrder(order: Order) {
-		if (order.orderDetails.length === 0) {
+		if (order.orderDetail.length === 0) {
 			const index = this.orders.indexOf(order);
 			if (index > -1) {
 				this.orders.splice(index, 1);

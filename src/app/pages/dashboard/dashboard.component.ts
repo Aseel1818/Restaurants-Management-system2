@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
     let totalQuantity = 0;
 
     orders.forEach((order: Order) => {
-      order.orderDetails.forEach((orderDetail: OrderDetail) => {
+      order.orderDetail.forEach((orderDetail: OrderDetail) => {
         const { id, name } = orderDetail.item;
         const quantity = orderDetail.quantity;
 
