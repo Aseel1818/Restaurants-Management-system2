@@ -21,7 +21,6 @@ export class AuthService {
         console.log("RES", res);
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('role', res.roles[0]);
-        localStorage.setItem('role', res.roles[0]);
         this.router.navigate(['/']);
       });
   }
