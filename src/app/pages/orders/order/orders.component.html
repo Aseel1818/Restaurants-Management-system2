@@ -1,5 +1,4 @@
 <div class="align-table overflow row">
-
 	<div class="orders">
 		<ng-container class="functionality" *ngFor="let button of buttons">
 			<mat-chip-option (selectionChange)="paidOrders('notPaid')" (click)="handleAction(button.action)">{{

@@ -82,11 +82,8 @@ export class SplitOrderComponent implements OnInit {
   updateCurrentOrderToatal() {
     if (this.order?.total !== undefined) {
       this.order.total = this.currentOrderTotal;
-      console.log(this.order.tableID)
-      if (this.selectedTable !== null) {
-        this.order.tableID = this.selectedTable;
-      }
-    
+      console.log(this.order.tableID);
+      this.order.tableID=this.order.tableID;
       this.orderService.add(this.order);
     }
   }
