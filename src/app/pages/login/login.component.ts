@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
     username: new FormControl('admin', Validators.required),
     password: new FormControl('admin@123', [
       Validators.required,
-      //Validators.pattern('^((?=.*d).{4,99})')
     ])
   });
 

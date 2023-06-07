@@ -32,18 +32,18 @@ export class DashboardComponent implements OnInit {
     ]
   };
 
-  barChartUserSales = {
-    labels: ['Isra', 'Noor', 'Aseel', 'Sana'],
+  pieChartUsersales = {
+    labels: [""],
     datasets: [
       {
-        data: [5, 10, 20, 1],
-        label: 'best items Sales perc',
+        data: [0],
+        label: 'users Sales',
         backgroundColor: ['rgb(255, 99, 132)']
       }
     ]
   } 
 
-  pieChartData = {
+  pieChartItemssellings = {
     labels: [""],
     datasets: [
       {
@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit {
       this.updateBarChartDataDaily();
       this.updateBarChartDataMonthly();
       this.calculateFreqSelling(orders);
+      this.calculateUserSales(orders);
     }
   }
 
@@ -116,10 +117,10 @@ export class DashboardComponent implements OnInit {
     const sortedItems = Object.entries(itemQuantities).sort((a, b) => b[1].quantity - a[1].quantity);
     const limitedItems = sortedItems.slice(0, 5);
 
-    const { datasets } = this.pieChartData;
+    const { datasets } = this.pieChartItemssellings;
     datasets[0].data = [];
     datasets[0].backgroundColor = [];
-    this.pieChartData.labels = [];
+    this.pieChartItemssellings.labels = [];
 
     limitedItems.forEach(([id, itemData]) => {
       const { label, quantity } = itemData;
@@ -128,7 +129,39 @@ export class DashboardComponent implements OnInit {
 
       const randomColor = `rgb(${this.getRandomValue()}, ${this.getRandomValue()}, ${this.getRandomValue()})`;
       datasets[0].backgroundColor.push(randomColor);
-      this.pieChartData.labels.push(label);
+      this.pieChartItemssellings.labels.push(label);
+    });
+  }
+
+  calculateUserSales(orders: Order[]): void {
+    const userSales: { [userName: string]: number } = {};
+    let totalOrders = 0;
+
+    orders.forEach((order: Order) => {
+      const userName = order.userName;
+
+      if (!userSales[userName]) {
+        userSales[userName] = 0;
+      }
+
+      userSales[userName]++;
+      totalOrders++;
+    });
+
+    const sortedUsers = Object.entries(userSales).sort((a, b) => b[1] - a[1]);
+
+    const { datasets } = this.pieChartUsersales;
+    datasets[0].data = [];
+    datasets[0].backgroundColor = [];
+    this.pieChartUsersales.labels = [];
+
+    sortedUsers.forEach(([userName, count]) => {
+      const percentage = (count / totalOrders) * 100;
+      datasets[0].data.push(percentage);
+
+      const randomColor = `rgb(${this.getRandomValue()}, ${this.getRandomValue()}, ${this.getRandomValue()})`;
+      datasets[0].backgroundColor.push(randomColor);
+      this.pieChartUsersales.labels.push(userName);
     });
   }
 

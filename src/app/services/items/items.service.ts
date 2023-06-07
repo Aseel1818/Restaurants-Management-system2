@@ -18,10 +18,14 @@ export class ItemsService {
 	}
 
 	getAllItems(): Observable<Item[]> {
-		return this.http.get<Item[]>(`${environment.serverUrl}/rest/item/items`);	
+		return this.http.get<Item[]>(`${environment.serverUrl}/rest/item/items`);
 	}
 
 	getItemsByCategoryId(categoryID: number): Observable<Item[]> {
 		return this.http.get<Item[]>(`${environment.serverUrl}/rest/category/${categoryID}/items`);
+	}
+
+	updateItem(item: Item): Observable<Item> {
+		return this.http.put<Item>(`${environment.serverUrl}/rest/item/updateItem/${item.id}`, item);
 	}
 }

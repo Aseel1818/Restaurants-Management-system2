@@ -4,18 +4,29 @@
 </div>
 <div *ngIf="categories" class="categories row wrap">
     <a (click)="getAllItems()" routerLink="/items" class="smoke">All</a>
-    <a *ngFor="let category of categories" class="smoke" routerLink="/categories/{{category.id}}">
+    <a *ngFor="let category of categories" class="smoke" routerLink="/rest/category/{{category.id}}">
         {{category.name}}
     </a>
 </div>
 <div class="container row">
     <div class="item_container row wrap ">
-        <mat-card (click)="addToOrder(item)" *ngFor="let item of filteredItems" class="items">
+        <mat-card *ngFor="let item of filteredItems" class="items" (click)="!editMode ? addToOrder(item) : null">
             <img class="item-img full-width" mat-card-image src="{{item.imageUrl}}">
             <mat-card-content class="items_content center smoke wrap">
-                <div class="name custom-width">{{item.name}}</div>
-                <div class="price ">
-                    <span>{{item.price | currency:"ILS"}}</span>
+                <div class="row">
+                    <div *ngIf="!editMode || editedItem !== item" class="name custom-width">{{item.name}}</div>
+                    <div *ngIf="!editMode || editedItem !== item" class="price">
+                        <span>{{item.price | currency:"ILS"}}</span>
+                    </div>
+                    <div *ngIf="editMode && editedItem === item" class="name">
+                        <input class="updatedName radius" [(ngModel)]="updatedName" type="text">
+                    </div>
+                    <div *ngIf="editMode && editedItem === item" class="price">
+                        <input class="updatedPrice radius" [(ngModel)]="updatedPrice" type="number">
+                    </div>
+                    <button mat-icon-button (click)="toggleEditMode(item)">
+                        <mat-icon class="edit-icon">{{ editedItem === item ? 'save' : 'edit' }}</mat-icon>
+                      </button>                      
                 </div>
             </mat-card-content>
         </mat-card>
