@@ -36,6 +36,7 @@
 				<th *matHeaderCellDef mat-header-cell> Table</th>
 				<td *matCellDef="let order" mat-cell>
 				  <mat-form-field appearance="fill">
+					<mat-label>Table {{order.tableID}}</mat-label>
 					<mat-select [(ngModel)]="order.tableID" class="select-table" placeholder="Select table" [disabled]="isOrderPaid(order)">
 					  <mat-option *ngFor="let table of tables" [value]="table.id">Table {{table.id}}</mat-option>
 					</mat-select>
