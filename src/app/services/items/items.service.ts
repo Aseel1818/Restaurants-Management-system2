@@ -14,14 +14,18 @@ export class ItemsService {
 	}
 
 	getAllCategories(): Observable<Category[]> {
-		return this.http.get<Category[]>(`${environment.serverUrl}/categories`);
+		return this.http.get<Category[]>(`${environment.serverUrl}/rest/category`);
 	}
 
 	getAllItems(): Observable<Item[]> {
-		return this.http.get<Item[]>(`${environment.serverUrl}/items`);	
+		return this.http.get<Item[]>(`${environment.serverUrl}/rest/item/items`);
 	}
 
 	getItemsByCategoryId(categoryID: number): Observable<Item[]> {
-		return this.http.get<Item[]>(`${environment.serverUrl}/categories/${categoryID}/items`);
+		return this.http.get<Item[]>(`${environment.serverUrl}/rest/category/${categoryID}/items`);
+	}
+
+	updateItem(item: Item): Observable<Item> {
+		return this.http.put<Item>(`${environment.serverUrl}/rest/item/updateItem/${item.id}`, item);
 	}
 }

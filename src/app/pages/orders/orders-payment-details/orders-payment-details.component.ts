@@ -2,9 +2,7 @@ import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Order } from 'src/app/classes/order.class';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
-import { Table } from 'src/app/interfaces/table.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
-import { TablesService } from 'src/app/services/tables/tables.service';
 import { PaymentComponent } from '../payment/payment.component';
 import { HttpClient } from '@angular/common/http';
 
@@ -40,9 +38,9 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
     }
 
     let subTotal = 0
-    this.order.orderDetails.forEach(orderDetail => {
-      if (orderDetail.isChecked) {
-        subTotal += (orderDetail.item.price * orderDetail.quantity)
+    this.order.orderDetail.forEach(orderDetails => {
+      if (orderDetails.isChecked) {
+        subTotal += (orderDetails.item.price * orderDetails.quantity)
       }
     })
 
@@ -51,8 +49,8 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
 
   openPayment() {
     let showAlert = false;
-    if (this.order?.orderDetails.every(obj => obj.isChecked === false)) {
-      if (this.order?.orderDetails.every(obj => obj.isPaid === true)) {
+    if (this.order?.orderDetail.every(obj => obj.isChecked === false)) {
+      if (this.order?.orderDetail.every(obj => obj.isPaid === true)) {
         this.showAlert = false;
         this.showAlertAllPaid = true;
         setTimeout(() => { this.showAlertAllPaid = false; }, 5000);
@@ -72,9 +70,9 @@ export class OrdersPaymentDetailsComponent implements OnInit, DoCheck {
   }
 
   selectAll() {
-    this.order?.orderDetails.forEach(orderDetail => {
-      if (!orderDetail.isPaid) {
-        orderDetail.isChecked = true;
+    this.order?.orderDetail.forEach(orderDetails => {
+      if (!orderDetails.isPaid) {
+        orderDetails.isChecked = true;
         this.updateSubTotal();
       }
     })

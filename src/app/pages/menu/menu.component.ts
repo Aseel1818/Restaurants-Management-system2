@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Item } from "src/app/interfaces/item.interface";
 import { Category } from "src/app/interfaces/category.interface";
@@ -22,6 +22,10 @@ export class MenuComponent implements OnInit {
 	order!: Order;
 	tables: Table[] = [];
 	selectedTable!: number;
+	updatedName!: string;
+	updatedPrice!: number;
+	editMode = false;
+	editedItem: Item | null = null;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -31,6 +35,21 @@ export class MenuComponent implements OnInit {
 		private tableService: TablesService
 	) { }
 
+	toggleEditMode(item: Item) {
+		if (this.editMode) {
+		  item.name = this.updatedName;
+		  item.price = this.updatedPrice;
+		  this.itemsService.updateItem(item).subscribe((updatedItem) => {
+			item = updatedItem;
+		  });
+		} else {
+		  this.updatedName = item.name;
+		  this.updatedPrice = item.price;
+		  this.editedItem = item;
+		}
+		this.editMode = !this.editMode;
+	  }
+	  
 	ngOnInit(): void {
 		this.order = new Order();
 

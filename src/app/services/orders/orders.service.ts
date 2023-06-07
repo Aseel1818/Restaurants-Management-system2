@@ -41,14 +41,10 @@ export class OrdersService {
 
 	createNewOrder() {
 		this.currentOrder = new Order();
-		//this.currentOrder.id = this.generateNewOrderId();
-		
-
-		this.currentOrder = new Order();
-  this.currentOrder.id = this.generateNewOrderId();
-  this.currentOrder.total = 0;
-  this.currentOrder.notes = null;
-  this.currentOrder.orderDetails = [];
+		this.currentOrder.id = this.generateNewOrderId();
+		this.currentOrder.total = 0;
+		this.currentOrder.notes = null;
+		this.currentOrder.orderDetail = [];
 
 	}
 
@@ -68,9 +64,9 @@ export class OrdersService {
 
 	addOrder(order: Order) {
 		const orderDetailArray: any[] = []
-		order.orderDetails.forEach(orderDetail => {
-			const itemId = orderDetail.item.id;
-			const quantity = orderDetail.quantity;
+		order.orderDetail.forEach(orderDetails => {
+			const itemId = orderDetails.item.id;
+			const quantity = orderDetails.quantity;
 			orderDetailArray.push({
 				itemId,
 				quantity
@@ -80,16 +76,23 @@ export class OrdersService {
 			note: order.notes,
 			total: order.total,
 			tables: order.tableID,
-			orderDetail: orderDetailArray
+			orderDetails: orderDetailArray
 		}
-		return this.http.post<Order>(`${environment.serverUrl}/addOrder`, newOrder);
+		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
 	}
-
-	
 
 	editOrder(order: Order) {
 		this.currentOrder = order;
 		console.log(order);
 		this.router.navigate(['/menu']);
+	}
+
+	deleteOrder(order: Order) {
+		if (order.orderDetail.length === 0) {
+			const index = this.orders.indexOf(order);
+			if (index > -1) {
+				this.orders.splice(index, 1);
+			}
+		}
 	}
 }

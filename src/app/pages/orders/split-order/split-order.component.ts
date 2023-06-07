@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/classes/order.class';
-import { Item } from 'src/app/interfaces/item.interface';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { ToasterService } from 'src/app/services/toaster/toaster.service';
@@ -34,7 +33,7 @@ export class SplitOrderComponent implements OnInit {
     console.log(this.id)
     this.order = this.orderService.getOrderByID(this.id);
     if (this.order) {
-      this.currentOrder = this.order.orderDetails;
+      this.currentOrder = this.order.orderDetail;
     }
     this.lastOrderID = this.orders.length;
   }
@@ -56,27 +55,10 @@ export class SplitOrderComponent implements OnInit {
             orderDetail.quantity * orderDetail.item.price;
         }
         )
-        let order: Order = {
-          orderDetails,
-          total: this.total,
-          id: this.orders.length + 1,
-          tableID: 3,
-          subTotal: 0,
-          notes: '',
-          addItem: function (item: Item): void {
-            throw new Error('Function not implemented.');
-          },
-          removeItem: function (item: Item): void {
-            throw new Error('Function not implemented.');
-          },
-          updateTotal: function (): void {
-            throw new Error('Function not implemented.');
-          },
-          name: function (name: any): void {
-            throw new Error('Function not implemented.');
-          },
-          isSelected: false
-        };
+        let order = new Order();
+        order.orderDetail = orderDetails;
+        order.total = this.total;
+        order.id=this.lastOrderID+i+1;
         this.orders.push(order);
         this.orderService.add(order);
       }

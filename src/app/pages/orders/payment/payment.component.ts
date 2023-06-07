@@ -62,19 +62,20 @@ export class PaymentComponent implements OnInit {
         return;
       }
       let isFullyPaid = true;
-      this.order.orderDetails.forEach(orderDetail => {
-        if (orderDetail.isChecked && !orderDetail.isPaid) {
-          orderDetail.isPaid = true;
-          this.order!.subTotal -= orderDetail.item.price * orderDetail.quantity;
+      this.order.orderDetail.forEach(orderDetails => {
+        if (orderDetails.isChecked && !orderDetails.isPaid) {
+          orderDetails.isPaid = true;
+          this.order!.subTotal -= orderDetails.item.price * orderDetails.quantity;
         }
-        if (!orderDetail.isPaid) {
+        if (!orderDetails.isPaid) {
           isFullyPaid = false;
         }
-        orderDetail.isChecked = false;
+        orderDetails.isChecked = false;
       });
       if (isFullyPaid) {
         if (this.order?.tableID) {
           console.log(this.order.tableID + " is already")
+          this.orderService.tableIds.length=0;
           this.orderService.tableIds.push(this.order.tableID);
           this.tableService.updateTable(this.orderService.tableIds)
             .subscribe(table => {

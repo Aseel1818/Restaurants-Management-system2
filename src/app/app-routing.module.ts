@@ -4,13 +4,19 @@ import { LoginComponent } from './pages/login/login.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { AuthGuard } from './guard/auth.guard';
 import { SplitOrderComponent } from './pages/orders/split-order/split-order.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ChartDataResolver } from './resolvers/chart-data.resolver';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: MenuComponent,
+		component: HomeComponent,
 		canActivate: [AuthGuard],
 		pathMatch: 'full',
+		resolve: {
+			orders: ChartDataResolver,
+		}
 	},
 
 	{
@@ -19,10 +25,23 @@ const routes: Routes = [
 
 	},
 	{
-		path: 'categories/:categoryID',
+		path: 'rest/category/:categoryID',
 		component: MenuComponent,
 		canActivate: [AuthGuard]
 
+	},
+	{
+		path: 'dashboard',
+		component: DashboardComponent,
+		canActivate: [AuthGuard],
+		resolve: {
+			orders: ChartDataResolver,
+		}
+	},
+	{
+		path: 'menu',
+		component: MenuComponent,
+		canActivate: [AuthGuard],
 	},
 	{
 		path: 'tables',
