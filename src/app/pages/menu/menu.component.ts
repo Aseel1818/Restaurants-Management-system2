@@ -7,6 +7,10 @@ import { OrdersService } from "../../services/orders/orders.service";
 import { Order } from "src/app/classes/order.class";
 import { TablesService } from "src/app/services/tables/tables.service";
 import { Table } from "src/app/interfaces/table.interface";
+import { OrderDetail } from "src/app/interfaces/orderDetail.interface";
+import { ToasterService } from "src/app/services/toaster/toaster.service";
+import { AuthService } from "src/app/services/auth/auth.service";
+import { AppComponent } from "src/app/app.component";
 
 @Component({
 	selector: "app-menu",
@@ -26,13 +30,18 @@ export class MenuComponent implements OnInit {
 	updatedPrice!: number;
 	editMode = false;
 	editedItem: Item | null = null;
+	role!: string | null;
+	admin = false;
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private itemsService: ItemsService,
 		private ordersService: OrdersService,
-		private tableService: TablesService
+		private tableService: TablesService,
+		private toaster: ToasterService,
+		private auth: AuthService,
+		private appComp: AppComponent
 	) { }
 
 	toggleEditMode(item: Item) {
@@ -51,6 +60,8 @@ export class MenuComponent implements OnInit {
 	  }
 	  
 	ngOnInit(): void {
+		this.role = this.auth.getUserRole();
+		this.admin= this.appComp.isUserOrAdmin() 
 		this.order = new Order();
 
 		if (this.ordersService.currentOrder) {
@@ -88,8 +99,9 @@ export class MenuComponent implements OnInit {
 	}
 
 	addToOrder(item: Item) {
-		this.order.addItem(item);
-	}
+        this.order.addItem(item);
+        this.toaster.showToaster('success', item.name+' added successfully', 'success');
+    }
 
 	filterItems() {
 		if (this.searchQuery.trim() !== "") {
@@ -125,6 +137,16 @@ export class MenuComponent implements OnInit {
 	get buttonText() {
 		return this.order.id ? 'UPDATE' : 'ORDER';
 	}
+
+	increment(orderDetail: OrderDetail) {
+        orderDetail.quantity++;
+        this.order.total += orderDetail.item.price;
+    }
+
+    decrement(orderDetail: OrderDetail) {
+        orderDetail.quantity--;
+        this.order.total -= orderDetail.item.price;
+    }
 
 	ngOnDestroy(): void {
 		this.ordersService.currentOrder = null;

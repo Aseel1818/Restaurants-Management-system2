@@ -6,13 +6,21 @@
     </mat-card-actions>
     <mat-card-actions>
       <label id="currency">Currency</label>
-      <button type="button" id="dollar" (click)="dollarRemaining()">$</button>
       <button type="button" id="nis" (click)="remaining()">₪</button>
+      <button type="button" id="dollar" (click)="dollarRemaining()">$</button>
+      <label>$={{dollarValue}} </label>
     </mat-card-actions>
   </mat-card>
   <mat-card>
     <mat-card-actions id="remaining-mat-card">
-      <p>sum:{{sum}}</p>
+      <h1>Total Piad</h1>
+      <label class="currency">{{amountCurrencyShekel}} ₪</label>
+      <label class="currency">{{amountCurrencyDollar}} $</label>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-card-actions id="remaining-mat-card">
+      <p>sum:{{sum.toFixed(digits)}}</p>
       <p>Remaining:{{remainingValue}}</p>
     </mat-card-actions>
   </mat-card>

@@ -216,12 +216,27 @@ input[type="text"] {
   margin-top: 0.5rem;
   background-color: inherit;
 }
+
 .name input{
   width: 110px;;
 }
+
 .price input{
   margin-left: 10px;
   width: 45px;
+}
+
+.quantity-controls-wrapper {
+  align-items: center;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.small-icon {
+  margin: 4px;
 }
 
 button[disabled] .btn-red {

@@ -7,8 +7,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Table } from 'src/app/interfaces/table.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from 'src/app/services/toaster/toaster.service';
 
 @Component({
 	selector: 'app-orders',
@@ -34,11 +34,14 @@ export class OrdersComponent implements OnInit {
 	tableId: Table | null = null;
 	selectedTable!: number;
 	selectedItemsDetails: OrderDetail[] = [];
+	dbOrders: Order[] = [];
+    allOrders: Order[] = [];
 
 	constructor(private orderService: OrdersService,
 		private tableService: TablesService,
-		 private router: Router,
-		 private toastr: ToastrService
+		private router: Router,
+		private toaster: ToasterService,
+		private route: ActivatedRoute
 		 ) { }
 
 	ngOnInit(): void {
@@ -55,6 +58,15 @@ export class OrdersComponent implements OnInit {
 			});
 
 		this.orders = this.orders.filter(order => order.orderDetail.length > 0);
+		this.dbOrders = this.route.snapshot.data['orders'];
+        this.dbOrders.forEach(order => {
+            if (order.orderDetail) {
+                order.orderDetail.forEach(orderDetail => {
+                    orderDetail.isPaid = true;
+                });
+            }
+        });
+        this.allOrders = this.orders.concat(this.dbOrders);
 	}
 
 	goToPayments(orderID: number) {
@@ -66,18 +78,19 @@ export class OrdersComponent implements OnInit {
 	}
 
 	paidOrders(orderStatus: string) {
-		if (orderStatus === "all") {
-			this.orders = this.orderService.getAll();
-		} else {
-			this.orders = this.orderService.getAll().filter(order => {
-				if (orderStatus === "paid") {
-					return this.isOrderPaid(order);
-				} else {
-					return !this.isOrderPaid(order);
-				}
-			});
-		}
-	}
+        if (orderStatus === "all") {
+            this.orders = this.allOrders;
+            console.log(this.allOrders)
+        } else {
+            this.orders = this.allOrders.filter(order => {
+                if (orderStatus === "paid") {
+                    return this.isOrderPaid(order);
+                } else {
+                    return !this.isOrderPaid(order);
+                }
+            });
+        }
+    }
 
 	selectAll() {
 		for (const order of this.orders) {
@@ -106,57 +119,56 @@ export class OrdersComponent implements OnInit {
 	}
 
 	joinSelectedOrders() {
-		this.showNewButton = true;
-		this.showCheckboxes = true;
-	}
-
-	joinOrders(selectedTable: number | null = null) {
-		const selectedOrders = this.selection.selected;
-
-		if (selectedOrders.length < 2) {
-			this.toastr.error("select 2 items or more to join orders","Note !")
-			return;
-		}
-
-		this.orderService.createNewOrder();
-		const newOrder = this.orderService.currentOrder!;
-		newOrder.tableID = selectedTable;
-
-		this.orderService.add(newOrder);
-		this.orders = this.orderService.getAll();
-		this.orders = this.orders.filter(order => !selectedOrders.includes(order));
-		this.selectedOrders = selectedOrders;
-		this.selectedItemsDetails = [];
-		let selectedOrdersNotes = "";
-		for (let order of this.selectedOrders) {
-			if (order.notes) {
-				if (selectedOrdersNotes === "") {
-					selectedOrdersNotes = order.notes;
-				} else {
-					selectedOrdersNotes += ", " + order.notes;
-				}
-			}
-			this.selectedItemsDetails.push(...order.orderDetails);
-		}
-
-		let lastOrder = this.orders[this.orders.length - 1];
-
-		for (let orderDetail of this.selectedItemsDetails) {
-			let foundItem = lastOrder.orderDetail.find(
-				od => od.item.name === orderDetail.item.name
-			);
-			if (foundItem) {
-				foundItem.quantity += orderDetail.quantity;
-			} else {
-				lastOrder.orderDetail.push(orderDetail);
-			}
-		}
-		lastOrder.notes = selectedOrdersNotes;
-		lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, lastOrder.total);
-		localStorage.setItem('orders', JSON.stringify(this.orders));
-		this.selection.clear();
-		this.toastr.success("the item u select was joined","Done ..!")
-	}
+        this.showNewButton = true;
+        this.showCheckboxes = true;
+    }
+	
+    joinOrders(selectedTable: number | null = null) {
+        const selectedOrders = this.selection.selected;
+        const tableIDs: number[] = [];
+        if (selectedTable !== null) {
+            tableIDs.push(selectedTable);
+          }     if (selectedOrders.length < 2) {
+            this.toaster.showToaster('warning', 'Select 2 orders or more to join', 'error');
+            return;
+        }
+        this.orderService.createNewOrder();
+        const newOrder = this.orderService.currentOrder!;
+        newOrder.tableID = selectedTable;
+        this.orderService.add(newOrder);
+        this.orders = this.orderService.getAll();
+        this.orders = this.orders.filter(order => !selectedOrders.includes(order));
+        this.selectedOrders = selectedOrders;
+        this.selectedItemsDetails = [];
+        let selectedOrdersNotes = "";
+        for (let order of this.selectedOrders) {
+            if (order.notes) {
+                if (selectedOrdersNotes === "") {
+                    selectedOrdersNotes = order.notes;
+                } else {
+                    selectedOrdersNotes += ", " + order.notes;
+                }
+            }
+            this.selectedItemsDetails.push(...order.orderDetail);
+        }
+        let lastOrder = this.orders[this.orders.length - 1];
+        for (let orderDetail of this.selectedItemsDetails) {
+            let foundItem = lastOrder.orderDetail.find(
+                od => od.item.name === orderDetail.item.name
+            );
+            if (foundItem) {
+                foundItem.quantity += orderDetail.quantity;
+            } else {
+                lastOrder.orderDetail.push({ ...orderDetail });
+            }
+        }
+        lastOrder.notes = selectedOrdersNotes;
+        lastOrder.total = this.selectedOrders.reduce((total, order) => total + order.total, 0);
+        localStorage.setItem('orders', JSON.stringify(this.orders));
+        this.selection.clear();
+        this.toaster.showToaster('success', 'The selected orders were joined successfully', 'success');
+        location.reload();
+    }
 
 	masterToggle() {
 		this.isAllSelected() ?

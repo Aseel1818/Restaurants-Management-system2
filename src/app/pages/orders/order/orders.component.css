@@ -30,7 +30,7 @@ th {
 .payment-status {
   font-size: medium;
   height: 30px;
-  background-color: #cbe7f9;
+  background-color: #CBE7F9;
   color: black;
 }
 
@@ -42,10 +42,8 @@ th {
   background-color: #FF9999;
 }
 
-/*************************/
 .orders {
-  /* existing styles */
-  position: relative; /* add this to make the child button position absolute */
+  position: relative; 
 }
 
 .joinButton {

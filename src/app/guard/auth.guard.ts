@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
       if (!isAdmin && route.url[0]?.path === "dashboard") {
         return this.router.navigate(['/menu']);
       }
-     
       return true;
     } else {
       return this.router.navigate(['/api/auth/signin']);

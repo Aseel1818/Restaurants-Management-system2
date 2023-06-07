@@ -49,10 +49,13 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule),
 	},
 	{
-		path: 'orders',
-		canActivate: [AuthGuard],
-		loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
-	},
+        path: 'orders',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersModule),
+        resolve: {
+            orders: ChartDataResolver,
+        }
+    },
 	{
         path: 'split',
         canActivate: [AuthGuard],

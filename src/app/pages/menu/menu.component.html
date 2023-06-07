@@ -24,9 +24,9 @@
                     <div *ngIf="editMode && editedItem === item" class="price">
                         <input class="updatedPrice radius" [(ngModel)]="updatedPrice" type="number">
                     </div>
-                    <button mat-icon-button (click)="toggleEditMode(item)">
+                    <button mat-icon-button *ngIf="admin" (click)="toggleEditMode(item)">
                         <mat-icon class="edit-icon">{{ editedItem === item ? 'save' : 'edit' }}</mat-icon>
-                      </button>                      
+                    </button>                                         
                 </div>
             </mat-card-content>
         </mat-card>
@@ -46,7 +46,15 @@
                         <tbody>
                             <tr *ngFor="let item of order.orderDetail" class="table-row">
                                 <td class="table-cell">{{item.item.name}}</td>
-                                <td class="table-cell">{{item.quantity}}</td>
+                                <td class="table-cell">
+                                    <div class="quantity-controls-wrapper">
+                                        <div class="quantity-controls">
+                                            <mat-icon class="small-icon" (click)="decrement(item)">remove</mat-icon>
+                                            <span class="quantity">{{item.quantity}}</span>
+                                            <mat-icon class="small-icon" (click)="increment(item)">add</mat-icon>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="table-cell">{{item.item.price | currency:"ILS"}}</td>
                                 <td class="table-cell">
                                     <button mat-icon-button (click)="removeItem(item.item)"

@@ -75,7 +75,7 @@ export class OrdersService {
 		const newOrder = {
 			note: order.notes,
 			total: order.total,
-			tables: order.tableID,
+			tableID: order.tableID,
 			orderDetail: orderDetailArray
 		}
 		return this.http.post<Order>(`${environment.serverUrl}/rest/order/addOrder`, newOrder);
@@ -94,5 +94,15 @@ export class OrdersService {
 				this.orders.splice(index, 1);
 			}
 		}
+	}
+
+	delteOrderFromStorge(order: Order) {
+		for (let i = 0; i < this.orders.length; i++) {
+			if (this.orders[i].orderDetail.every(orderDetail => orderDetail.isPaid === true)) {
+				this.orders.splice(i, 1)
+			}
+		}
+		localStorage.setItem('orders', JSON.stringify(this.orders));
+		location.reload();
 	}
 }

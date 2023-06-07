@@ -25,11 +25,15 @@ mat-card-actions {
     margin-top: 20%;
 }
 
+.currency{
+    font-weight: bold;
+}
+
 .pay:hover {
     background-color: #0077C2;
     color: white;
     cursor: pointer;
-  }
+}
 
 .payments {
     flex-direction: column;
