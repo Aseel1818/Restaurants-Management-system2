@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="categories" class="categories row wrap">
     <a (click)="getAllItems()" routerLink="/items" class="smoke">All</a>
-    <a *ngFor="let category of categories" class="smoke" routerLink="/categories/{{category.id}}">
+    <a *ngFor="let category of categories" class="smoke" routerLink="rest/category/:{{category.id}}">
         {{category.name}}
     </a>
 </div>

@@ -16,6 +16,11 @@ export class PaymentComponent implements OnInit {
   order!: Order | null;
   showAlert = false;
   sum: number = 0;
+  amountCurrencyDollar:number=0;
+  amountCurrencyShekel:number=0;
+  dollarValue:number=3.66;
+  digits = 2;
+
   constructor(public dialogRef: MatDialogRef<OrdersPaymentDetailsComponent>,
     private orderService: OrdersService,
     private tableService: TablesService,
@@ -31,9 +36,11 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
+    this.amountCurrencyShekel +=parseFloat(this.amount);
     this.sum += parseFloat(this.amount);
+
     if (this.amount !== undefined) {
-      this.remainingValue = this.sum - (this.order.subTotal);
+      this.remainingValue = parseFloat((this.sum - this.order.subTotal).toFixed(this.digits));
       if (this.remainingValue < 0) {
         this.remainingValue = 0;
       }
@@ -46,10 +53,11 @@ export class PaymentComponent implements OnInit {
     if (!this.order) {
       return
     }
+    this.amountCurrencyDollar +=parseFloat(this.amount);
     if (this.amount !== undefined) {
-      this.dollarConvert = parseFloat(this.amount) * 3.67;
+      this.dollarConvert = parseFloat(this.amount) * this.dollarValue;
       this.sum += this.dollarConvert;
-      this.remainingValue = this.sum - (this.order.subTotal);
+      this.remainingValue = parseFloat((this.sum - (this.order.subTotal)).toFixed(this.digits));
       if (this.remainingValue < 0) {
         this.remainingValue = 0;
       }
