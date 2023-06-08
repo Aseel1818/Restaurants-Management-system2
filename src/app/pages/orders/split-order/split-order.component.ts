@@ -5,10 +5,8 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 import { OrderDetail } from 'src/app/interfaces/orderDetail.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'src/app/services/toaster/toaster.service';
-import { Item } from 'src/app/interfaces/item.interface';
 import { TablesService } from 'src/app/services/tables/tables.service';
 import { Table } from 'src/app/interfaces/table.interface';
-import { User } from 'src/app/interfaces/user.interface';
 @Component({
   selector: 'app-split-order',
   templateUrl: './split-order.component.html',
@@ -71,6 +69,7 @@ export class SplitOrderComponent implements OnInit {
   updateCurrentOrderToatal() {
     if (this.order?.total !== undefined) {
       this.order.total = this.currentOrderTotal;
+      this.order.notes=this.order.notes;
       console.log(this.order.tableID);
       this.order.tableID=this.order.tableID;
       this.orderService.add(this.order);

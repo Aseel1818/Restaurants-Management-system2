@@ -1,84 +1,78 @@
 <div class="align-table overflow row">
-
-	<div class="orders">
-		<ng-container class="functionality" *ngFor="let button of buttons">
-			<mat-chip-option (selectionChange)="paidOrders('notPaid')" (click)="handleAction(button.action)">{{
-				button.label }}</mat-chip-option>
-		</ng-container>
-		<table [dataSource]="orders" mat-table>
-			<ng-container matColumnDef="select">
-				<th mat-header-cell *matHeaderCellDef>
-					<mat-checkbox *ngIf="showCheckboxes" (change)="$event ? masterToggle() : null"
-						[checked]="selection.hasValue() && isAllSelected()"
-						[indeterminate]="selection.hasValue() && !isAllSelected()">
-					</mat-checkbox>
-				</th>
-				<td mat-cell *matCellDef="let row">
-					<mat-checkbox *ngIf="showCheckboxes" (click)="$event.stopPropagation()"
-						(change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
-					</mat-checkbox>
-				</td>
-			</ng-container>
-
-			<ng-container matColumnDef="OrderID">
-				<th *matHeaderCellDef mat-header-cell> Order ID</th>
-				<td *matCellDef="let order " mat-cell> {{order.id}} </td>
-			</ng-container>
-			<ng-container matColumnDef="total">
-				<th *matHeaderCellDef mat-header-cell> Total</th>
-				<td *matCellDef="let order" mat-cell> {{order.total}} </td>
-			</ng-container>
-			<ng-container matColumnDef="details">
-				<th *matHeaderCellDef mat-header-cell> Notes</th>
-				<td *matCellDef="let order" mat-cell> {{order.notes}} </td>
-			</ng-container>
-			<ng-container matColumnDef="table">
-				<th *matHeaderCellDef mat-header-cell> Table</th>
-				<td *matCellDef="let order" mat-cell>
-					<mat-form-field appearance="fill">
-						<mat-label>Table {{order.tableID}}</mat-label>
-						<mat-select [(ngModel)]="order.tableID" class="select-table" placeholder="Select table">
-							<mat-option *ngFor="let table of tables" [value]="table.id">Table {{table.id}}</mat-option>
-						</mat-select>
-					</mat-form-field>
-				</td>
-			</ng-container>
-			<ng-container matColumnDef="isPaid">
-				<th *matHeaderCellDef mat-header-cell></th>
-				<td *matCellDef="let order" mat-cell>
-					<button
-						class="payment-status btn-blue {{isOrderPaid(order) ? 'paid' : 'not-paid'}}">{{isOrderPaid(order)
-						? 'Paid' : 'Not paid'}}</button>
-				</td>
-			</ng-container>
-			<ng-container matColumnDef="pay">
-				<th *matHeaderCellDef mat-header-cell>
-					<mat-form-field class="paymentStatus" appearance="outline">
-						<mat-label>Status:</mat-label>
-						<mat-select [(ngModel)]="statusOptions" (selectionChange)="paidOrders($event.value)">
-							<mat-option value="all">All</mat-option>
-							<mat-option value="paid">Paid</mat-option>
-							<mat-option value="notPaid">Not Paid</mat-option>
-						</mat-select>
-					</mat-form-field>
-				</th>
-				<td *matCellDef="let order" mat-cell>
-					<button (click)="goToPayments(order.id)" class="paymentButton btn-blue" mat-raised-button
-						[disabled]="isOrderPaid(order)">Pay</button>
-					<button (click)="goToSplitOrder(order.id)" mat-raised-button
-						[disabled]="isOrderPaid(order)">Split</button>
-					<button (click)="editOrder(order)" [disabled]="isOrderPaid(order)" mat-icon-button>
-						<mat-icon>edit</mat-icon>
-					</button>
-				</td>
-			</ng-container>
-			<tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
-		</table>
-		<div class="doJoin">
-			<button (click)="joinOrders(selectedTable)" *ngIf="showNewButton" mat-raised-button color="primary">JOIN
-				Orders selectied </button>
-		</div>
-	</div>
-	<app-orders-payment-details [id]="selectedOrderId" *ngIf="selectedOrderId"></app-orders-payment-details>
+    <div class="orders">
+        <ng-container class="functionality" *ngFor="let button of buttons">
+            <mat-chip-option (selectionChange)="paidOrders('notPaid')" (click)="handleAction(button.action)">{{
+                button.label }}</mat-chip-option>
+        </ng-container>
+        <table [dataSource]="orders" mat-table>
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox *ngIf="showCheckboxes" (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox *ngIf="showCheckboxes" (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="OrderID">
+                <th *matHeaderCellDef mat-header-cell> Order ID</th>
+                <td *matCellDef="let order " mat-cell> {{order.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+                <th *matHeaderCellDef mat-header-cell> Total</th>
+                <td *matCellDef="let order" mat-cell> {{order.total}} </td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th *matHeaderCellDef mat-header-cell> Notes</th>
+                <td *matCellDef="let order" mat-cell> {{order.notes}} </td>
+            </ng-container>
+            <ng-container matColumnDef="table">
+                <th *matHeaderCellDef mat-header-cell> Table</th>
+                <td *matCellDef="let order" mat-cell>
+                    <mat-label *ngIf="order.tableID">Table {{order.tableID}}</mat-label>
+                    <mat-label *ngIf="!order.tableID">---</mat-label>
+                </td>
+              </ng-container>
+            <ng-container matColumnDef="isPaid">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let order" mat-cell>
+                    <button
+                        class="payment-status btn-blue {{isOrderPaid(order) ? 'paid' : 'not-paid'}}">{{isOrderPaid(order)
+                        ? 'Paid' : 'Not paid'}}</button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="pay">
+                <th *matHeaderCellDef mat-header-cell>
+                    <mat-form-field class="paymentStatus" appearance="outline">
+                        <mat-label>Status:</mat-label>
+                        <mat-select [(ngModel)]="statusOptions" (selectionChange)="paidOrders($event.value)">
+                            <mat-option value="all">All</mat-option>
+                            <mat-option value="paid">Paid</mat-option>
+                            <mat-option value="notPaid">Not Paid</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </th>
+                <td *matCellDef="let order" mat-cell>
+                    <button (click)="goToPayments(order.id)" class="paymentButton btn-blue" mat-raised-button
+                        [disabled]="isOrderPaid(order)">Pay</button>
+                    <button (click)="goToSplitOrder(order.id)" mat-raised-button
+                        [disabled]="isOrderPaid(order)">Split</button>
+                    <button (click)="editOrder(order)" [disabled]="isOrderPaid(order)" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+        </table>
+        <div class="doJoin">
+            <button (click)="joinOrders(selectedTable)" *ngIf="showNewButton" mat-raised-button color="primary">JOIN
+                Orders selectied </button>
+        </div>
+    </div>
+    <app-orders-payment-details [id]="selectedOrderId" *ngIf="selectedOrderId"></app-orders-payment-details>
 </div>

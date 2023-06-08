@@ -1,14 +1,34 @@
 <form>
-    <label for="numberOfLists">Enter the number of orders:</label>
-    <input type="number" id="numberOfLists" name="numberOfLists" [(ngModel)]="numberOfLists" required>
-    <button type="button" (click)="createLists()">Create orders</button>
-    <div cdkDropListGroup>
+  <label for="numberOfLists">Enter the number of orders:</label>
+  <input type="number" id="numberOfLists" name="numberOfLists" [(ngModel)]="numberOfLists" required>
+  <button type="button" (click)="createLists()">Create orders</button>
+  <div cdkDropListGroup>
+    <div class="split-order-container">
+      <h2>Order {{id}} <label>| total:{{currentOrderTotal}}</label></h2>
+      <label class="select-table-label">Table {{ order?.tableID || '' }}</label>
+      <div cdkDropList [cdkDropListData]="currentOrder" class="split-order-list"
+        (cdkDropListDropped)="currentOrderDrop($event)">
+        <div class="split-order-box" *ngFor="let item of currentOrder" cdkDrag>
+          <label class="labels"><strong>name:</strong></label>
+          {{item.item.name}} <label class="space"><strong>|</strong></label>
+          <label class="labels"><strong>quantity:</strong></label>
+          {{item.quantity}} <label class="space"><strong>|</strong></label>
+          <label class="labels"><strong class="strong">price:</strong></label>
+          {{item.item.price}}
+        </div>
+      </div>
+    </div>
+    <ng-container *ngFor="let list of ordersLists; let i = index">
       <div class="split-order-container">
-        <h2>Order {{id}} <label>| total:{{currentOrderTotal}}</label></h2>
-        <label class="select-table-label">Table {{ order?.tableID || '' }}</label>
-        <div cdkDropList [cdkDropListData]="currentOrder" class="split-order-list"
-          (cdkDropListDropped)="currentOrderDrop($event)">
-          <div class="split-order-box" *ngFor="let item of currentOrder" cdkDrag>
+        <h2>Order{{lastOrderID+i+1}} <label>| total:{{totals[i]}}</label></h2>
+        <mat-select  [(ngModel)]="selectedTables[i]" name="selectedTable" class="select-table" placeholder="Select table">
+          <ng-container *ngFor="let table of tables">
+            <mat-option [value]="table.id">Table{{table.id}}</mat-option>
+          </ng-container>
+        </mat-select>
+        <div cdkDropList [cdkDropListData]="list" class="split-order-list"
+          (cdkDropListDropped)="splitListsDrop($event, i)">
+          <div class="split-order-box" *ngFor="let item of list" cdkDrag>
             <label class="labels"><strong>name:</strong></label>
             {{item.item.name}} <label class="space"><strong>|</strong></label>
             <label class="labels"><strong>quantity:</strong></label>
@@ -18,27 +38,7 @@
           </div>
         </div>
       </div>
-      <ng-container *ngFor="let list of ordersLists; let i = index">
-        <div class="split-order-container">
-          <h2>Order{{lastOrderID+i+1}} <label>| total:{{totals[i]}}</label></h2>
-          <mat-select  [(ngModel)]="selectedTables[i]" name="selectedTable" class="select-table" placeholder="Select table">
-            <ng-container *ngFor="let table of tables">
-              <mat-option [value]="table.id">Table{{table.id}}</mat-option>
-            </ng-container>
-          </mat-select>
-          <div cdkDropList [cdkDropListData]="list" class="split-order-list"
-            (cdkDropListDropped)="splitListsDrop($event, i)">
-            <div class="split-order-box" *ngFor="let item of list" cdkDrag>
-              <label class="labels"><strong>name:</strong></label>
-              {{item.item.name}} <label class="space"><strong>|</strong></label>
-              <label class="labels"><strong>quantity:</strong></label>
-              {{item.quantity}} <label class="space"><strong>|</strong></label>
-              <label class="labels"><strong class="strong">price:</strong></label>
-              {{item.item.price}}
-            </div>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-    <button [disabled]="isSplitEmpty()" (click)="Split()" class="btn-blue">Split</button>
-  </form>
+    </ng-container>
+  </div>
+  <button [disabled]="isSplitEmpty()" (click)="Split()" class="btn-blue" [class.disabled-button]="isSplitEmpty()">Split</button>
+</form>

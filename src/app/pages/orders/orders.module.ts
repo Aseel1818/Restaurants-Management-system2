@@ -14,12 +14,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { SelectTableComponent } from './select-table/select-table.component';
 
 @NgModule({
 	declarations: [
 		OrdersComponent,
 		OrdersPaymentDetailsComponent,
 		PaymentComponent,
+  SelectTableComponent,
 		
 	],
 	imports: [

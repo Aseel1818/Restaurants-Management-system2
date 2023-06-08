@@ -1,0 +1,8 @@
+<div class="select-table-dialog">
+    <ul *ngFor="let table of data">
+      <li [class.selected]="isTableSelected(table)" (click)="selectTable(table)">
+        {{table}}
+        <span *ngIf="isTableSelected(table)" class="selected-icon">&#10003;</span>
+      </li>
+    </ul>
+  </div>
